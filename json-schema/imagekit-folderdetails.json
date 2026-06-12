@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/imagekit/main/json-schema/imagekit-folderdetails.json",
+  "title": "Folder",
+  "description": "ImageKit FolderDetails schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of the asset.",
+      "enum": [
+        "folder"
+      ]
+    },
+    "folderId": {
+      "type": "string",
+      "description": "Unique identifier of the asset."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the asset."
+    },
+    "customMetadata": {
+      "type": "object",
+      "description": "An object with custom metadata for the folder. Returns empty object if no custom metadata is set.",
+      "additionalProperties": true
+    },
+    "folderPath": {
+      "type": "string",
+      "description": "Path of the folder. This is the path you would use in the URL to access the folder. For example, if the folder is at the root of the media library, the path will be /folder. If the folder is inside another folder named images, the path will be /images/folder.\n"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the folder was created. The date and time is in ISO8601 format.\n"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the folder was last updated. The date and time is in ISO8601 format.\n"
+    }
+  }
+}

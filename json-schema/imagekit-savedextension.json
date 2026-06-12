@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/imagekit/main/json-schema/imagekit-savedextension.json",
+  "title": "Saved Extension",
+  "description": "Saved extension object containing extension configuration.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the saved extension.",
+      "example": "ext_abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the saved extension.",
+      "example": "Car Quality Analysis"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the saved extension.",
+      "example": "Analyzes vehicle images for type, condition, and quality assessment"
+    },
+    "config": {
+      "$ref": "#/components/schemas/ExtensionConfig"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the saved extension was created."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the saved extension was last updated."
+    }
+  }
+}

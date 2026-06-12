@@ -1,0 +1,14 @@
+{
+  "summary": "Create a custom metadata field",
+  "value": {
+    "name": "brand",
+    "label": "Brand",
+    "schema": {
+      "type": "Text",
+      "minLength": 1,
+      "maxLength": 100,
+      "isValueRequired": false,
+      "defaultValue": ""
+    }
+  }
+}

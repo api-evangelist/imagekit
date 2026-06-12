@@ -45,7 +45,7 @@ apis:
       - type: Documentation
         url: https://imagekit.io/docs/api-overview
       - type: OpenAPI
-        url: https://imagekit.io/docs/api-overview
+        url: https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/openapi/imagekit-media-api-openapi.yml
 common:
   - type: Website
     url: https://imagekit.io/
@@ -69,6 +69,12 @@ common:
     url: rate-limits/imagekit-rate-limits.yml
   - type: FinOps
     url: finops/imagekit-finops.yml
+  - type: BlogRSS
+    url: https://imagekit.io/blog/rss.xml
+  - type: Vocabulary
+    url: vocabulary/imagekit-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/imagekit-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

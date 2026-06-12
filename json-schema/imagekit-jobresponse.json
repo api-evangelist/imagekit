@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/imagekit/main/json-schema/imagekit-jobresponse.json",
+  "title": "Async Bulk Job Response",
+  "description": "Job submitted successfully. A `jobId` will be returned.",
+  "type": "object",
+  "required": [
+    "jobId"
+  ],
+  "properties": {
+    "jobId": {
+      "type": "string",
+      "description": "Unique identifier of the bulk job. This can be used to check the status of the bulk job.\n"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "summary": "Bulk add tags to files",
+  "value": {
+    "fileIds": [
+      "598821f949c0a938d57563bd",
+      "5f6e3b4f9c5e4a1234567890"
+    ],
+    "tags": [
+      "approved",
+      "q4-campaign"
+    ]
+  }
+}

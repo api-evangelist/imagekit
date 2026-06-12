@@ -1,0 +1,6 @@
+{
+  "summary": "Purge CDN cache for a URL",
+  "value": {
+    "url": "https://ik.imagekit.io/your_imagekit_id/products/my-image.jpg"
+  }
+}

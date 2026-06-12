@@ -1,0 +1,21 @@
+{
+  "summary": "Upload a file to ImageKit Media Library",
+  "description": "Example request to upload a file via multipart form. Returns file details on success.",
+  "value": {
+    "fileName": "my-image.jpg",
+    "file": "<base64_encoded_data_or_url>",
+    "useUniqueFileName": true,
+    "tags": [
+      "product",
+      "hero"
+    ],
+    "folder": "/products/",
+    "isPrivateFile": false,
+    "overwriteFile": false,
+    "responseFields": [
+      "isPrivateFile",
+      "tags",
+      "customCoordinates"
+    ]
+  }
+}

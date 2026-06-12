@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/imagekit/main/json-schema/imagekit-upload.json",
+  "title": "Upload",
+  "description": "Object containing details of a successful upload.",
+  "type": "object",
+  "properties": {
+    "fileId": {
+      "type": "string",
+      "description": "Unique fileId. Store this fileld in your database, as this will be used to perform update action on this file."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the asset."
+    },
+    "filePath": {
+      "type": "string",
+      "description": "The relative path of the file in the media library e.g. `/marketing-assets/new-banner.jpg`."
+    },
+    "url": {
+      "type": "string",
+      "description": "A publicly accessible URL of the file."
+    },
+    "thumbnailUrl": {
+      "type": "string",
+      "description": "In the case of an image, a small thumbnail URL."
+    },
+    "height": {
+      "type": "number",
+      "description": "Height of the image in pixels (Only for images)"
+    },
+    "width": {
+      "type": "number",
+      "description": "Width of the image in pixels (Only for Images)"
+    },
+    "size": {
+      "type": "number",
+      "description": "Size of the image file in Bytes."
+    },
+    "bitRate": {
+      "type": "integer",
+      "description": "The bit rate of the video in kbps (only for video)."
+    },
+    "duration": {
+      "type": "integer",
+      "description": "The duration of the video in seconds (only for video)."
+    },
+    "audioCodec": {
+      "type": "string",
+      "description": "The audio codec used in the video (only for video)."
+    },
+    "videoCodec": {
+      "type": "string",
+      "description": "The video codec used in the video (only for video)."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The array of tags associated with the asset. If no tags are set, it will be `null`. Send `tags` in `responseFields` in API request to get the value of this field."
+    },
+    "AITags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/AITag"
+      },
+      "description": "An array of tags assigned to the uploaded file by auto tagging.\n"
+    },
+    "versionInfo": {
+      "$ref": "#/components/schemas/VersionInfo"
+    },
+    "isPrivateFile": {
+      "type": "boolean",
+      "description": "Is the file marked as private. It can be either `true` or `false`. Send `isPrivateFile` in `responseFields` in API request to get the value of this field.\n"
+    },
+    "isPublished": {
+      "type": "boolean",
+      "description": "Is the file published or in draft state. It can be either `true` or `false`. Send `isPublished` in `responseFields` in API request to get the value of this field.\n"
+    },
+    "customCoordinates": {
+      "type": "string",
+      "description": "Value of custom coordinates associated with the image in the format `x,y,width,height`. If `customCoordinates` are not defined, then it is `null`. Send `customCoordinates` in `responseFields` in API request to get the value of this field.\n"
+    },
+    "fileType": {
+      "type": "string",
+      "description": "Type of the uploaded file. Possible values are `image`, `non-image`.\n"
+    },
+    "customMetadata": {
+      "description": "A key-value data associated with the asset. Use `responseField` in API request to get `customMetadata` in the upload API response. Before setting any custom metadata on an asset, you have to create the field using custom metadata fields API. Send `customMetadata` in `responseFields` in API request to get the value of this field.\n",
+      "$ref": "#/components/schemas/CustomMetadata"
+    },
+    "selectedFieldsSchema": {
+      "$ref": "#/components/schemas/SelectedFieldsSchema"
+    },
+    "extensionStatus": {
+      "type": "object",
+      "description": "Extension names with their processing status at the time of completion of the request. It could have one of the following status values:\n\n`success`: The extension has been successfully applied.\n`failed`: The extension has failed and will not be retried.\n`pending`: The extension will finish processing in some time. On completion, the final status (success / failed) will be sent to the `webhookUrl` provided.\n\nIf no extension was requested, then this parameter is not returned.\n",
+      "properties": {
+        "google-auto-tagging": {
+          "type": "string",
+          "enum": [
+            "success",
+            "pending",
+            "failed"
+          ]
+        },
+        "aws-auto-tagging": {
+          "type": "string",
+          "enum": [
+            "success",
+            "pending",
+            "failed"
+          ]
+        },
+        "remove-bg": {
+          "type": "string",
+          "enum": [
+            "success",
+            "pending",
+            "failed"
+          ]
+        },
+        "ai-auto-description": {
+          "type": "string",
+          "enum": [
+            "success",
+            "pending",
+            "failed"
+          ]
+        },
+        "ai-tasks": {
+          "type": "string",
+          "enum": [
+            "success",
+            "pending",
+            "failed"
+          ]
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "$ref": "#/components/schemas/Metadata",
+      "description": "Legacy metadata. Send `metadata` in `responseFields` in API request to get metadata in the upload API response.\n"
+    },
+    "embeddedMetadata": {
+      "description": "Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data. Send `embeddedMetadata` in `responseFields` in API request to get embeddedMetadata in the upload API response.",
+      "$ref": "#/components/schemas/EmbeddedMetadata"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional text to describe the contents of the file. Can be set by the user or the ai-auto-description extension.\n"
+    }
+  }
+}

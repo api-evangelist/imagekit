@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/imagekit/main/json-schema/imagekit-custommetadatafield.json",
+  "title": "CustomMetadataField",
+  "description": "Object containing details of a custom metadata field.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "label",
+    "schema"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the custom metadata field. Use this to update the field."
+    },
+    "name": {
+      "type": "string",
+      "description": "API name of the custom metadata field. This becomes the key while setting `customMetadata` (key-value object) for an asset using upload or update API.\n"
+    },
+    "label": {
+      "type": "string",
+      "description": "Human readable name of the custom metadata field. This name is displayed as form field label to the users while setting field value on the asset in the media library UI.\n"
+    },
+    "schema": {
+      "type": "object",
+      "description": "An object that describes the rules for the custom metadata field value.",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "description": "Type of the custom metadata field.",
+          "type": "string",
+          "enum": [
+            "Text",
+            "Textarea",
+            "Number",
+            "Date",
+            "Boolean",
+            "SingleSelect",
+            "MultiSelect"
+          ]
+        },
+        "selectOptions": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "description": "An array of allowed values when field type is `SingleSelect` or `MultiSelect`.\n",
+          "example": [
+            "small",
+            "medium",
+            "large",
+            30,
+            40,
+            true
+          ]
+        },
+        "defaultValue": {
+          "description": "The default value for this custom metadata field. Data type of default value depends on the field type.\n",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "x-stainless-variantName": "Mixed",
+              "title": "Mixed",
+              "items": {
+                "title": "Default value item",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "description": "Default value should be of type array when custom metadata field type is set to `MultiSelect`.\n",
+              "example": [
+                true,
+                10,
+                "Hello"
+              ]
+            }
+          ]
+        },
+        "isValueRequired": {
+          "type": "boolean",
+          "description": "Specifies if the this custom metadata field is required or not.\n"
+        },
+        "minValue": {
+          "description": "Minimum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.\n",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "maxValue": {
+          "description": "Maximum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.\n",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "minLength": {
+          "description": "Minimum length of string. Only set if `type` is set to `Text` or `Textarea`.\n",
+          "type": "number"
+        },
+        "maxLength": {
+          "description": "Maximum length of string. Only set if `type` is set to `Text` or `Textarea`.\n",
+          "type": "number"
+        }
+      }
+    }
+  }
+}

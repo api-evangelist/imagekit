@@ -1,0 +1,100 @@
+vocabulary:
+  - term: fileId
+    definition: Unique identifier assigned to a file in the ImageKit Media Library.
+    type: string
+    example: "598821f949c0a938d57563bd"
+
+  - term: filePath
+    definition: Path of the file within the Media Library, relative to the root folder.
+    type: string
+    example: "/products/my-image.jpg"
+
+  - term: fileType
+    definition: Category of the uploaded asset — image, video, or non-image.
+    type: string
+    enum: [image, video, non-image]
+
+  - term: transformation
+    definition: URL-based parameter that modifies how an image or video is rendered, such as resizing, cropping, format conversion, or applying overlays.
+    type: object
+
+  - term: urlEndpoint
+    definition: The base URL prefix (CDN origin) through which assets are served and transformed, e.g. https://ik.imagekit.io/your_imagekit_id.
+    type: string
+
+  - term: privateKey
+    definition: Secret API credential used for server-side operations via HTTP Basic Auth. Must never be exposed client-side.
+    type: string
+
+  - term: publicKey
+    definition: Non-secret API credential used for client-side upload authentication and SDK initialization.
+    type: string
+
+  - term: signature
+    definition: HMAC-SHA1 hash of upload parameters used to authenticate server-less client-side uploads.
+    type: string
+
+  - term: useUniqueFileName
+    definition: When true, ImageKit appends a random suffix to the uploaded filename to prevent overwrites.
+    type: boolean
+
+  - term: customMetadata
+    definition: Key-value pairs attached to an asset using user-defined custom metadata field schemas.
+    type: object
+
+  - term: embeddedMetadata
+    definition: Metadata extracted from the file itself (EXIF, IPTC, XMP) such as GPS coordinates, camera model, and color profile.
+    type: object
+
+  - term: AITag
+    definition: Descriptive label automatically assigned to an image by ImageKit's AI tagging engine.
+    type: object
+
+  - term: extension
+    definition: Post-upload processing module configured to run automatically, such as background removal (removedotBG), auto-tagging, or auto-description.
+    type: object
+    example: removedotBG, autoTagging, autoDescription
+
+  - term: savedExtension
+    definition: A stored extension configuration that can be referenced by name when uploading files.
+    type: object
+
+  - term: folder
+    definition: A virtual directory within the Media Library used to organize assets by path.
+    type: string
+
+  - term: bulkJob
+    definition: An asynchronous operation (copy/move/rename folder) tracked by a jobId, whose status can be polled.
+    type: object
+
+  - term: purge
+    definition: A cache invalidation request that removes a specific URL from the CDN edge cache, forcing the next request to fetch the origin.
+    type: object
+
+  - term: versionId
+    definition: Unique identifier for a specific version of a file; ImageKit maintains version history on updates.
+    type: string
+
+  - term: customMetadataField
+    definition: A schema definition that specifies the type, label, constraints, and default value for a custom metadata attribute applicable to all assets.
+    type: object
+
+  - term: origin
+    definition: An external storage backend (S3, GCS, web server, etc.) configured in ImageKit so that assets can be fetched and served on-the-fly.
+    type: object
+
+  - term: overlay
+    definition: A layer (text, image, video, subtitle, or solid color) composited onto the base media during transformation.
+    type: object
+
+  - term: streamingResolution
+    definition: Target resolution for adaptive video streaming output (e.g. 360p, 720p, 1080p).
+    type: string
+
+  - term: webhookEvent
+    definition: An event payload sent to a configured webhook URL when an asynchronous operation (upload, transformation, extension) completes or fails.
+    type: object
+
+  - term: usage
+    definition: Account-level statistics including storage consumed, CDN bandwidth, and API call counts.
+    type: object

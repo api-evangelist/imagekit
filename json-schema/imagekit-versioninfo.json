@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/imagekit/main/json-schema/imagekit-versioninfo.json",
+  "title": "VersionInfo",
+  "description": "An object containing the file or file version's `id` (versionId) and `name`.\n",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the file version."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the file version."
+    }
+  }
+}

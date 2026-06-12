@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/imagekit/main/json-schema/imagekit-filedetails.json",
+  "title": "File & File Version",
+  "description": "Object containing details of a file or file version.",
+  "type": "object",
+  "properties": {
+    "fileId": {
+      "type": "string",
+      "description": "Unique identifier of the asset."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of the asset.",
+      "enum": [
+        "file",
+        "file-version"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the asset."
+    },
+    "filePath": {
+      "type": "string",
+      "description": "Path of the file. This is the path you would use in the URL to access the file. For example, if the file is at the root of the media library, the path will be `/file.jpg`. If the file is inside a folder named `images`, the path will be `/images/file.jpg`.\n"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "An array of tags assigned to the file. Tags are used to search files in the media library.\n"
+    },
+    "AITags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/AITag"
+      },
+      "description": "Array of AI-generated tags associated with the image. If no AITags are set, it will be null.\n"
+    },
+    "versionInfo": {
+      "description": "An object with details of the file version.\n",
+      "$ref": "#/components/schemas/VersionInfo"
+    },
+    "isPrivateFile": {
+      "type": "boolean",
+      "description": "Specifies if the file is private or not.\n"
+    },
+    "isPublished": {
+      "type": "boolean",
+      "description": "Specifies if the file is published or not.\n"
+    },
+    "customCoordinates": {
+      "type": "string",
+      "description": "An string with custom coordinates of the file.\n"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the file.\n"
+    },
+    "thumbnail": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the thumbnail image. This URL is used to access the thumbnail image of the file in the media library.\n"
+    },
+    "fileType": {
+      "type": "string",
+      "description": "Type of the file. Possible values are `image`, `non-image`.\n"
+    },
+    "mime": {
+      "type": "string",
+      "description": "MIME type of the file.\n"
+    },
+    "width": {
+      "type": "number",
+      "description": "Width of the file.\n"
+    },
+    "height": {
+      "type": "number",
+      "description": "Height of the file.\n"
+    },
+    "size": {
+      "type": "number",
+      "description": "Size of the file in bytes.\n"
+    },
+    "bitRate": {
+      "type": "integer",
+      "description": "The bit rate of the video in kbps (only for video)."
+    },
+    "duration": {
+      "type": "integer",
+      "description": "The duration of the video in seconds (only for video)."
+    },
+    "audioCodec": {
+      "type": "string",
+      "description": "The audio codec used in the video (only for video/audio)."
+    },
+    "videoCodec": {
+      "type": "string",
+      "description": "The video codec used in the video (only for video)."
+    },
+    "hasAlpha": {
+      "type": "boolean",
+      "description": "Specifies if the image has an alpha channel.\n"
+    },
+    "customMetadata": {
+      "description": "An object with custom metadata for the file.\n",
+      "$ref": "#/components/schemas/CustomMetadata"
+    },
+    "selectedFieldsSchema": {
+      "$ref": "#/components/schemas/SelectedFieldsSchema"
+    },
+    "embeddedMetadata": {
+      "$ref": "#/components/schemas/EmbeddedMetadata",
+      "description": "Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data."
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional text to describe the contents of the file. Can be set by the user or the ai-auto-description extension.\n"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the file was uploaded. The date and time is in ISO8601 format.\n"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the file was last updated. The date and time is in ISO8601 format.\n"
+    }
+  }
+}
