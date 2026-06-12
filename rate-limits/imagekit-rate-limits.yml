@@ -1,0 +1,82 @@
+specificationVersion: "0.1"
+id: imagekit-rate-limits
+name: ImageKit API Rate Limits
+description: >-
+  ImageKit applies a two-tier rate limiting system to all API endpoints except
+  the Upload API. Limits are applied at the account level. Exceeding limits
+  returns HTTP 429 with an X-RateLimit-Reset header indicating the milliseconds
+  to wait before retrying.
+url: https://imagekit.io/docs/api-overview
+headers:
+  - name: X-RateLimit-Limit
+    description: Maximum number of requests allowed in the current window.
+  - name: X-RateLimit-Reset
+    description: Milliseconds until the rate limit window resets.
+  - name: X-RateLimit-Interval
+    description: Duration of the rate limit window in milliseconds.
+  - name: x-ik-requestId
+    description: Unique identifier for each request, used for support tracking.
+error_codes:
+  - code: 429
+    description: Too Many Requests — rate limit exceeded. Back off for X-RateLimit-Reset ms.
+limits:
+  - name: Read Request Burst Limit
+    description: >-
+      Short-term spike allowance for read operations (file/folder endpoints).
+      Allows bursts up to approximately 100 requests per second for brief periods.
+    scope: account
+    type: burst
+    requests: 100
+    window: 1 second
+    applies_to:
+      - GET file endpoints
+      - GET folder endpoints
+      - GET metadata endpoints
+  - name: Read Request Sustained Limit
+    description: >-
+      Long-term average for read operations. Sustained throughput should remain
+      at or below 40 requests per second averaged over a longer window.
+    scope: account
+    type: sustained
+    requests: 40
+    window: 1 second (sustained average)
+    applies_to:
+      - GET file endpoints
+      - GET folder endpoints
+      - GET metadata endpoints
+  - name: Write Request Sustained Limit
+    description: >-
+      Recommended sustained limit for write operations such as creating,
+      updating, or deleting files, folders, and metadata.
+    scope: account
+    type: sustained
+    requests: 5
+    window: 1 second (sustained average)
+    notes: Up to 20 req/sec for short bursts on write endpoints.
+    applies_to:
+      - POST file endpoints
+      - PATCH file endpoints
+      - DELETE file endpoints
+      - POST folder endpoints
+      - DELETE folder endpoints
+      - Custom metadata field operations
+  - name: Cache Purge Request Limit
+    description: >-
+      Cache purge requests are limited and metered per plan. The number of
+      purge requests included varies by plan; overages may be charged.
+    scope: account
+    type: plan-based
+    applies_to:
+      - Cache purge endpoints
+  - name: Upload API
+    description: >-
+      The Upload API is not subject to the standard rate limits that apply to
+      other ImageKit APIs.
+    scope: account
+    type: exempt
+    applies_to:
+      - POST /api/v1/files/upload
+notes:
+  - Rate limiting is enforced at the account level, not per API key.
+  - Retry-after duration is provided via the X-RateLimit-Reset header in milliseconds.
+  - ImageKit recommends exponential backoff when handling 429 responses.

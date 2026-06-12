@@ -1,0 +1,113 @@
+specificationVersion: "0.1"
+id: imagekit-plans-pricing
+name: ImageKit Plans and Pricing
+description: >-
+  Pricing plans for ImageKit.io covering Complete Media Processing + DAM
+  and DAM-only tiers. Plans are metered on bandwidth, storage, Video Processing
+  Units (VPUs), extension units, and user seats.
+url: https://imagekit.io/plans/
+plans:
+  - name: Forever Free
+    description: >-
+      Free tier for individuals and small projects. Includes access to all media
+      optimizations, transformations, and streaming features.
+    url: https://imagekit.io/plans/
+    price: 0
+    currency: USD
+    billing: monthly
+    features:
+      - bandwidth: 20 GB/month
+      - storage: 3 GB
+      - users: 2
+      - video_processing_units: 500/month
+      - extension_units: 650/month
+      - media_optimizations: true
+      - transformations: true
+      - streaming: true
+  - name: Lite
+    description: >-
+      Entry-level paid plan for small businesses and developers needing more
+      bandwidth and storage with overage allowances and email support.
+    url: https://imagekit.io/plans/
+    price: 9
+    currency: USD
+    billing: monthly
+    features:
+      - bandwidth: 40 GB/month ($0.50/GB overage)
+      - storage: 10 GB ($0.10/GB overage)
+      - users: 3
+      - video_processing_units: 500/month
+      - extension_units: 650/month
+      - email_support: true
+      - custom_domain: false
+  - name: Pro
+    description: >-
+      Professional plan for growing teams with higher bandwidth and storage
+      limits, unlimited AI-powered operations, and a custom domain included.
+    url: https://imagekit.io/plans/
+    price: 89
+    currency: USD
+    billing: monthly
+    features:
+      - bandwidth: 225 GB/month ($0.45/GB overage)
+      - storage: 225 GB ($0.09/GB overage)
+      - users: 5 ($9 each additional)
+      - video_processing_units: 5000/month ($9 per 10K overage)
+      - extension_units: 4000/month ($9 per 5K overage)
+      - unlimited_ai_operations: true
+      - custom_domain: 1 included
+  - name: Enterprise
+    description: >-
+      Enterprise-grade plan with custom limits, SSO, advanced security,
+      dedicated support, and on-call assistance.
+    url: https://imagekit.io/plans/
+    price: custom
+    currency: USD
+    billing: custom
+    features:
+      - bandwidth: custom
+      - storage: custom
+      - users: custom
+      - sso: true
+      - advanced_security: true
+      - dedicated_support: true
+      - on_call_support: true
+      - custom_domains: multiple
+  - name: DAM Forever Free
+    description: >-
+      Free Digital Asset Management-only plan for small teams needing
+      storage and basic user access without media processing features.
+    url: https://imagekit.io/plans/
+    price: 0
+    currency: USD
+    billing: monthly
+    plan_type: DAM-only
+    features:
+      - storage: 25 GB
+      - users: 3
+  - name: DAM Pro
+    description: >-
+      Professional DAM-only plan for larger teams needing more storage,
+      user seats, and overage flexibility.
+    url: https://imagekit.io/plans/
+    price: 89
+    currency: USD
+    billing: monthly
+    plan_type: DAM-only
+    features:
+      - storage: 225 GB ($15 per 100 GB overage)
+      - users: 10 ($9 each additional)
+  - name: DAM Enterprise
+    description: >-
+      Enterprise DAM-only plan with custom storage, users, SSO, and
+      dedicated support.
+    url: https://imagekit.io/plans/
+    price: custom
+    currency: USD
+    billing: custom
+    plan_type: DAM-only
+    features:
+      - storage: custom
+      - users: custom
+      - sso: true
+      - dedicated_support: true

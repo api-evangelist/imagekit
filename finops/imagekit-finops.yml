@@ -1,0 +1,152 @@
+specificationVersion: "1.0"
+id: imagekit-finops
+name: ImageKit FinOps Framework
+description: >-
+  FinOps cost optimization guidance for ImageKit.io usage, aligned with
+  FOCUS (FinOps Open Cost and Usage Specification). Covers key cost drivers
+  including bandwidth, storage, Video Processing Units (VPUs), extension units,
+  user seats, and custom domains.
+url: https://imagekit.io/plans/
+provider: ImageKit
+framework: FinOps Framework 1.0
+cost_dimensions:
+  - name: Bandwidth
+    description: >-
+      Total optimized data transfer delivered from your ImageKit account.
+      Charged per GB beyond the plan-included amount. The largest cost driver
+      for high-traffic applications.
+    unit: GB
+    billing_model: included + overage
+    overage_rates:
+      - plan: Lite
+        rate_per_gb: 0.50
+        currency: USD
+      - plan: Pro
+        rate_per_gb: 0.45
+        currency: USD
+    optimization_tips:
+      - Enable automatic format conversion (WebP/AVIF) to reduce transfer size.
+      - Use responsive image transformations to serve appropriately sized assets.
+      - Enable browser caching with long TTLs to reduce repeat transfers.
+      - Compress images aggressively using ImageKit quality parameters.
+  - name: Storage
+    description: >-
+      Files stored in the ImageKit Media Library. Charged per GB beyond
+      the plan-included amount.
+    unit: GB
+    billing_model: included + overage
+    overage_rates:
+      - plan: Lite
+        rate_per_gb: 0.10
+        currency: USD
+      - plan: Pro
+        rate_per_gb: 0.09
+        currency: USD
+      - plan: DAM Pro
+        rate_per_100gb: 15.00
+        currency: USD
+    optimization_tips:
+      - Regularly audit and delete unused media assets.
+      - Use external storage (S3, GCS) integration to avoid duplicating assets in ImageKit storage.
+      - Avoid storing original high-resolution assets unnecessarily in Media Library.
+  - name: Video Processing Units (VPUs)
+    description: >-
+      Consumed during first-time video processing and transformation operations.
+      Each plan includes a monthly VPU allowance; overages are charged per 10K units.
+    unit: VPU
+    billing_model: included + overage
+    included:
+      - plan: Forever Free
+        units: 500
+      - plan: Lite
+        units: 500
+      - plan: Pro
+        units: 5000
+    overage_rates:
+      - plan: Pro
+        rate: 9.00
+        per: 10000 VPUs
+        currency: USD
+    optimization_tips:
+      - Cache processed video outputs to avoid re-processing the same assets.
+      - Batch video processing during off-peak periods.
+      - Limit unnecessary video transformation variants.
+  - name: Extension Units
+    description: >-
+      Consumed by third-party AI-powered operations such as background removal,
+      auto-tagging, and smart cropping. Each plan includes a monthly allowance.
+    unit: Extension Unit
+    billing_model: included + overage
+    included:
+      - plan: Forever Free
+        units: 650
+      - plan: Lite
+        units: 650
+      - plan: Pro
+        units: 4000
+    overage_rates:
+      - plan: Pro
+        rate: 9.00
+        per: 5000 units
+        currency: USD
+    optimization_tips:
+      - Process bulk AI operations in advance and cache results.
+      - Only apply AI extensions (background removal, auto-tag) to assets that need them.
+  - name: User Seats
+    description: >-
+      Per-seat charge for additional users beyond the plan's included count.
+      Applies to both Complete and DAM-only plans.
+    unit: user/month
+    billing_model: per seat
+    included:
+      - plan: Forever Free
+        users: 2
+      - plan: Lite
+        users: 3
+      - plan: Pro
+        users: 5
+      - plan: DAM Pro
+        users: 10
+    overage_rates:
+      - plan: Lite
+        rate_per_user: 9.00
+        currency: USD
+      - plan: Pro
+        rate_per_user: 9.00
+        currency: USD
+      - plan: DAM Pro
+        rate_per_user: 9.00
+        currency: USD
+    optimization_tips:
+      - Remove inactive or former team members from the account promptly.
+      - Use service accounts where applicable to avoid consuming personal user seats.
+  - name: Custom Domain Names
+    description: >-
+      Unique domains for media delivery beyond those included in the plan.
+    unit: domain/month
+    billing_model: plan-based
+    included:
+      - plan: Pro
+        domains: 1
+    optimization_tips:
+      - Consolidate media delivery under a single custom domain where possible.
+recommendations:
+  - category: Right-Sizing
+    description: >-
+      Monitor monthly bandwidth and storage consumption in the ImageKit
+      dashboard. Upgrade from Lite to Pro only when sustained bandwidth
+      exceeds 40 GB/month to avoid high per-GB overage costs on Lite.
+  - category: Optimization
+    description: >-
+      Enable ImageKit's automatic format and quality optimization to minimize
+      bandwidth consumption, which is the primary cost driver. Serving WebP
+      or AVIF instead of JPEG/PNG can reduce bandwidth by 25-50%.
+  - category: Cache Management
+    description: >-
+      Use long cache TTLs and minimize unnecessary cache purge requests,
+      which are metered per plan. Purge only when content has actually changed.
+  - category: External Storage
+    description: >-
+      Connect external storage (AWS S3, Google Cloud Storage, Azure, Web URLs)
+      to serve assets directly, reducing storage costs in ImageKit Media Library
+      while still benefiting from ImageKit transformations and CDN delivery.
