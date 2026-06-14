@@ -1,80 +1,80 @@
 aid: apis-json-v1-9-imagekit
 name: ImageKit
-description: >-
-  Real-time image and video optimization CDN with a REST API for media
-  management, transformations, folder operations, and performance analytics.
-  ImageKit provides a unified URL-based API with 50+ transformations, intelligent
-  format optimization, compression, and an integrated Digital Asset Management
-  (DAM) platform for managing and delivering media at scale.
+description: Real-time image and video optimization CDN with a REST API for media
+  management, transformations, folder operations, and performance analytics. ImageKit
+  provides a unified URL-based API with 50+ transformations, intelligent format optimization,
+  compression, and an integrated Digital Asset Management (DAM) platform for managing
+  and delivering media at scale.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/apis.yml
-created: "2026-06-12"
-modified: "2026-06-12"
-specificationVersion: "0.19"
+created: '2026-06-12'
+modified: '2026-06-12'
+specificationVersion: '0.19'
 tags:
+- Images
+- Video
+- CDN
+- Media
+- Optimization
+- Transformations
+- Digital Asset Management
+- DAM
+- Storage
+- Cache
+- Upload
+apis:
+- aid: apis-json-v1-9-imagekit-media-api
+  name: ImageKit Media API
+  description: REST API for file uploads, media library management, metadata retrieval,
+    cache purging, custom metadata fields, and account usage. Authenticate via HTTP
+    Basic Auth using your private API key.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
   - Images
   - Video
-  - CDN
-  - Media
-  - Optimization
-  - Transformations
-  - Digital Asset Management
-  - DAM
-  - Storage
-  - Cache
   - Upload
-apis:
-  - aid: apis-json-v1-9-imagekit-media-api
-    name: ImageKit Media API
-    description: >-
-      REST API for file uploads, media library management, metadata retrieval,
-      cache purging, custom metadata fields, and account usage. Authenticate
-      via HTTP Basic Auth using your private API key.
-    humanURL: https://imagekit.io/docs/api-overview
-    baseURL: https://api.imagekit.io
-    tags:
-      - Images
-      - Video
-      - Upload
-      - Media Library
-      - Cache
-      - Metadata
-      - DAM
-    properties:
-      - type: Documentation
-        url: https://imagekit.io/docs/api-overview
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/openapi/imagekit-media-api-openapi.yml
-common:
-  - type: Website
-    url: https://imagekit.io/
+  - Media Library
+  - Cache
+  - Metadata
+  - DAM
+  properties:
   - type: Documentation
-    url: https://imagekit.io/docs
-  - type: GitHub
-    url: https://github.com/imagekit-developer
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/imagekit-io
-  - type: Blog
-    url: https://imagekit.io/blog/
-  - type: Pricing
-    url: https://imagekit.io/plans/
-  - type: StatusPage
-    url: https://imagekitio.statuspage.io/
-  - type: X
-    url: https://twitter.com/ImagekitIo
-  - type: Plans
-    url: plans/imagekit-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/imagekit-rate-limits.yml
-  - type: FinOps
-    url: finops/imagekit-finops.yml
-  - type: BlogRSS
-    url: https://imagekit.io/blog/rss.xml
-  - type: Vocabulary
-    url: vocabulary/imagekit-vocabulary.yml
-  - type: JSONLDContext
-    url: json-ld/imagekit-context.jsonld
+    url: https://imagekit.io/docs/api-overview
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/openapi/imagekit-media-api-openapi.yml
+  - url: graphql/imagekit-graphql.md
+    type: GraphQL
+common:
+- type: Website
+  url: https://imagekit.io/
+- type: Documentation
+  url: https://imagekit.io/docs
+- type: GitHub
+  url: https://github.com/imagekit-developer
+- type: LinkedIn
+  url: https://www.linkedin.com/company/imagekit-io
+- type: Blog
+  url: https://imagekit.io/blog/
+- type: Pricing
+  url: https://imagekit.io/plans/
+- type: StatusPage
+  url: https://imagekitio.statuspage.io/
+- type: X
+  url: https://twitter.com/ImagekitIo
+- type: Plans
+  url: plans/imagekit-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/imagekit-rate-limits.yml
+- type: FinOps
+  url: finops/imagekit-finops.yml
+- type: BlogRSS
+  url: https://imagekit.io/blog/rss.xml
+- type: Vocabulary
+  url: vocabulary/imagekit-vocabulary.yml
+- type: JSONLDContext
+  url: json-ld/imagekit-context.jsonld
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

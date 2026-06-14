@@ -1,0 +1,775 @@
+# ImageKit Conceptual GraphQL Schema
+# Source: Conceptual — derived from https://imagekit.io/docs/api-overview
+# No public GraphQL endpoint exists; this schema models ImageKit's REST API domain.
+
+scalar DateTime
+scalar JSON
+scalar Upload
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum Format {
+  AUTO
+  WEBP
+  AVIF
+  JPEG
+  PNG
+  GIF
+  SVG
+  MP4
+  WEBM
+  OGG
+  MP3
+  AAC
+}
+
+enum Quality {
+  AUTO
+  BEST
+  GOOD
+  ECO
+  LOW
+}
+
+enum Crop {
+  MAINTAIN_RATIO
+  FORCE
+  AT_LEAST
+  AT_MAX
+  PAD_RESIZE
+}
+
+enum Gravity {
+  AUTO
+  FACE
+  NORTH
+  SOUTH
+  EAST
+  WEST
+  NORTH_EAST
+  NORTH_WEST
+  SOUTH_EAST
+  SOUTH_WEST
+  CENTER
+  LEFT
+  RIGHT
+  TOP
+  BOTTOM
+}
+
+enum Focus {
+  AUTO
+  FACE
+  CUSTOM
+  CENTER
+  TOP
+  LEFT
+  BOTTOM
+  RIGHT
+  TOP_LEFT
+  TOP_RIGHT
+  BOTTOM_LEFT
+  BOTTOM_RIGHT
+}
+
+enum Effect {
+  GRAYSCALE
+  BLUR
+  SHARPEN
+  UNSHARP_MASK
+  CONTRAST
+  SATURATION
+  HUE_ROTATE
+  SEPIA
+  INVERT
+  BRIGHTNESS
+  EXPOSURE
+}
+
+enum BulkOperationType {
+  MOVE
+  COPY
+  DELETE
+  ADD_TAGS
+  REMOVE_TAGS
+  RENAME
+}
+
+enum BulkOperationStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  PARTIAL
+}
+
+enum WebhookEvent {
+  FILE_UPLOADED
+  FILE_DELETED
+  FILE_UPDATED
+  FILE_MOVED
+  FILE_COPIED
+  FOLDER_CREATED
+  FOLDER_DELETED
+  PURGE_COMPLETED
+  BULK_JOB_COMPLETED
+}
+
+enum CachePurgeStatus {
+  PENDING
+  COMPLETE
+}
+
+# ─────────────────────────────────────────────
+# Scalars / Value Types
+# ─────────────────────────────────────────────
+
+type Color {
+  hex: String!
+  red: Int!
+  green: Int!
+  blue: Int!
+  alpha: Float
+}
+
+type Background {
+  color: Color
+  blurred: Boolean
+  autoExpand: Boolean
+}
+
+type Border {
+  width: Int!
+  color: Color!
+  radius: Int
+}
+
+type Size {
+  bytes: Int!
+  kilobytes: Float!
+  megabytes: Float!
+}
+
+type Width {
+  pixels: Int!
+  percentage: Float
+}
+
+type Height {
+  pixels: Int!
+  percentage: Float
+}
+
+type BlurHash {
+  hash: String!
+  width: Int!
+  height: Int!
+}
+
+type DominantColor {
+  color: Color!
+  percentage: Float!
+}
+
+# ─────────────────────────────────────────────
+# EXIF / Image Intelligence
+# ─────────────────────────────────────────────
+
+type EXIF {
+  make: String
+  model: String
+  orientation: Int
+  xResolution: Float
+  yResolution: Float
+  resolutionUnit: String
+  software: String
+  dateTime: DateTime
+  exposureTime: String
+  fNumber: Float
+  isoSpeedRatings: Int
+  focalLength: Float
+  gpsLatitude: Float
+  gpsLongitude: Float
+  gpsAltitude: Float
+  colorSpace: String
+  pixelXDimension: Int
+  pixelYDimension: Int
+}
+
+type Phash {
+  value: String!
+  distance: Int
+}
+
+# ─────────────────────────────────────────────
+# Tags
+# ─────────────────────────────────────────────
+
+type Tag {
+  name: String!
+}
+
+type AITag {
+  name: String!
+  confidence: Float!
+  source: String
+}
+
+# ─────────────────────────────────────────────
+# Custom Metadata
+# ─────────────────────────────────────────────
+
+type MetadataKey {
+  id: ID!
+  name: String!
+  label: String!
+  schema: JSON!
+  isValueRequired: Boolean!
+  defaultValue: JSON
+}
+
+type CustomMetadata {
+  key: MetadataKey!
+  value: JSON!
+}
+
+type CustomField {
+  name: String!
+  value: JSON!
+}
+
+# ─────────────────────────────────────────────
+# Transformations
+# ─────────────────────────────────────────────
+
+type TransformationParam {
+  key: String!
+  value: String!
+}
+
+type TextStyle {
+  fontFamily: String
+  fontSize: Int
+  fontWeight: String
+  color: Color
+  background: Background
+  transparency: Float
+}
+
+type Text {
+  content: String!
+  style: TextStyle
+  x: Int
+  y: Int
+  gravity: Gravity
+}
+
+type Overlay {
+  imageUrl: String
+  text: Text
+  x: Int
+  y: Int
+  width: Int
+  height: Int
+  gravity: Gravity
+  opacity: Float
+  background: Background
+}
+
+type Transformation {
+  id: ID!
+  params: [TransformationParam!]!
+  width: Width
+  height: Height
+  crop: Crop
+  gravity: Gravity
+  focus: Focus
+  format: Format
+  quality: Quality
+  effects: [Effect!]
+  overlays: [Overlay!]
+  background: Background
+  border: Border
+  rotation: Int
+  radius: Int
+  named: String
+}
+
+# ─────────────────────────────────────────────
+# URLs
+# ─────────────────────────────────────────────
+
+type URL {
+  raw: String!
+  signed: String
+  expiry: DateTime
+}
+
+type ImageURL {
+  url: URL!
+  transformation: Transformation
+  width: Int
+  height: Int
+  format: Format
+}
+
+type VideoURL {
+  url: URL!
+  transformation: Transformation
+  format: Format
+  duration: Float
+}
+
+type AudioURL {
+  url: URL!
+  format: Format
+  bitrate: Int
+}
+
+# ─────────────────────────────────────────────
+# Storage
+# ─────────────────────────────────────────────
+
+type Bucket {
+  id: ID!
+  name: String!
+  region: String!
+  provider: String!
+  isDefault: Boolean!
+  createdAt: DateTime!
+}
+
+type Branch {
+  id: ID!
+  name: String!
+  description: String
+  isDefault: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# File & Folder Entities
+# ─────────────────────────────────────────────
+
+type FileVersion {
+  id: ID!
+  versionNumber: Int!
+  name: String!
+  filePath: String!
+  url: String!
+  size: Size!
+  fileType: String!
+  width: Int
+  height: Int
+  thumbnailUrl: String
+  tags: [Tag!]
+  aiTags: [AITag!]
+  customMetadata: [CustomMetadata!]
+  exif: EXIF
+  phash: Phash
+  blurHash: BlurHash
+  dominantColors: [DominantColor!]
+  createdAt: DateTime!
+  isCurrentVersion: Boolean!
+}
+
+type File {
+  fileId: ID!
+  name: String!
+  filePath: String!
+  tags: [Tag!]
+  aiTags: [AITag!]
+  versionInfo: FileVersion!
+  allVersions: [FileVersion!]
+  embeddedMetadata: JSON
+  customCoordinates: String
+  customMetadata: [CustomMetadata!]
+  customFields: [CustomField!]
+  isPrivateFile: Boolean!
+  url: String!
+  thumbnail: String
+  fileType: String!
+  mime: String!
+  height: Int
+  width: Int
+  size: Size!
+  hasAlpha: Boolean
+  exif: EXIF
+  phash: Phash
+  blurHash: BlurHash
+  dominantColors: [DominantColor!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Folder {
+  folderId: ID!
+  name: String!
+  folderPath: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  subFolders: [Folder!]
+  files: [File!]
+  tags: [Tag!]
+}
+
+type ManagedFolder {
+  id: ID!
+  name: String!
+  path: String!
+  bucket: Bucket!
+  prefix: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Asset (unified media reference)
+# ─────────────────────────────────────────────
+
+type Asset {
+  id: ID!
+  name: String!
+  path: String!
+  url: String!
+  fileType: String!
+  size: Size!
+  width: Int
+  height: Int
+  tags: [Tag!]
+  aiTags: [AITag!]
+  customMetadata: [CustomMetadata!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Media Collection
+# ─────────────────────────────────────────────
+
+type MediaCollection {
+  id: ID!
+  name: String!
+  description: String
+  assets: [Asset!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Cache & Purge
+# ─────────────────────────────────────────────
+
+type Purge {
+  requestId: ID!
+  url: String!
+  status: CachePurgeStatus!
+  createdAt: DateTime!
+  completedAt: DateTime
+}
+
+type Cache {
+  purgeHistory: [Purge!]!
+  activePurges: Int!
+}
+
+# ─────────────────────────────────────────────
+# Bulk Operations
+# ─────────────────────────────────────────────
+
+type BulkOperation {
+  jobId: ID!
+  type: BulkOperationType!
+  status: BulkOperationStatus!
+  totalFiles: Int!
+  successCount: Int!
+  failureCount: Int!
+  errors: [String!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Webhooks
+# ─────────────────────────────────────────────
+
+type Webhook {
+  id: ID!
+  url: String!
+  events: [WebhookEvent!]!
+  isEnabled: Boolean!
+  secret: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Usage, Bandwidth & Quota
+# ─────────────────────────────────────────────
+
+type Bandwidth {
+  used: Float!
+  unit: String!
+  periodStart: DateTime!
+  periodEnd: DateTime!
+}
+
+type Usage {
+  apiCalls: Int!
+  bandwidth: Bandwidth!
+  storageUsed: Size!
+  transformationUnits: Int!
+  period: String!
+}
+
+type Quota {
+  storageLimit: Size
+  bandwidthLimit: Float
+  apiCallLimit: Int
+  transformationLimit: Int
+  storageUsed: Size!
+  bandwidthUsed: Float!
+  apiCallsUsed: Int!
+  transformationsUsed: Int!
+}
+
+type Dashboard {
+  usage: Usage!
+  quota: Quota!
+  totalFiles: Int!
+  totalFolders: Int!
+  totalBandwidthThisMonth: Float!
+  topTransformations: [Transformation!]
+}
+
+# ─────────────────────────────────────────────
+# Inputs
+# ─────────────────────────────────────────────
+
+input FileListInput {
+  path: String
+  fileType: String
+  tags: [String!]
+  includeFolder: Boolean
+  searchQuery: String
+  sort: String
+  skip: Int
+  limit: Int
+}
+
+input TransformationInput {
+  width: Int
+  height: Int
+  crop: Crop
+  gravity: Gravity
+  focus: Focus
+  format: Format
+  quality: Quality
+  effects: [Effect!]
+  rotation: Int
+  radius: Int
+  named: String
+}
+
+input UploadFileInput {
+  fileName: String!
+  folder: String
+  tags: [String!]
+  isPrivateFile: Boolean
+  customCoordinates: String
+  customMetadata: JSON
+  overwriteFile: Boolean
+  overwriteTags: Boolean
+  overwriteCustomMetadata: Boolean
+}
+
+input UpdateFileInput {
+  tags: [String!]
+  customCoordinates: String
+  customMetadata: JSON
+  removeAITags: [String!]
+}
+
+input BulkDeleteInput {
+  fileIds: [ID!]!
+}
+
+input BulkAddTagsInput {
+  fileIds: [ID!]!
+  tags: [String!]!
+}
+
+input BulkRemoveTagsInput {
+  fileIds: [ID!]!
+  tags: [String!]!
+}
+
+input BulkCopyInput {
+  sourceFilePaths: [String!]!
+  destinationPath: String!
+  includeFileVersions: Boolean
+}
+
+input BulkMoveInput {
+  sourceFilePaths: [String!]!
+  destinationPath: String!
+}
+
+input CreateFolderInput {
+  folderName: String!
+  parentFolderPath: String!
+}
+
+input CreateWebhookInput {
+  url: String!
+  events: [WebhookEvent!]!
+  isEnabled: Boolean
+}
+
+input UpdateWebhookInput {
+  url: String
+  events: [WebhookEvent!]
+  isEnabled: Boolean
+}
+
+input CreateMetadataKeyInput {
+  name: String!
+  label: String!
+  schema: JSON!
+  isValueRequired: Boolean
+  defaultValue: JSON
+}
+
+input PurgeInput {
+  urls: [String!]!
+}
+
+input CreateCollectionInput {
+  name: String!
+  description: String
+  assetIds: [ID!]
+}
+
+# ─────────────────────────────────────────────
+# Query
+# ─────────────────────────────────────────────
+
+type Query {
+  # Files
+  file(fileId: ID!): File
+  files(input: FileListInput): [File!]!
+  fileVersions(fileId: ID!): [FileVersion!]!
+  fileVersion(fileId: ID!, versionId: ID!): FileVersion
+
+  # Folders
+  folder(folderPath: String!): Folder
+  folders(parentPath: String): [Folder!]!
+
+  # Assets
+  asset(id: ID!): Asset
+  assets(tags: [String!], path: String, limit: Int, skip: Int): [Asset!]!
+
+  # Managed Folders
+  managedFolder(id: ID!): ManagedFolder
+  managedFolders: [ManagedFolder!]!
+
+  # Branches
+  branch(id: ID!): Branch
+  branches: [Branch!]!
+
+  # Custom Metadata Keys
+  metadataKey(id: ID!): MetadataKey
+  metadataKeys: [MetadataKey!]!
+
+  # Transformations
+  transformation(id: ID!): Transformation
+  namedTransformations: [Transformation!]!
+
+  # URLs
+  imageURL(filePath: String!, transformation: TransformationInput, signed: Boolean, expiry: Int): ImageURL!
+  videoURL(filePath: String!, transformation: TransformationInput, signed: Boolean, expiry: Int): VideoURL!
+  audioURL(filePath: String!, signed: Boolean, expiry: Int): AudioURL!
+
+  # Cache
+  cache: Cache!
+  purge(requestId: ID!): Purge
+
+  # Bulk Operations
+  bulkOperation(jobId: ID!): BulkOperation
+
+  # Media Collections
+  mediaCollection(id: ID!): MediaCollection
+  mediaCollections: [MediaCollection!]!
+
+  # Webhooks
+  webhook(id: ID!): Webhook
+  webhooks: [Webhook!]!
+
+  # Usage & Quota
+  usage(period: String): Usage!
+  quota: Quota!
+  dashboard: Dashboard!
+
+  # Buckets
+  bucket(id: ID!): Bucket
+  buckets: [Bucket!]!
+}
+
+# ─────────────────────────────────────────────
+# Mutation
+# ─────────────────────────────────────────────
+
+type Mutation {
+  # Files
+  uploadFile(file: Upload!, input: UploadFileInput!): File!
+  updateFile(fileId: ID!, input: UpdateFileInput!): File!
+  deleteFile(fileId: ID!): Boolean!
+  deleteFileVersion(fileId: ID!, versionId: ID!): Boolean!
+  restoreFileVersion(fileId: ID!, versionId: ID!): File!
+  copyFile(sourcePath: String!, destinationPath: String!, includeFileVersions: Boolean): File!
+  moveFile(sourcePath: String!, destinationPath: String!): File!
+  renameFile(filePath: String!, newFileName: String!): BulkOperation!
+
+  # Folders
+  createFolder(input: CreateFolderInput!): Folder!
+  deleteFolder(folderPath: String!): BulkOperation!
+  moveFolder(sourcePath: String!, destinationPath: String!): BulkOperation!
+  copyFolder(sourcePath: String!, destinationPath: String!, includeFileVersions: Boolean): BulkOperation!
+
+  # Tags
+  addTags(fileIds: [ID!]!, tags: [String!]!): BulkOperation!
+  removeTags(fileIds: [ID!]!, tags: [String!]!): BulkOperation!
+
+  # Bulk Operations
+  bulkDeleteFiles(input: BulkDeleteInput!): BulkOperation!
+  bulkAddTags(input: BulkAddTagsInput!): BulkOperation!
+  bulkRemoveTags(input: BulkRemoveTagsInput!): BulkOperation!
+  bulkCopyFiles(input: BulkCopyInput!): BulkOperation!
+  bulkMoveFiles(input: BulkMoveInput!): BulkOperation!
+
+  # Cache / Purge
+  purgeCache(input: PurgeInput!): Purge!
+
+  # Custom Metadata Keys
+  createMetadataKey(input: CreateMetadataKeyInput!): MetadataKey!
+  updateMetadataKey(id: ID!, input: CreateMetadataKeyInput!): MetadataKey!
+  deleteMetadataKey(id: ID!): Boolean!
+
+  # Media Collections
+  createMediaCollection(input: CreateCollectionInput!): MediaCollection!
+  addAssetsToCollection(collectionId: ID!, assetIds: [ID!]!): MediaCollection!
+  removeAssetsFromCollection(collectionId: ID!, assetIds: [ID!]!): MediaCollection!
+  deleteMediaCollection(id: ID!): Boolean!
+
+  # Webhooks
+  createWebhook(input: CreateWebhookInput!): Webhook!
+  updateWebhook(id: ID!, input: UpdateWebhookInput!): Webhook!
+  deleteWebhook(id: ID!): Boolean!
+
+  # Managed Folders
+  createManagedFolder(name: String!, path: String!, bucketId: ID!, prefix: String): ManagedFolder!
+  deleteManagedFolder(id: ID!): Boolean!
+}
