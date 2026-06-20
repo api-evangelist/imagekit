@@ -6,7 +6,7 @@ description: Real-time image and video optimization CDN with a REST API for medi
   compression, and an integrated Digital Asset Management (DAM) platform for managing
   and delivering media at scale.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-06-12'
