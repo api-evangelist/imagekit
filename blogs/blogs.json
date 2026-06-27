@@ -1,17 +1,18 @@
 {
-  "name": "ImageKit Blog",
-  "description": "Latest articles and stories about image and video optimization, digital asset management, and web performance",
-  "url": "https://imagekit.io/blog/",
-  "rss": "https://imagekit.io/blog/rss.xml",
-  "lastFetched": "2026-06-12",
-  "posts": [],
   "repo": "imagekit",
   "feeds": [
+    {
+      "source": "https://imagekit.io/blog/rss.xml",
+      "feed_url": "https://imagekit.io/blog/rss.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
     {
       "source": "https://www.linkedin.com/company/imagekit-io",
       "error": "HTTPError"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:03:07Z",
+  "post_count": 0
 }
