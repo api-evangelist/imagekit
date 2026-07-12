@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/imagekit-media-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: |-
+    Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>
+    ImageKit API uses API keys to authenticate requests. You can view and manage your API keys in [the dashboard](https://imagekit.io/dashboard/developer/api-keys).
+    All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests wit
+  sources:
+  - openapi/imagekit-media-api-openapi.yml

@@ -47,6 +47,10 @@ apis:
   - url: graphql/imagekit-graphql.md
     type: GraphQL
 common:
+- type: DomainSecurity
+  url: security/imagekit-domain-security.yml
+- type: Authentication
+  url: authentication/imagekit-authentication.yml
 - type: Website
   url: https://imagekit.io/
 - type: Documentation
