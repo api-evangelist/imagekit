@@ -47,6 +47,8 @@ apis:
   - url: graphql/imagekit-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/imagekit-agentic-access.yml
 - type: DomainSecurity
   url: security/imagekit-domain-security.yml
 - type: Authentication
