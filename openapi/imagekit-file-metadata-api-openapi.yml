@@ -1,0 +1,522 @@
+openapi: 3.0.3
+info:
+  title: ImageKit Account Management API File Metadata API
+  version: 1.0.0
+  description: Checkout [API overview](/docs/api-overview) to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
+  contact:
+    email: developer@imagekit.io
+    name: ImageKit Team
+    url: https://imagekit.io
+  termsOfService: https://imagekit.io/terms/
+servers:
+- url: https://api.imagekit.io
+security:
+- basicAuth: []
+tags:
+- name: File Metadata
+paths:
+  /v1/files/{fileId}/metadata:
+    get:
+      tags:
+      - File Metadata
+      operationId: get-uploaded-file-metadata
+      summary: Get uploaded file metadata
+      description: 'You can programmatically get image EXIF, pHash, and other metadata for uploaded files in the ImageKit.io media library using this API.
+
+
+        You can also get the metadata in upload API response by passing `metadata` in `responseFields` parameter.
+
+        '
+      parameters:
+      - description: 'The unique `fileId` of the uploaded file. `fileId` is returned in the list and search assets API and upload API.
+
+          '
+        in: path
+        name: fileId
+        required: true
+        schema:
+          type: string
+      responses:
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '200':
+          description: File metadata object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metadata'
+              examples:
+                Image:
+                  value:
+                    $ref: '#/components/examples/ImageMetadata'
+                Video:
+                  value:
+                    $ref: '#/components/examples/VideoMetadata'
+        '404':
+          description: File not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The requested file does not exist or is inaccessible at this time.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The requested file is corrupt or invalid.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+  /v1/metadata:
+    get:
+      tags:
+      - File Metadata
+      operationId: get-metadata-from-url
+      summary: Get metadata from remote URL
+      description: 'Get image EXIF, pHash, and other metadata from ImageKit.io powered remote URL using this API.
+
+        '
+      parameters:
+      - description: 'Should be a valid file URL. It should be accessible using your ImageKit.io account.
+
+          '
+        in: query
+        name: url
+        required: true
+        schema:
+          type: string
+          format: uri
+      responses:
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '200':
+          description: File metadata object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metadata'
+              examples:
+                Image:
+                  value:
+                    $ref: '#/components/examples/ImageMetadata'
+                Video:
+                  value:
+                    $ref: '#/components/examples/VideoMetadata'
+        '404':
+          description: File not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The requested file does not exist or is inaccessible at this time.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The url should be accessible using your ImageKit.io account.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+components:
+  schemas:
+    Gps:
+      description: Object containing GPS information.
+      type: object
+      additionalProperties: true
+      properties:
+        GPSVersionID:
+          type: array
+          items:
+            type: integer
+        GPSLatitudeRef:
+          type: string
+        GPSLatitude:
+          type: array
+          items:
+            type: number
+        GPSLongitudeRef:
+          type: string
+        GPSLongitude:
+          type: array
+          items:
+            type: number
+        GPSAltitudeRef:
+          type: integer
+        GPSAltitude:
+          type: number
+        GPSTimeStamp:
+          type: array
+          items:
+            type: number
+        GPSImgDirectionRef:
+          type: string
+        GPSImgDirection:
+          type: number
+        GPSDateStamp:
+          type: string
+    ExifDetails:
+      description: Object containing Exif details.
+      x-stainless-naming:
+        java:
+          type_name: ExifDetails
+      type: object
+      additionalProperties: true
+      properties:
+        ExposureTime:
+          type: number
+        FNumber:
+          type: number
+        ExposureProgram:
+          type: integer
+        ISO:
+          type: integer
+        ExifVersion:
+          type: string
+        DateTimeOriginal:
+          type: string
+        CreateDate:
+          type: string
+        ShutterSpeedValue:
+          type: number
+        ApertureValue:
+          type: number
+        ExposureCompensation:
+          type: number
+        MeteringMode:
+          type: integer
+        Flash:
+          type: integer
+        BrightnessValue:
+          type: number
+        MaxApertureValue:
+          type: number
+        LightSource:
+          type: integer
+        FocalLength:
+          type: number
+        UserComment:
+          type: string
+        SensingMethod:
+          type: integer
+        SceneType:
+          type: string
+        FocalLengthIn35mmFormat:
+          type: integer
+        LensModel:
+          type: string
+        SubSecTime:
+          type: string
+        FlashpixVersion:
+          type: string
+        ColorSpace:
+          type: integer
+        ExifImageWidth:
+          type: integer
+        ExifImageHeight:
+          type: integer
+        InteropOffset:
+          type: integer
+        FocalPlaneXResolution:
+          type: number
+        FocalPlaneYResolution:
+          type: number
+        FocalPlaneResolutionUnit:
+          type: integer
+        CustomRendered:
+          type: integer
+        ExposureMode:
+          type: integer
+        WhiteBalance:
+          type: integer
+        SceneCaptureType:
+          type: integer
+    ExifImage:
+      description: Object containing EXIF image information.
+      type: object
+      additionalProperties: true
+      properties:
+        Make:
+          type: string
+        Model:
+          type: string
+        ImageDescription:
+          type: string
+        Artist:
+          type: string
+        Copyright:
+          type: string
+        Orientation:
+          type: integer
+        XResolution:
+          type: number
+        YResolution:
+          type: number
+        ResolutionUnit:
+          type: integer
+        Software:
+          type: string
+        ModifyDate:
+          type: string
+        YCbCrPositioning:
+          type: integer
+        ExifOffset:
+          type: integer
+        GPSInfo:
+          type: integer
+    Interoperability:
+      description: JSON object.
+      type: object
+      additionalProperties: true
+      properties:
+        InteropIndex:
+          type: string
+        InteropVersion:
+          type: string
+    Thumbnail:
+      description: Object containing Thumbnail information.
+      type: object
+      additionalProperties: true
+      properties:
+        Compression:
+          type: integer
+        XResolution:
+          type: number
+        YResolution:
+          type: number
+        ResolutionUnit:
+          type: integer
+        ThumbnailOffset:
+          type: integer
+        ThumbnailLength:
+          type: integer
+    Metadata:
+      description: JSON object containing metadata.
+      type: object
+      additionalProperties: true
+      properties:
+        height:
+          type: integer
+          description: The height of the image or video in pixels.
+        width:
+          type: integer
+          description: The width of the image or video in pixels.
+        size:
+          type: integer
+          description: The file size in bytes.
+        format:
+          type: string
+          description: The format of the file (e.g., 'jpg', 'mp4').
+        hasColorProfile:
+          type: boolean
+          description: Indicates if the image has a color profile.
+        quality:
+          type: integer
+          description: The quality indicator of the image.
+        density:
+          type: integer
+          description: The density of the image in DPI.
+        hasTransparency:
+          type: boolean
+          description: Indicates if the image contains transparent areas.
+        pHash:
+          type: string
+          description: Perceptual hash of the image.
+        bitRate:
+          type: integer
+          description: The bit rate of the video in kbps (only for video).
+        duration:
+          type: integer
+          description: The duration of the video in seconds (only for video).
+        audioCodec:
+          type: string
+          description: The audio codec used in the video (only for video).
+        videoCodec:
+          type: string
+          description: The video codec used in the video (only for video).
+        exif:
+          type: object
+          additionalProperties: true
+          properties:
+            image:
+              $ref: '#/components/schemas/ExifImage'
+            thumbnail:
+              $ref: '#/components/schemas/Thumbnail'
+            exif:
+              $ref: '#/components/schemas/ExifDetails'
+            gps:
+              $ref: '#/components/schemas/Gps'
+            interoperability:
+              $ref: '#/components/schemas/Interoperability'
+            makernote:
+              type: object
+              additionalProperties: true
+  responses:
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Your account cannot be authenticated.
+                - Your request contains expired private API key.
+                - Your account is disabled.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+    RateLimitExceeded:
+      description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.
+        X-RateLimit-Interval:
+          schema:
+            type: integer
+          description: The duration of the interval in milliseconds for which this rate limit was exceeded.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: A description of the error, providing details about why the rate limit has been exceeded.
+  examples:
+    VideoMetadata:
+      height: 720
+      width: 1280
+      bitRate: 546524
+      duration: 70
+      audioCodec: aac
+      videoCodec: h264
+      size: 23490
+    ImageMetadata:
+      height: 68
+      width: 100
+      size: 7749
+      format: jpg
+      hasColorProfile: true
+      quality: 0
+      density: 72
+      hasTransparency: false
+      pHash: f06830ca9f1e3e90
+      exif:
+        image:
+          Make: Canon
+          Model: Canon EOS 40D
+          Orientation: 1
+          XResolution: 72
+          YResolution: 72
+          ResolutionUnit: 2
+          Software: GIMP 2.4.5
+          ModifyDate: 2008:07:31 10:38:11
+          YCbCrPositioning: 2
+          ExifOffset: 214
+          GPSInfo: 978
+        thumbnail:
+          Compression: 6
+          XResolution: 72
+          YResolution: 72
+          ResolutionUnit: 2
+          ThumbnailOffset: 1090
+          ThumbnailLength: 1378
+        exif:
+          ExposureTime: 0.00625
+          FNumber: 7.1
+          ExposureProgram: 1
+          ISO: 100
+          ExifVersion: '0221'
+          DateTimeOriginal: 2008:05:30 15:56:01
+          CreateDate: 2008:05:30 15:56:01
+          ShutterSpeedValue: 7.375
+          ApertureValue: 5.625
+          ExposureCompensation: 0
+          MeteringMode: 5
+          Flash: 9
+          FocalLength: 135
+          SubSecTime: '00'
+          SubSecTimeOriginal: '00'
+          SubSecTimeDigitized: '00'
+          FlashpixVersion: '0100'
+          ColorSpace: 1
+          ExifImageWidth: 100
+          ExifImageHeight: 68
+          InteropOffset: 948
+          FocalPlaneXResolution: 4438.356164383562
+          FocalPlaneYResolution: 4445.969125214408
+          FocalPlaneResolutionUnit: 2
+          CustomRendered: 0
+          ExposureMode: 1
+          WhiteBalance: 0
+          SceneCaptureType: 0
+        gps:
+          GPSVersionID:
+          - 2
+          - 2
+          - 0
+          - 0
+        interoperability:
+          InteropIndex: R98
+          InteropVersion: '0100'
+        makernote: {}
+  securitySchemes:
+    basicAuth:
+      description: 'Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>
+
+        ImageKit API uses API keys to authenticate requests. You can view and manage your API keys in [the dashboard](https://imagekit.io/dashboard/developer/api-keys).
+
+        All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.'
+      scheme: basic
+      type: http

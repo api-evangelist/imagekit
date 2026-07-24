@@ -1,0 +1,192 @@
+openapi: 3.0.3
+info:
+  title: ImageKit Account Management API Caching API
+  version: 1.0.0
+  description: Checkout [API overview](/docs/api-overview) to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
+  contact:
+    email: developer@imagekit.io
+    name: ImageKit Team
+    url: https://imagekit.io
+  termsOfService: https://imagekit.io/terms/
+servers:
+- url: https://api.imagekit.io
+security:
+- basicAuth: []
+tags:
+- name: Caching
+paths:
+  /v1/files/purge:
+    post:
+      tags:
+      - Caching
+      operationId: purge-cache
+      summary: Purge cache
+      description: 'This API will purge CDN cache and ImageKit.io''s internal cache for a file.  Note: Purge cache is an asynchronous process and it may take some time to reflect the changes.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: 'The full URL of the file to be purged.
+
+                    '
+                  example: https://ik.imagekit.io/your_imagekit_id/default-image.jpg
+      responses:
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '201':
+          description: Purge request submitted successfully. A `requestId` will be returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requestId:
+                    type: string
+                    description: 'Unique identifier of the purge request. This can be used to check the status of the purge request.
+
+                      '
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The URL is not valid for cache purging.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+  /v1/files/purge/{requestId}:
+    get:
+      tags:
+      - Caching
+      operationId: purge-status
+      summary: Get purge status
+      description: 'This API returns the status of a purge cache request.
+
+        '
+      parameters:
+      - description: 'Should be a valid requestId.
+
+          '
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '200':
+          description: 'On success, you will receive the status of the purge request in the response body.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Completed
+                    enum:
+                    - Pending
+                    - Completed
+                    description: 'Status of the purge request.
+
+                      '
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: No request found for this requestId.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+    RateLimitExceeded:
+      description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.
+        X-RateLimit-Interval:
+          schema:
+            type: integer
+          description: The duration of the interval in milliseconds for which this rate limit was exceeded.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: A description of the error, providing details about why the rate limit has been exceeded.
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Your account cannot be authenticated.
+                - Your request contains expired private API key.
+                - Your account is disabled.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+  securitySchemes:
+    basicAuth:
+      description: 'Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>
+
+        ImageKit API uses API keys to authenticate requests. You can view and manage your API keys in [the dashboard](https://imagekit.io/dashboard/developer/api-keys).
+
+        All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.'
+      scheme: basic
+      type: http

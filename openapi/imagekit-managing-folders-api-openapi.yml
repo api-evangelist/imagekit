@@ -1,0 +1,650 @@
+openapi: 3.0.3
+info:
+  title: ImageKit Account Management API Managing folders API
+  version: 1.0.0
+  description: Checkout [API overview](/docs/api-overview) to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
+  contact:
+    email: developer@imagekit.io
+    name: ImageKit Team
+    url: https://imagekit.io
+  termsOfService: https://imagekit.io/terms/
+servers:
+- url: https://api.imagekit.io
+security:
+- basicAuth: []
+tags:
+- name: Managing folders
+paths:
+  /v1/folder:
+    post:
+      tags:
+      - Managing folders
+      operationId: create-folder
+      summary: Create folder
+      description: 'This will create a new folder. You can specify the folder name and location of the parent folder where this new folder should be created.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderName
+              - parentFolderPath
+              properties:
+                folderName:
+                  type: string
+                  description: "The folder will be created with this name. \n\nAll characters except alphabets and numbers (inclusive of unicode letters, marks, and numerals in other languages) will be replaced by an underscore i.e. `_`.\n"
+                parentFolderPath:
+                  type: string
+                  description: 'The folder where the new folder should be created, for root use `/` else the path e.g. `containing/folder/`.
+
+
+                    Note: If any folder(s) is not present in the parentFolderPath parameter, it will be automatically created. For example, if you pass `/product/images/summer`, then `product`, `images`, and `summer` folders will be created if they don''t already exist.
+
+                    '
+            example:
+              folderName: summer
+              parentFolderPath: /product/images/
+      responses:
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '201':
+          description: Folder created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                x-stainless-empty-object: true
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    example: INVALID_FOLDER_PATH
+                  message:
+                    type: string
+                    example: '''.'' & ''..'' can not be used as folder-name'
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+    delete:
+      tags:
+      - Managing folders
+      operationId: delete-folder
+      summary: Delete folder
+      description: 'This will delete a folder and all its contents permanently. The API returns an empty response.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderPath
+              properties:
+                folderPath:
+                  type: string
+                  description: 'Full path to the folder you want to delete. For example `/folder/to/delete/`.
+
+                    '
+            example:
+              folderPath: /folder/to/delete/
+      responses:
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '204':
+          description: Folder deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                x-stainless-empty-object: true
+        '404':
+          description: Folder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    example: FOLDER_NOT_FOUND
+                  message:
+                    type: string
+                    example: No folder found with folderPath `/folder/to/delete/`.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    example: TOO_MANY_OBJECTS
+                  message:
+                    type: string
+                    example: Total nested assets (files, folders and file versions) are more than allowed limit of 100000 items.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+  /v1/bulkJobs/copyFolder:
+    post:
+      tags:
+      - Managing folders
+      operationId: copy-folder
+      summary: Copy folder
+      description: 'This will copy one folder into another. The selected folder, its nested folders, files, and their versions (in `includeVersions` is set to true) are copied in this operation. Note: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file version history.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - sourceFolderPath
+              - destinationPath
+              properties:
+                sourceFolderPath:
+                  type: string
+                  description: 'The full path to the source folder you want to copy.
+
+                    '
+                  example: /path/of/source/folder
+                destinationPath:
+                  type: string
+                  description: 'Full path to the destination folder where you want to copy the source folder into.
+
+                    '
+                  example: /path/of/destination/folder
+                includeVersions:
+                  type: boolean
+                  description: 'Option to copy all versions of files that are nested inside the selected folder. By default, only the current version of each file will be copied. When set to true, all versions of each file will be copied. Default value - `false`.
+
+                    '
+                  example: true
+      responses:
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '404':
+          description: Folder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    example: NO_FILES_FOLDER
+                  message:
+                    type: string
+                    example: No files & folder found at sourceFolderPath `/folder/to/copy`.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: sourceFolderPath and destinationPath is same
+                  reason:
+                    type: string
+                    examples:
+                    - MISSING_PARAMETER
+                    - INVALID_PARAMETER
+                    - TOO_MANY_OBJECTS
+                    - SOURCE_IS_ROOT
+                    - SAME_SOURCE_AND_DESTINATION
+                    - INVALID_FOLDER_PATH
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '423':
+          description: Locked resource - A bulk operation is currently running on the folder.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples:
+                    - A bulk job is running on given folder path, please try after sometime.
+                    - Destination folder path is already locked. Please try after sometime.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+  /v1/bulkJobs/moveFolder:
+    post:
+      tags:
+      - Managing folders
+      operationId: move-folder
+      summary: Move folder
+      description: 'This will move one folder into another. The selected folder, its nested folders, files, and their versions are moved in this operation. Note: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file version history.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - sourceFolderPath
+              - destinationPath
+              properties:
+                sourceFolderPath:
+                  type: string
+                  description: 'The full path to the source folder you want to move.
+
+                    '
+                  example: /path/of/source/folder
+                destinationPath:
+                  type: string
+                  description: 'Full path to the destination folder where you want to move the source folder into.
+
+                    '
+                  example: /path/of/destination/folder
+      responses:
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '404':
+          description: Folder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    example: NO_FILES_FOLDER
+                  message:
+                    type: string
+                    example: No files & folder found at sourceFolderPath `/folder/to/move`.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: This operation is not allowed because parent folder cannot be moved into child folder.
+                  reason:
+                    type: string
+                    examples:
+                    - MISSING_PARAMETER
+                    - INVALID_PARAMETER
+                    - TOO_MANY_OBJECTS
+                    - SOURCE_IS_ROOT
+                    - SAME_SOURCE_AND_DESTINATION
+                    - INVALID_FOLDER_PATH
+                    - INVALID_DESTINATION_PATH
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '423':
+          description: Locked resource - A bulk operation is currently running on the folder.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples:
+                    - A bulk job is running on given folder path, please try after sometime.
+                    - Destination folder path is already locked. Please try after sometime.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+  /v1/bulkJobs/renameFolder:
+    post:
+      tags:
+      - Managing folders
+      operationId: rename-folder
+      summary: Rename folder
+      description: 'This API allows you to rename an existing folder. The folder and all its nested assets and sub-folders will remain unchanged, but their paths will be updated to reflect the new folder name.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderPath
+              - newFolderName
+              properties:
+                folderPath:
+                  type: string
+                  description: 'The full path to the folder you want to rename.
+
+                    '
+                  example: /path/of/folder
+                newFolderName:
+                  type: string
+                  description: 'The new name for the folder.
+
+
+                    All characters except alphabets and numbers (inclusive of unicode letters, marks, and numerals in other languages) and `-` will be replaced by an underscore i.e. `_`.
+
+                    '
+                  example: new-folder-name
+                purgeCache:
+                  type: boolean
+                  description: 'Option to purge cache for the old nested files and their versions'' URLs.
+
+
+                    When set to true, it will internally issue a purge cache request on CDN to remove the cached content of the old nested files and their versions. There will only be one purge request for all the nested files, which will be counted against your monthly purge quota.
+
+
+                    Note: A purge cache request will be issued against `https://ik.imagekit.io/old/folder/path*` (with a wildcard at the end). This will remove all nested files, their versions'' URLs, and any transformations made using query parameters on these files or their versions. However, the cache for file transformations made using path parameters will persist. You can purge them using the purge API. For more details, refer to the purge API documentation.
+
+
+                    Default value - `false`
+
+                    '
+                  example: true
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples:
+                    - folderPath cannot be root.
+                    - folderPath parameter is missing.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: Folder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Source folder not found.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '409':
+          description: If a folder with newFileName already exist in the same location.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Folder with name newFolderName already exists at the same location.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '423':
+          description: Locked resource - A bulk operation is currently running on the folder.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples:
+                    - A bulk job is running on given folder path, please try after sometime.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/bulkJobs/{jobId}:
+    get:
+      tags:
+      - Managing folders
+      operationId: bulk-job-status
+      summary: Bulk job status
+      description: 'This API returns the status of a bulk job like copy and move folder operations.
+
+        '
+      parameters:
+      - description: 'The `jobId` is returned in the response of bulk job API e.g. copy folder or move folder API.
+
+          '
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+      responses:
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '200':
+          description: 'On success, you will receive the status of the bulk job in the response body.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    type: string
+                    description: 'Unique identifier of the bulk job.
+
+                      '
+                  type:
+                    type: string
+                    description: 'Type of the bulk job.
+
+                      '
+                    enum:
+                    - COPY_FOLDER
+                    - MOVE_FOLDER
+                    - RENAME_FOLDER
+                  status:
+                    type: string
+                    description: 'Status of the bulk job.
+
+                      '
+                    enum:
+                    - Pending
+                    - Completed
+                  purgeRequestId:
+                    type: string
+                    description: 'Unique identifier of the purge request. This will be present only if `purgeCache` is set to `true` in the rename folder API request.
+
+                      '
+                example:
+                  jobId: 5d5b1a9b4c8c4c0001f3e4a2
+                  type: COPY_FOLDER
+                  status: Completed
+        '207':
+          description: 'Partial success – the folder was renamed, but purge cache failed for nested files. It is only returned when `purgeCache` is set `true` in the rename folder API request.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    type: string
+                    description: 'Unique identifier of the bulk job.
+
+                      '
+                  type:
+                    type: string
+                    description: 'Type of the bulk job. It is only possible for `RENAME_FOLDER`.
+
+                      '
+                  status:
+                    type: string
+                    description: 'Status of the bulk job. It will be `Partial success`.
+
+                      '
+                  message:
+                    type: string
+                    example: Folder renamed successfully but purging cache on nested files failed.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+                example:
+                  jobId: 5d5b1a9b4c8c4c0001f3e4a2
+                  type: RENAME_FOLDER
+                  status: Partial success
+                  message: Folder renamed successfully but purging cache on nested files failed.
+                  help: For support kindly contact us at support@imagekit.io.
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The requested job does not exist.
+                  help:
+                    type: string
+                    example: For support kindly contact us at support@imagekit.io.
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+    RateLimitExceeded:
+      description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.
+        X-RateLimit-Interval:
+          schema:
+            type: integer
+          description: The duration of the interval in milliseconds for which this rate limit was exceeded.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: A description of the error, providing details about why the rate limit has been exceeded.
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Your account cannot be authenticated.
+                - Your request contains expired private API key.
+                - Your account is disabled.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+  schemas:
+    JobResponse:
+      type: object
+      title: Async Bulk Job Response
+      description: Job submitted successfully. A `jobId` will be returned.
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
+          description: 'Unique identifier of the bulk job. This can be used to check the status of the bulk job.
+
+            '
+  securitySchemes:
+    basicAuth:
+      description: 'Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>
+
+        ImageKit API uses API keys to authenticate requests. You can view and manage your API keys in [the dashboard](https://imagekit.io/dashboard/developer/api-keys).
+
+        All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.'
+      scheme: basic
+      type: http
