@@ -6,7 +6,20 @@ description: Real-time image and video optimization CDN with a REST API for medi
   compression, and an integrated Digital Asset Management (DAM) platform for managing
   and delivering media at scale.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/imagekit.png
 url: https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-06-12'
@@ -24,28 +37,178 @@ tags:
 - Cache
 - Upload
 apis:
-- aid: apis-json-v1-9-imagekit-media-api
-  name: ImageKit Media API
-  description: REST API for file uploads, media library management, metadata retrieval,
-    cache purging, custom metadata fields, and account usage. Authenticate via HTTP
-    Basic Auth using your private API key.
+- aid: imagekit:imagekit-account-management-api-api
+  name: ImageKit Account Management API API
+  description: >-
+    The Account Management API API from ImageKit — 5 operation(s) for account management api.
   humanURL: https://imagekit.io/docs/api-overview
   baseURL: https://api.imagekit.io
   tags:
-  - Images
-  - Video
-  - Upload
-  - Media Library
-  - Cache
-  - Metadata
-  - DAM
+  - Account Management API
   properties:
+  - type: OpenAPI
+    url: openapi/imagekit-account-management-api-api-openapi.yml
   - type: Documentation
     url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-caching-api
+  name: ImageKit Caching API
+  description: The Caching API from ImageKit — 2 operation(s) for caching.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - Caching
+  properties:
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/openapi/imagekit-media-api-openapi.yml
-  - url: graphql/imagekit-graphql.md
-    type: GraphQL
+    url: openapi/imagekit-caching-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-custom-metadata-fields-api
+  name: ImageKit Custom metadata fields API
+  description: >-
+    The Custom metadata fields API from ImageKit — 2 operation(s) for custom metadata fields.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - Custom metadata fields
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-custom-metadata-fields-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-digital-asset-management-dam-api
+  name: ImageKit Digital Asset Management (DAM) API
+  description: >-
+    The Digital Asset Management (DAM) API from ImageKit — 22 operation(s) for digital asset management
+    (dam).
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - Digital Asset Management (DAM)
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-digital-asset-management-dam-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-dummy-test-api
+  name: ImageKit Dummy Test API
+  description: The Dummy Test API from ImageKit — 1 operation(s) for dummy test.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - Dummy Test
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-dummy-test-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-file-metadata-api
+  name: ImageKit File Metadata API
+  description: The File Metadata API from ImageKit — 2 operation(s) for file metadata.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - File Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-file-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-managing-assets-api
+  name: ImageKit Managing assets API
+  description: The Managing assets API from ImageKit — 12 operation(s) for managing assets.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - Managing assets
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-managing-assets-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-managing-folders-api
+  name: ImageKit Managing folders API
+  description: The Managing folders API from ImageKit — 5 operation(s) for managing folders.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - Managing folders
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-managing-folders-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-origins-api
+  name: ImageKit Origins API
+  description: The Origins API from ImageKit — 2 operation(s) for origins.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - Origins
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-origins-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-saved-extensions-api
+  name: ImageKit Saved Extensions API
+  description: The Saved Extensions API from ImageKit — 2 operation(s) for saved extensions.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - Saved Extensions
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-saved-extensions-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-upload-file-api
+  name: ImageKit Upload File API
+  description: The Upload File API from ImageKit — 2 operation(s) for upload file.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - Upload File
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-upload-file-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
+- aid: imagekit:imagekit-url-endpoints-api
+  name: ImageKit URL endpoints API
+  description: The URL endpoints API from ImageKit — 2 operation(s) for url endpoints.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - URL endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-url-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://imagekit.io/docs/api-overview
+  - type: GraphQL
+    url: graphql/imagekit-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/imagekit-agentic-access.yml
