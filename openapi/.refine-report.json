@@ -1,0 +1,36 @@
+{
+  "provider": "imagekit",
+  "sources": [
+    "imagekit-account-management-api-api-openapi.yml",
+    "imagekit-caching-api-openapi.yml",
+    "imagekit-custom-metadata-fields-api-openapi.yml",
+    "imagekit-digital-asset-management-dam-api-openapi.yml",
+    "imagekit-dummy-test-api-openapi.yml",
+    "imagekit-file-metadata-api-openapi.yml",
+    "imagekit-managing-assets-api-openapi.yml",
+    "imagekit-managing-folders-api-openapi.yml",
+    "imagekit-origins-api-openapi.yml",
+    "imagekit-saved-extensions-api-openapi.yml",
+    "imagekit-upload-file-api-openapi.yml",
+    "imagekit-url-endpoints-api-openapi.yml"
+  ],
+  "outputs": [
+    "imagekit-account-management-api-api-openapi.yml",
+    "imagekit-caching-api-openapi.yml",
+    "imagekit-custom-metadata-fields-api-openapi.yml",
+    "imagekit-digital-asset-management-dam-api-openapi.yml",
+    "imagekit-dummy-test-api-openapi.yml",
+    "imagekit-file-metadata-api-openapi.yml",
+    "imagekit-managing-assets-api-openapi.yml",
+    "imagekit-managing-folders-api-openapi.yml",
+    "imagekit-origins-api-openapi.yml",
+    "imagekit-saved-extensions-api-openapi.yml",
+    "imagekit-upload-file-api-openapi.yml",
+    "imagekit-url-endpoints-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
