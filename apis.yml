@@ -1,4 +1,4 @@
-aid: apis-json-v1-9-imagekit
+aid: imagekit
 name: ImageKit
 description: Real-time image and video optimization CDN with a REST API for media
   management, transformations, folder operations, and performance analytics. ImageKit
