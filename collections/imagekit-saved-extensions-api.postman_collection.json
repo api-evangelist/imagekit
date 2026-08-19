@@ -1,0 +1,1802 @@
+{
+  "item": [
+    {
+      "id": "d383aa7d-0799-44db-851e-750ae1e878ba",
+      "name": "Saved Extensions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6ddbf1da-6759-4a29-80eb-5d3b582f14a7",
+          "name": "List all saved extensions",
+          "request": {
+            "name": "List all saved extensions",
+            "description": {
+              "content": "This API returns an array of all saved extensions for your account. Saved extensions allow you to save complex extension configurations and reuse them by referencing them by ID in upload or update file APIs.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "saved-extensions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7de3950e-c73a-4f2f-b37d-18b49348c013",
+              "name": "Array of saved extension objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"ext_abc123\",\n    \"name\": \"Car Quality Analysis\",\n    \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n    \"config\": {\n      \"name\": \"remove-bg\",\n      \"options\": {\n        \"add_shadow\": false,\n        \"semitransparency\": true,\n        \"bg_color\": \"string\",\n        \"bg_image_url\": \"string\"\n      }\n    },\n    \"createdAt\": \"1982-08-09T16:41:12.694Z\",\n    \"updatedAt\": \"1956-07-23T00:00:37.718Z\"\n  },\n  {\n    \"id\": \"ext_abc123\",\n    \"name\": \"Car Quality Analysis\",\n    \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n    \"config\": {\n      \"name\": \"remove-bg\",\n      \"options\": {\n        \"add_shadow\": false,\n        \"semitransparency\": true,\n        \"bg_color\": \"string\",\n        \"bg_image_url\": \"string\"\n      }\n    },\n    \"createdAt\": \"2006-12-09T19:53:48.397Z\",\n    \"updatedAt\": \"2016-09-27T14:11:32.749Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "384f1374-d944-466b-aeac-beef6599839b",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Your request does not contain private API key.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c0b2dbe-ffc4-4869-8443-aa2eba709b0d",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80b05b66-9b1d-4f90-9943-2d9a4418bf81",
+              "name": "The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.",
+                  "key": "X-RateLimit-Limit",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.",
+                  "key": "X-RateLimit-Reset",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The duration of the interval in milliseconds for which this rate limit was exceeded.",
+                  "key": "X-RateLimit-Interval",
+                  "value": "7304"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4d66eca-5aa4-445c-be33-454f444d3064",
+          "name": "Create saved extension",
+          "request": {
+            "name": "Create saved extension",
+            "description": {
+              "content": "This API creates a new saved extension. Saved extensions allow you to save complex extension configurations (like AI tasks) and reuse them by referencing the ID in upload or update file APIs.\n\n**Saved extension limit** \\\nYou can create a maximum of 100 saved extensions per account.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "saved-extensions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5aaa07f9-9742-4c51-a8a4-d51dbe301c4b",
+              "name": "Saved extension created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Car Quality Analysis\",\n  \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ext_abc123\",\n  \"name\": \"Car Quality Analysis\",\n  \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  },\n  \"createdAt\": \"1981-11-03T11:39:49.065Z\",\n  \"updatedAt\": \"2024-02-19T09:10:06.412Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25efc115-0dda-4fd2-9d40-a209c3ef07da",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Car Quality Analysis\",\n  \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid extension configuration.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61702525-075b-43df-91d1-ba481b0a4c79",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Car Quality Analysis\",\n  \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Your request does not contain private API key.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21c613e4-a574-485f-83ae-5718a9d65dcf",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Car Quality Analysis\",\n  \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4de1a93-9f6c-486a-807a-8f0bccd70574",
+              "name": "The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Car Quality Analysis\",\n  \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.",
+                  "key": "X-RateLimit-Limit",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.",
+                  "key": "X-RateLimit-Reset",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The duration of the interval in milliseconds for which this rate limit was exceeded.",
+                  "key": "X-RateLimit-Interval",
+                  "value": "7304"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d9bf06a-9e5e-483e-ad55-230255820da7",
+          "name": "Get saved extension details",
+          "request": {
+            "name": "Get saved extension details",
+            "description": {
+              "content": "This API returns details of a specific saved extension by ID.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "saved-extensions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique ID of the saved extension.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2dc00476-5893-42bf-993f-6866e43a073e",
+              "name": "Saved extension details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ext_abc123\",\n  \"name\": \"Car Quality Analysis\",\n  \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  },\n  \"createdAt\": \"1981-11-03T11:39:49.065Z\",\n  \"updatedAt\": \"2024-02-19T09:10:06.412Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c47f512-b381-4a4f-a5df-01be2a017dbf",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid saved extension ID.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af71db45-0ca3-4b38-811d-7c97e5eae6f1",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Your request does not contain private API key.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29c15288-0e6e-4eaf-b213-5e40bf92d11e",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72f3e9d4-9657-4978-9d53-fe085d6beddf",
+              "name": "Saved extension not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The requested saved extension does not exist.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37d35b7b-2235-41dd-9a41-374b2f4c28ae",
+              "name": "The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.",
+                  "key": "X-RateLimit-Limit",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.",
+                  "key": "X-RateLimit-Reset",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The duration of the interval in milliseconds for which this rate limit was exceeded.",
+                  "key": "X-RateLimit-Interval",
+                  "value": "7304"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47a50e2a-d9be-495d-9c97-98bf419e64ba",
+          "name": "Update saved extension",
+          "request": {
+            "name": "Update saved extension",
+            "description": {
+              "content": "This API updates an existing saved extension. You can update the name, description, or config.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "saved-extensions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique ID of the saved extension.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "563096b1-05c6-4ec1-9197-d373a54ff2fd",
+              "name": "Saved extension updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ext_abc123\",\n  \"name\": \"Car Quality Analysis\",\n  \"description\": \"Analyzes vehicle images for type, condition, and quality assessment\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  },\n  \"createdAt\": \"1981-11-03T11:39:49.065Z\",\n  \"updatedAt\": \"2024-02-19T09:10:06.412Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "def89008-5400-44e6-9470-dda111b0f63a",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid extension configuration.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db0d9e13-b04c-4598-b628-df971e21acb2",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Your request does not contain private API key.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce581c16-ebda-40fc-9aff-f917d0bfc1f1",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f2e1280-e72c-40e0-9088-a02a82e20958",
+              "name": "Saved extension not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The requested saved extension does not exist.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27d7b2f0-0568-44ea-a31e-8028b5a701d8",
+              "name": "The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"name\": \"<string>\",\n    \"options\": {\n      \"add_shadow\": false,\n      \"semitransparency\": true,\n      \"bg_color\": \"<string>\",\n      \"bg_image_url\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.",
+                  "key": "X-RateLimit-Limit",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.",
+                  "key": "X-RateLimit-Reset",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The duration of the interval in milliseconds for which this rate limit was exceeded.",
+                  "key": "X-RateLimit-Interval",
+                  "value": "7304"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69872cb0-e9d4-4df3-a625-b7428652ad68",
+          "name": "Delete saved extension",
+          "request": {
+            "name": "Delete saved extension",
+            "description": {
+              "content": "This API deletes a saved extension permanently.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "saved-extensions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique ID of the saved extension.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3602353b-7e90-4d9c-821b-38ebe6337116",
+              "name": "Saved extension deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "87a80a0b-ff9b-4951-8354-3cce2eaa719a",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid saved extension ID.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "098a20ff-97b3-40dd-abd9-03e6f20b7879",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Your request does not contain private API key.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a6a0714-3bda-4b2d-9be8-b34e267286f7",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a92389b-0f19-4a37-b082-97430bbfde0f",
+              "name": "Saved extension not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The requested saved extension does not exist.\",\n  \"help\": \"For support kindly contact us at support@imagekit.io.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd3b0061-02a4-4c0c-be31-b210de80e50e",
+              "name": "The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "saved-extensions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the saved extension.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.",
+                  "key": "X-RateLimit-Limit",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.",
+                  "key": "X-RateLimit-Reset",
+                  "value": "7304"
+                },
+                {
+                  "disabled": false,
+                  "description": "The duration of the interval in milliseconds for which this rate limit was exceeded.",
+                  "key": "X-RateLimit-Interval",
+                  "value": "7304"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.imagekit.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "090691f7-2165-4a98-81e8-d6927bdbb13c",
+    "name": "ImageKit Account Management API Saved Extensions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Checkout [API overview](/docs/api-overview) to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.\n\nContact Support:\n Name: ImageKit Team\n Email: developer@imagekit.io",
+      "type": "text/plain"
+    }
+  }
+}

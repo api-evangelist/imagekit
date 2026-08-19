@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ImageKit Account Management API Caching API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Caching",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Purge cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/purge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API will purge CDN cache and ImageKit.io's internal cache for a file.  Note: Purge cache is an asynchronous process and it may take some time to reflect the changes.\n"
+        },
+        {
+          "info": {
+            "name": "Get purge status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/files/purge/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "Should be a valid requestId.\n"
+              }
+            ]
+          },
+          "docs": "This API returns the status of a purge cache request.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

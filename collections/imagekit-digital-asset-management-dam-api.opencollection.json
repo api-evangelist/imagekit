@@ -1,0 +1,603 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ImageKit Account Management API Digital Asset Management (DAM) API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Digital Asset Management (DAM)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/customMetadataFields",
+            "params": [
+              {
+                "name": "includeDeleted",
+                "value": "",
+                "type": "query",
+                "description": "Set it to `true` to include deleted field objects in the API response.\n"
+              },
+              {
+                "name": "folderPath",
+                "value": "",
+                "type": "query",
+                "description": "The folder path (e.g., `/path/to/folder`) for which to retrieve applicable custom metadata fields. Useful for determining path-specific field selections when the [Path policy](https://imagekit.io/docs/dam/path-policy) feature is in use.\n"
+              }
+            ]
+          },
+          "docs": "This API returns the array of created custom metadata field objects. By default the API returns only non deleted field objects, but you can include deleted fields in the API response.\n\nYou can also filter results by a specific folder path to retrieve custom metadata fields applicable at that location. This path-specific filtering is useful when using the **Path policy** feature to determine which custom metadata fields are selected for a given path.\n"
+        },
+        {
+          "info": {
+            "name": "Create new field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/customMetadataFields",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API creates a new custom metadata field. Once a custom metadata field is created either through this API or using the dashboard UI, its value can be set on the assets. The value of a field for an asset can be set using the media library UI or programmatically through upload or update assets API.\n"
+        },
+        {
+          "info": {
+            "name": "Get file details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/files/:fileId/details",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in the list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API returns an object with details or attributes about the current version of the file."
+        },
+        {
+          "info": {
+            "name": "Update file details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.imagekit.io/v1/files/:fileId/details",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API updates the details or attributes of the current version of the file. You can update `tags`, `customCoordinates`, `customMetadata`, publication status, remove existing `AITags` and apply extensions using this API.\n"
+        },
+        {
+          "info": {
+            "name": "Update existing field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.imagekit.io/v1/customMetadataFields/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Should be a valid custom metadata field id.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API updates the label or schema of an existing custom metadata field.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a field",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.imagekit.io/v1/customMetadataFields/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Should be a valid custom metadata field id.\n"
+              }
+            ]
+          },
+          "docs": "This API deletes a custom metadata field. Even after deleting a custom metadata field, you cannot create any new custom metadata field with the same name.\n"
+        },
+        {
+          "info": {
+            "name": "List and search assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/files",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by asset type.\n\n- `file` — returns only files  \n- `file-version` — returns specific file versions  \n- `folder` — returns only folders  \n- `all` — returns both files and folders (excludes `file-version`)\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort the results by one of the supported fields in ascending or descending order.\n"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Folder path if you want to limit the search within a specific folder. For example, `/sales-banner/` will only search in folder sales-banner.\n\nNote : If your use case involves searching within a folder as well as its subfolders, you can use `path` parameter in `searchQuery` with appropriate operator.\nCheckout [Supported parameters](/docs/api-reference/digital-asset-management-dam/list-and-search-assets#supported-parameters) for more information.\n"
+              },
+              {
+                "name": "searchQuery",
+                "value": "",
+                "type": "query",
+                "description": "Query string in a Lucene-like query language e.g. `createdAt > \"7d\"`.\n\nNote : When the searchQuery parameter is present, the following query parameters will have no effect on the result:\n\n1. `tags`\n2. `type`\n3. `name`\n\n[Learn more](/docs/api-reference/digital-asset-management-dam/list-and-search-assets#advanced-search-queries) from examples.\n"
+              },
+              {
+                "name": "fileType",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by file type.\n\n- `all` — include all file types  \n- `image` — include only image files  \n- `non-image` — include only non-image files (e.g., JS, CSS, video)\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return in response.\n"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before returning results.\n"
+              }
+            ]
+          },
+          "docs": "This API can list all the uploaded files and folders in your ImageKit.io media library. In addition, you can fine-tune your query by specifying various filters by generating a query string in a Lucene-like syntax and provide this generated string as the value of the `searchQuery`.\n"
+        },
+        {
+          "info": {
+            "name": "Delete file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.imagekit.io/v1/files/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API deletes the file and all its file versions permanently.\n\nNote: If a file or specific transformation has been requested in the past, then the response is cached. Deleting a file does not purge the cache. You can purge the cache using purge cache API.\n"
+        },
+        {
+          "info": {
+            "name": "Delete multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/batch/deleteByFileIds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API deletes multiple files and all their file versions permanently.\n\nNote: If a file or specific transformation has been requested in the past, then the response is cached. Deleting a file does not purge the cache. You can purge the cache using purge cache API.\n\nA maximum of 100 files can be deleted at a time.\n"
+        },
+        {
+          "info": {
+            "name": "Copy file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/copy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will copy a file from one folder to another. \n\nNote: If any file at the destination has the same name as the source file, then the source file and its versions (if `includeFileVersions` is set to true) will be appended to the destination file version history.\n"
+        },
+        {
+          "info": {
+            "name": "Move file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/move",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will move a file and all its versions from one folder to another. \n\nNote: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file.\n"
+        },
+        {
+          "info": {
+            "name": "Rename file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.imagekit.io/v1/files/rename",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "You can rename an already existing file in the media library using rename file API. This operation would rename all file versions of the file. \n\nNote: The old URLs will stop working. The file/file version URLs cached on CDN will continue to work unless a purge is requested.\n"
+        },
+        {
+          "info": {
+            "name": "List file versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/files/:fileId/versions",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API returns details of all versions of a file.\n"
+        },
+        {
+          "info": {
+            "name": "Get file version details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/files/:fileId/versions/:versionId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `versionId` of the uploaded file. `versionId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API returns an object with details or attributes of a file version."
+        },
+        {
+          "info": {
+            "name": "Delete file version",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.imagekit.io/v1/files/:fileId/versions/:versionId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `versionId` of the uploaded file. `versionId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API deletes a non-current file version permanently. The API returns an empty response.\n\nNote: If you want to delete all versions of a file, use the delete file API.\n"
+        },
+        {
+          "info": {
+            "name": "Restore file version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.imagekit.io/v1/files/:fileId/versions/:versionId/restore",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `versionId` of the uploaded file. `versionId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API restores a file version as the current file version.\n"
+        },
+        {
+          "info": {
+            "name": "Add tags (bulk)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/addTags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API adds tags to multiple files in bulk. A maximum of 50 files can be specified at a time.\n"
+        },
+        {
+          "info": {
+            "name": "Remove tags (bulk)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/removeTags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API removes tags from multiple files in bulk. A maximum of 50 files can be specified at a time.\n"
+        },
+        {
+          "info": {
+            "name": "Remove AI tags (bulk)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/removeAITags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API removes AITags from multiple files in bulk. A maximum of 50 files can be specified at a time.\n"
+        },
+        {
+          "info": {
+            "name": "Create folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/folder",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will create a new folder. You can specify the folder name and location of the parent folder where this new folder should be created.\n"
+        },
+        {
+          "info": {
+            "name": "Delete folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.imagekit.io/v1/folder",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will delete a folder and all its contents permanently. The API returns an empty response.\n"
+        },
+        {
+          "info": {
+            "name": "Copy folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/bulkJobs/copyFolder",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will copy one folder into another. The selected folder, its nested folders, files, and their versions (in `includeVersions` is set to true) are copied in this operation. Note: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file version history.\n"
+        },
+        {
+          "info": {
+            "name": "Move folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/bulkJobs/moveFolder",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will move one folder into another. The selected folder, its nested folders, files, and their versions are moved in this operation. Note: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file version history.\n"
+        },
+        {
+          "info": {
+            "name": "Rename folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/bulkJobs/renameFolder",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API allows you to rename an existing folder. The folder and all its nested assets and sub-folders will remain unchanged, but their paths will be updated to reflect the new folder name.\n"
+        },
+        {
+          "info": {
+            "name": "Bulk job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/bulkJobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The `jobId` is returned in the response of bulk job API e.g. copy folder or move folder API.\n"
+              }
+            ]
+          },
+          "docs": "This API returns the status of a bulk job like copy and move folder operations.\n"
+        },
+        {
+          "info": {
+            "name": "List all saved extensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/saved-extensions"
+          },
+          "docs": "This API returns an array of all saved extensions for your account. Saved extensions allow you to save complex extension configurations and reuse them by referencing them by ID in upload or update file APIs.\n"
+        },
+        {
+          "info": {
+            "name": "Create saved extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/saved-extensions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API creates a new saved extension. Saved extensions allow you to save complex extension configurations (like AI tasks) and reuse them by referencing the ID in upload or update file APIs.\n\n**Saved extension limit** \\\nYou can create a maximum of 100 saved extensions per account.\n"
+        },
+        {
+          "info": {
+            "name": "Get saved extension details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/saved-extensions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the saved extension.\n"
+              }
+            ]
+          },
+          "docs": "This API returns details of a specific saved extension by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update saved extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.imagekit.io/v1/saved-extensions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the saved extension.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API updates an existing saved extension. You can update the name, description, or config.\n"
+        },
+        {
+          "info": {
+            "name": "Delete saved extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.imagekit.io/v1/saved-extensions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the saved extension.\n"
+              }
+            ]
+          },
+          "docs": "This API deletes a saved extension permanently.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

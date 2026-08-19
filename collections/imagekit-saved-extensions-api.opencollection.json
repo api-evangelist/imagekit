@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ImageKit Account Management API Saved Extensions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Saved Extensions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all saved extensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/saved-extensions"
+          },
+          "docs": "This API returns an array of all saved extensions for your account. Saved extensions allow you to save complex extension configurations and reuse them by referencing them by ID in upload or update file APIs.\n"
+        },
+        {
+          "info": {
+            "name": "Create saved extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/saved-extensions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API creates a new saved extension. Saved extensions allow you to save complex extension configurations (like AI tasks) and reuse them by referencing the ID in upload or update file APIs.\n\n**Saved extension limit** \\\nYou can create a maximum of 100 saved extensions per account.\n"
+        },
+        {
+          "info": {
+            "name": "Get saved extension details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/saved-extensions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the saved extension.\n"
+              }
+            ]
+          },
+          "docs": "This API returns details of a specific saved extension by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update saved extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.imagekit.io/v1/saved-extensions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the saved extension.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API updates an existing saved extension. You can update the name, description, or config.\n"
+        },
+        {
+          "info": {
+            "name": "Delete saved extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.imagekit.io/v1/saved-extensions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the saved extension.\n"
+              }
+            ]
+          },
+          "docs": "This API deletes a saved extension permanently.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

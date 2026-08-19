@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ImageKit Account Management API File Metadata API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "File Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get uploaded file metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/files/:fileId/metadata",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in the list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "You can programmatically get image EXIF, pHash, and other metadata for uploaded files in the ImageKit.io media library using this API.\n\nYou can also get the metadata in upload API response by passing `metadata` in `responseFields` parameter.\n"
+        },
+        {
+          "info": {
+            "name": "Get metadata from remote URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/metadata",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "Should be a valid file URL. It should be accessible using your ImageKit.io account.\n"
+              }
+            ]
+          },
+          "docs": "Get image EXIF, pHash, and other metadata from ImageKit.io powered remote URL using this API.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ImageKit Account Management API Dummy Test API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dummy Test",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Dummy test endpoint using all shared models",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/dummy/test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Internal test endpoint for SDK generation purposes only. This endpoint demonstrates usage of all shared models defined in the Stainless configuration and is not intended for public consumption.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,285 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ImageKit Account Management API Managing assets API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Managing assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get file details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/files/:fileId/details",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in the list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API returns an object with details or attributes about the current version of the file."
+        },
+        {
+          "info": {
+            "name": "Update file details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.imagekit.io/v1/files/:fileId/details",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API updates the details or attributes of the current version of the file. You can update `tags`, `customCoordinates`, `customMetadata`, publication status, remove existing `AITags` and apply extensions using this API.\n"
+        },
+        {
+          "info": {
+            "name": "Delete file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.imagekit.io/v1/files/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API deletes the file and all its file versions permanently.\n\nNote: If a file or specific transformation has been requested in the past, then the response is cached. Deleting a file does not purge the cache. You can purge the cache using purge cache API.\n"
+        },
+        {
+          "info": {
+            "name": "Delete multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/batch/deleteByFileIds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API deletes multiple files and all their file versions permanently.\n\nNote: If a file or specific transformation has been requested in the past, then the response is cached. Deleting a file does not purge the cache. You can purge the cache using purge cache API.\n\nA maximum of 100 files can be deleted at a time.\n"
+        },
+        {
+          "info": {
+            "name": "Copy file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/copy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will copy a file from one folder to another. \n\nNote: If any file at the destination has the same name as the source file, then the source file and its versions (if `includeFileVersions` is set to true) will be appended to the destination file version history.\n"
+        },
+        {
+          "info": {
+            "name": "Move file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/move",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will move a file and all its versions from one folder to another. \n\nNote: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file.\n"
+        },
+        {
+          "info": {
+            "name": "Rename file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.imagekit.io/v1/files/rename",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "You can rename an already existing file in the media library using rename file API. This operation would rename all file versions of the file. \n\nNote: The old URLs will stop working. The file/file version URLs cached on CDN will continue to work unless a purge is requested.\n"
+        },
+        {
+          "info": {
+            "name": "List file versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/files/:fileId/versions",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API returns details of all versions of a file.\n"
+        },
+        {
+          "info": {
+            "name": "Get file version details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.imagekit.io/v1/files/:fileId/versions/:versionId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `versionId` of the uploaded file. `versionId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API returns an object with details or attributes of a file version."
+        },
+        {
+          "info": {
+            "name": "Delete file version",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.imagekit.io/v1/files/:fileId/versions/:versionId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `versionId` of the uploaded file. `versionId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API deletes a non-current file version permanently. The API returns an empty response.\n\nNote: If you want to delete all versions of a file, use the delete file API.\n"
+        },
+        {
+          "info": {
+            "name": "Restore file version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.imagekit.io/v1/files/:fileId/versions/:versionId/restore",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.\n"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique `versionId` of the uploaded file. `versionId` is returned in list and search assets API and upload API.\n"
+              }
+            ]
+          },
+          "docs": "This API restores a file version as the current file version.\n"
+        },
+        {
+          "info": {
+            "name": "Add tags (bulk)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/addTags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API adds tags to multiple files in bulk. A maximum of 50 files can be specified at a time.\n"
+        },
+        {
+          "info": {
+            "name": "Remove tags (bulk)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/removeTags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API removes tags from multiple files in bulk. A maximum of 50 files can be specified at a time.\n"
+        },
+        {
+          "info": {
+            "name": "Remove AI tags (bulk)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.imagekit.io/v1/files/removeAITags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API removes AITags from multiple files in bulk. A maximum of 50 files can be specified at a time.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
