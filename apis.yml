@@ -78,21 +78,6 @@ apis:
     url: https://imagekit.io/docs/api-overview
   - type: GraphQL
     url: graphql/imagekit-graphql.md
-- aid: imagekit:imagekit-custom-metadata-fields-api
-  name: ImageKit Custom metadata fields API
-  description: >-
-    The Custom metadata fields API from ImageKit — 2 operation(s) for custom metadata fields.
-  humanURL: https://imagekit.io/docs/api-overview
-  baseURL: https://api.imagekit.io
-  tags:
-  - Custom metadata fields
-  properties:
-  - type: OpenAPI
-    url: openapi/imagekit-custom-metadata-fields-api-openapi.yml
-  - type: Documentation
-    url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
 - aid: imagekit:imagekit-digital-asset-management-dam-api
   name: ImageKit Digital Asset Management (DAM) API
   description: >-
@@ -137,62 +122,6 @@ apis:
     url: https://imagekit.io/docs/api-overview
   - type: GraphQL
     url: graphql/imagekit-graphql.md
-- aid: imagekit:imagekit-managing-assets-api
-  name: ImageKit Managing assets API
-  description: The Managing assets API from ImageKit — 12 operation(s) for managing assets.
-  humanURL: https://imagekit.io/docs/api-overview
-  baseURL: https://api.imagekit.io
-  tags:
-  - Managing assets
-  properties:
-  - type: OpenAPI
-    url: openapi/imagekit-managing-assets-api-openapi.yml
-  - type: Documentation
-    url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
-- aid: imagekit:imagekit-managing-folders-api
-  name: ImageKit Managing folders API
-  description: The Managing folders API from ImageKit — 5 operation(s) for managing folders.
-  humanURL: https://imagekit.io/docs/api-overview
-  baseURL: https://api.imagekit.io
-  tags:
-  - Managing folders
-  properties:
-  - type: OpenAPI
-    url: openapi/imagekit-managing-folders-api-openapi.yml
-  - type: Documentation
-    url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
-- aid: imagekit:imagekit-origins-api
-  name: ImageKit Origins API
-  description: The Origins API from ImageKit — 2 operation(s) for origins.
-  humanURL: https://imagekit.io/docs/api-overview
-  baseURL: https://api.imagekit.io
-  tags:
-  - Origins
-  properties:
-  - type: OpenAPI
-    url: openapi/imagekit-origins-api-openapi.yml
-  - type: Documentation
-    url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
-- aid: imagekit:imagekit-saved-extensions-api
-  name: ImageKit Saved Extensions API
-  description: The Saved Extensions API from ImageKit — 2 operation(s) for saved extensions.
-  humanURL: https://imagekit.io/docs/api-overview
-  baseURL: https://api.imagekit.io
-  tags:
-  - Saved Extensions
-  properties:
-  - type: OpenAPI
-    url: openapi/imagekit-saved-extensions-api-openapi.yml
-  - type: Documentation
-    url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
 - aid: imagekit:imagekit-upload-file-api
   name: ImageKit Upload File API
   description: The Upload File API from ImageKit — 2 operation(s) for upload file.
@@ -203,20 +132,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/imagekit-upload-file-api-openapi.yml
-  - type: Documentation
-    url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
-- aid: imagekit:imagekit-url-endpoints-api
-  name: ImageKit URL endpoints API
-  description: The URL endpoints API from ImageKit — 2 operation(s) for url endpoints.
-  humanURL: https://imagekit.io/docs/api-overview
-  baseURL: https://api.imagekit.io
-  tags:
-  - URL endpoints
-  properties:
-  - type: OpenAPI
-    url: openapi/imagekit-url-endpoints-api-openapi.yml
   - type: Documentation
     url: https://imagekit.io/docs/api-overview
   - type: GraphQL
