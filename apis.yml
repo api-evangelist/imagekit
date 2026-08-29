@@ -149,6 +149,9 @@ apis:
   - type: GraphQL
     url: graphql/imagekit-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/imagekit-capability-edges.yml
+  name: ImageKit Business Capability Map
 - type: AgenticAccess
   url: agentic-access/imagekit-agentic-access.yml
 - type: DomainSecurity

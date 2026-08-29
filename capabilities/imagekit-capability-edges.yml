@@ -1,0 +1,47 @@
+slug: imagekit
+provider: ImageKit
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Digital Asset Management (DAM)
+  spec_file: imagekit-digital-asset-management-dam-api-openapi.yml
+  capability_id: BC-3710.20
+  capability_id_l1: BC-3710
+  capability_name: Metadata Cataloguing
+  confidence: 0.8
+  evidence: 'GET /v1/files  list-and-search-assets  List and search assets; POST /v1/customMetadataFields  Create
+    new field; PATCH /v1/files/{fileId}/details  Update file details; schemas: CustomMetadataField, AITag,
+    AutoTaggingExtension'
+  reason: Operations author and curate custom metadata fields, tags and file details so assets are discoverable,
+    alongside asset organisation (copy/move/rename) — this is media asset management, most specifically
+    metadata cataloguing.
+- tag: Caching
+  spec_file: imagekit-caching-api-openapi.yml
+  capability_id: BC-3740.30
+  capability_id_l1: BC-3740
+  capability_name: Content Delivery Network Operations
+  confidence: 0.78
+  evidence: POST /v1/files/purge  purge-cache  Purge cache; GET /v1/files/purge/{requestId}  purge-status  Get
+    purge status
+  reason: Cache purge and purge-status operations on a media delivery CDN map directly to CDN operations,
+    whose definition explicitly covers caching management for content distribution.
+- tag: File Metadata
+  spec_file: imagekit-file-metadata-api-openapi.yml
+  capability_id: BC-3710.20
+  capability_id_l1: BC-3710
+  capability_name: Metadata Cataloguing
+  confidence: 0.7
+  evidence: 'GET /v1/files/{fileId}/metadata  Get uploaded file metadata; GET /v1/metadata  Get metadata
+    from remote URL; schemas: ExifImage, ExifDetails, Metadata'
+  reason: Retrieval of technical/embedded metadata (EXIF, GPS, thumbnail) for media files in the asset
+    platform corresponds to technical metadata cataloguing of media assets; read-only scope tempers confidence.
