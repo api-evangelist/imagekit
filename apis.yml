@@ -1,10 +1,9 @@
 aid: imagekit
 name: ImageKit
-description: Real-time image and video optimization CDN with a REST API for media
-  management, transformations, folder operations, and performance analytics. ImageKit
-  provides a unified URL-based API with 50+ transformations, intelligent format optimization,
-  compression, and an integrated Digital Asset Management (DAM) platform for managing
-  and delivering media at scale.
+description: Real-time image and video optimization CDN with a REST API for media management, transformations,
+  folder operations, and performance analytics. ImageKit provides a unified URL-based API with 50+ transformations,
+  intelligent format optimization, compression, and an integrated Digital Asset Management (DAM) platform
+  for managing and delivering media at scale.
 type: Index
 deliveryModel:
   model: saas
@@ -35,7 +34,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/imagekit.png
 url: https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/apis.yml
 created: '2026-06-12'
-modified: '2026-06-12'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 tags:
 - Image
@@ -62,9 +61,8 @@ tags_raw:
 - Upload
 apis:
 - aid: imagekit:imagekit-account-management-api-api
-  name: ImageKit Account Management API API
-  description: >-
-    The Account Management API API from ImageKit — 5 operation(s) for account management api.
+  name: ImageKit Account Management API
+  description: The Account Management API API from ImageKit — 5 operation(s) for account management api.
   humanURL: https://imagekit.io/docs/api-overview
   baseURL: https://api.imagekit.io
   tags:
@@ -92,9 +90,8 @@ apis:
     url: graphql/imagekit-graphql.md
 - aid: imagekit:imagekit-digital-asset-management-dam-api
   name: ImageKit Digital Asset Management (DAM) API
-  description: >-
-    The Digital Asset Management (DAM) API from ImageKit — 22 operation(s) for digital asset management
-    (dam).
+  description: The Digital Asset Management (DAM) API from ImageKit — 22 operation(s) for digital asset
+    management (dam).
   humanURL: https://imagekit.io/docs/api-overview
   baseURL: https://api.imagekit.io
   tags:
