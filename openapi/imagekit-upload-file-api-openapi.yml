@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ImageKit Account Management API Upload File API
+  title: ImageKit Upload File API
   version: 1.0.0
-  description: Checkout [API overview](/docs/api-overview) to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
+  description: Checkout API overview to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
   contact:
     email: developer@imagekit.io
     name: ImageKit Team
@@ -23,10 +23,10 @@ paths:
       - Upload File
       operationId: upload-file
       summary: Upload file V1
-      description: 'ImageKit.io allows you to upload files directly from both the server and client sides. For server-side uploads, private API key authentication is used. For client-side uploads, generate a one-time `token`, `signature`, and `expire` from your secure backend using private API. [Learn more](/docs/api-reference/upload-file/upload-file#how-to-implement-client-side-file-upload) about how to implement client-side file upload.
+      description: 'ImageKit.io allows you to upload files directly from both the server and client sides. For server-side uploads, private API key authentication is used. For client-side uploads, generate a one-time `token`, `signature`, and `expire` from your secure backend using private API. Learn more about how to implement client-side file upload.
 
 
-        The [V2 API](/docs/api-reference/upload-file/upload-file-v2) enhances security by verifying the entire payload using JWT.
+        The V2 API enhances security by verifying the entire payload using JWT.
 
 
         **File size limit** \
@@ -42,11 +42,9 @@ paths:
         **Demo applications**
 
 
-        - A full-fledged [upload widget using Uppy](https://github.com/imagekit-samples/uppy-uploader), supporting file selections from local storage, URL, Dropbox, Google Drive, Instagram, and more.
+        - A full-fledged upload widget using Uppy, supporting file selections from local storage, URL, Dropbox, Google Drive, Instagram, and more.
 
-        - [Quick start guides](/docs/quick-start-guides) for various frameworks and technologies.
-
-        '
+        - Quick start guides for various frameworks and technologies.'
       requestBody:
         content:
           multipart/form-data:
@@ -120,7 +118,7 @@ paths:
       description: 'The V2 API enhances security by verifying the entire payload using JWT. This API is in beta.
 
 
-        ImageKit.io allows you to upload files directly from both the server and client sides. For server-side uploads, private API key authentication is used. For client-side uploads, generate a one-time `token` from your secure backend using private API. [Learn more](/docs/api-reference/upload-file/upload-file-v2#how-to-implement-secure-client-side-file-upload) about how to implement secure client-side file upload.
+        ImageKit.io allows you to upload files directly from both the server and client sides. For server-side uploads, private API key authentication is used. For client-side uploads, generate a one-time `token` from your secure backend using private API. Learn more about how to implement secure client-side file upload.
 
 
         **File size limit** \
@@ -136,11 +134,9 @@ paths:
         **Demo applications**
 
 
-        - A full-fledged [upload widget using Uppy](https://github.com/imagekit-samples/uppy-uploader), supporting file selections from local storage, URL, Dropbox, Google Drive, Instagram, and more.
+        - A full-fledged upload widget using Uppy, supporting file selections from local storage, URL, Dropbox, Google Drive, Instagram, and more.
 
-        - [Quick start guides](/docs/quick-start-guides) for various frameworks and technologies.
-
-        '
+        - Quick start guides for various frameworks and technologies.'
       requestBody:
         content:
           multipart/form-data:
@@ -208,6 +204,200 @@ paths:
                     example: For support kindly contact us at support@imagekit.io.
 components:
   schemas:
+    Extensions:
+      title: Extensions Array
+      type: array
+      items:
+        discriminator:
+          propertyName: name
+        anyOf:
+        - $ref: '#/components/schemas/RemovedotBGExtension'
+        - $ref: '#/components/schemas/AutoTaggingExtension'
+        - $ref: '#/components/schemas/AutoDescriptionExtension'
+        - $ref: '#/components/schemas/AITasksExtension'
+        - $ref: '#/components/schemas/SavedExtensionReference'
+      description: 'Array of extensions to be applied to the asset. Each extension can be configured with specific parameters based on the extension type.
+
+        '
+      example:
+      - name: remove-bg
+        options:
+          add_shadow: true
+          bg_colour: green
+      - name: google-auto-tagging
+        maxTags: 5
+        minConfidence: 95
+      - name: ai-auto-description
+      - name: ai-tasks
+        tasks:
+        - type: select_tags
+          instruction: What types of clothing items are visible in this image?
+          vocabulary:
+          - shirt
+          - tshirt
+          - dress
+          - trousers
+          - jacket
+        - type: yes_no
+          instruction: Is this a luxury or high-end fashion item?
+          on_yes:
+            add_tags:
+            - luxury
+            - premium
+      - name: saved-extension
+        id: ext_abc123
+    AutoDescriptionExtension:
+      title: Auto description
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Specifies the auto description extension.
+          enum:
+          - ai-auto-description
+    Upload:
+      description: Object containing details of a successful upload.
+      type: object
+      properties:
+        fileId:
+          type: string
+          description: Unique fileId. Store this fileld in your database, as this will be used to perform update action on this file.
+        name:
+          type: string
+          description: Name of the asset.
+        filePath:
+          type: string
+          description: The relative path of the file in the media library e.g. `/marketing-assets/new-banner.jpg`.
+        url:
+          type: string
+          description: A publicly accessible URL of the file.
+        thumbnailUrl:
+          type: string
+          description: In the case of an image, a small thumbnail URL.
+        height:
+          type: number
+          description: Height of the image in pixels (Only for images)
+        width:
+          type: number
+          description: Width of the image in pixels (Only for Images)
+        size:
+          type: number
+          description: Size of the image file in Bytes.
+        bitRate:
+          type: integer
+          description: The bit rate of the video in kbps (only for video).
+        duration:
+          type: integer
+          description: The duration of the video in seconds (only for video).
+        audioCodec:
+          type: string
+          description: The audio codec used in the video (only for video).
+        videoCodec:
+          type: string
+          description: The video codec used in the video (only for video).
+        tags:
+          type: array
+          items:
+            type: string
+          description: The array of tags associated with the asset. If no tags are set, it will be `null`. Send `tags` in `responseFields` in API request to get the value of this field.
+        AITags:
+          type: array
+          items:
+            $ref: '#/components/schemas/AITag'
+          description: 'An array of tags assigned to the uploaded file by auto tagging.
+
+            '
+        versionInfo:
+          $ref: '#/components/schemas/VersionInfo'
+        isPrivateFile:
+          type: boolean
+          description: 'Is the file marked as private. It can be either `true` or `false`. Send `isPrivateFile` in `responseFields` in API request to get the value of this field.
+
+            '
+        isPublished:
+          type: boolean
+          description: 'Is the file published or in draft state. It can be either `true` or `false`. Send `isPublished` in `responseFields` in API request to get the value of this field.
+
+            '
+        customCoordinates:
+          type: string
+          description: 'Value of custom coordinates associated with the image in the format `x,y,width,height`. If `customCoordinates` are not defined, then it is `null`. Send `customCoordinates` in `responseFields` in API request to get the value of this field.
+
+            '
+        fileType:
+          type: string
+          description: 'Type of the uploaded file. Possible values are `image`, `non-image`.
+
+            '
+        customMetadata:
+          description: 'A key-value data associated with the asset. Use `responseField` in API request to get `customMetadata` in the upload API response. Before setting any custom metadata on an asset, you have to create the field using custom metadata fields API. Send `customMetadata` in `responseFields` in API request to get the value of this field.
+
+            '
+          $ref: '#/components/schemas/CustomMetadata'
+        selectedFieldsSchema:
+          $ref: '#/components/schemas/SelectedFieldsSchema'
+        extensionStatus:
+          type: object
+          description: 'Extension names with their processing status at the time of completion of the request. It could have one of the following status values:
+
+
+            `success`: The extension has been successfully applied.
+
+            `failed`: The extension has failed and will not be retried.
+
+            `pending`: The extension will finish processing in some time. On completion, the final status (success / failed) will be sent to the `webhookUrl` provided.
+
+
+            If no extension was requested, then this parameter is not returned.
+
+            '
+          properties:
+            google-auto-tagging:
+              type: string
+              enum:
+              - success
+              - pending
+              - failed
+            aws-auto-tagging:
+              type: string
+              enum:
+              - success
+              - pending
+              - failed
+            remove-bg:
+              type: string
+              enum:
+              - success
+              - pending
+              - failed
+            ai-auto-description:
+              type: string
+              enum:
+              - success
+              - pending
+              - failed
+            ai-tasks:
+              type: string
+              enum:
+              - success
+              - pending
+              - failed
+        metadata:
+          type: object
+          $ref: '#/components/schemas/Metadata'
+          description: 'Legacy metadata. Send `metadata` in `responseFields` in API request to get metadata in the upload API response.
+
+            '
+        embeddedMetadata:
+          description: Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data. Send `embeddedMetadata` in `responseFields` in API request to get embeddedMetadata in the upload API response.
+          $ref: '#/components/schemas/EmbeddedMetadata'
+        description:
+          type: string
+          description: 'Optional text to describe the contents of the file. Can be set by the user or the ai-auto-description extension.
+
+            '
     RemovedotBGExtension:
       title: Remove background
       type: object
@@ -244,138 +434,18 @@ components:
               description: 'Sets a background image from a URL. If this parameter is set, `bg_color` must be empty.
 
                 '
-    Gps:
-      description: Object containing GPS information.
+    VersionInfo:
       type: object
-      additionalProperties: true
       properties:
-        GPSVersionID:
-          type: array
-          items:
-            type: integer
-        GPSLatitudeRef:
+        id:
           type: string
-        GPSLatitude:
-          type: array
-          items:
-            type: number
-        GPSLongitudeRef:
-          type: string
-        GPSLongitude:
-          type: array
-          items:
-            type: number
-        GPSAltitudeRef:
-          type: integer
-        GPSAltitude:
-          type: number
-        GPSTimeStamp:
-          type: array
-          items:
-            type: number
-        GPSImgDirectionRef:
-          type: string
-        GPSImgDirection:
-          type: number
-        GPSDateStamp:
-          type: string
-    ExifImage:
-      description: Object containing EXIF image information.
-      type: object
-      additionalProperties: true
-      properties:
-        Make:
-          type: string
-        Model:
-          type: string
-        ImageDescription:
-          type: string
-        Artist:
-          type: string
-        Copyright:
-          type: string
-        Orientation:
-          type: integer
-        XResolution:
-          type: number
-        YResolution:
-          type: number
-        ResolutionUnit:
-          type: integer
-        Software:
-          type: string
-        ModifyDate:
-          type: string
-        YCbCrPositioning:
-          type: integer
-        ExifOffset:
-          type: integer
-        GPSInfo:
-          type: integer
-    AITaskYesNo:
-      title: AI Task - Yes/No
-      type: object
-      required:
-      - type
-      - instruction
-      properties:
-        type:
-          type: string
-          description: Task type that asks a yes/no question and executes actions based on the answer.
-          enum:
-          - yes_no
-        instruction:
-          type: string
-          minLength: 1
-          maxLength: 2000
-          description: The yes/no question for the AI to answer about the image.
-          example: Is this a luxury or high-end fashion item?
-        on_yes:
-          $ref: '#/components/schemas/AITaskAction'
-          description: Actions to execute if the AI answers yes.
-        on_no:
-          $ref: '#/components/schemas/AITaskAction'
-          description: Actions to execute if the AI answers no.
-        on_unknown:
-          $ref: '#/components/schemas/AITaskAction'
-          description: Actions to execute if the AI cannot determine the answer.
-    Thumbnail:
-      description: Object containing Thumbnail information.
-      type: object
-      additionalProperties: true
-      properties:
-        Compression:
-          type: integer
-        XResolution:
-          type: number
-        YResolution:
-          type: number
-        ResolutionUnit:
-          type: integer
-        ThumbnailOffset:
-          type: integer
-        ThumbnailLength:
-          type: integer
-    AutoTaggingExtension:
-      title: Auto tagging
-      type: object
-      required:
-      - name
-      - minConfidence
-      - maxTags
-      properties:
+          description: Unique identifier of the file version.
         name:
           type: string
-          enum:
-          - google-auto-tagging
-          - aws-auto-tagging
-          description: Specifies the auto-tagging extension used.
-        minConfidence:
-          type: integer
-          description: Minimum confidence level for tags to be considered valid.
-        maxTags:
-          type: integer
-          description: Maximum number of tags to attach to the asset.
+          description: Name of the file version.
+      description: 'An object containing the file or file version''s `id` (versionId) and `name`.
+
+        '
     AITaskAction:
       title: AI Task Action
       type: object
@@ -440,48 +510,46 @@ components:
                 description: Name of the custom metadata field to remove.
           example:
           - field: price_range
-    Extensions:
-      title: Extensions Array
-      type: array
-      items:
-        discriminator:
-          propertyName: name
-        anyOf:
-        - $ref: '#/components/schemas/RemovedotBGExtension'
-        - $ref: '#/components/schemas/AutoTaggingExtension'
-        - $ref: '#/components/schemas/AutoDescriptionExtension'
-        - $ref: '#/components/schemas/AITasksExtension'
-        - $ref: '#/components/schemas/SavedExtensionReference'
-      description: 'Array of extensions to be applied to the asset. Each extension can be configured with specific parameters based on the extension type.
-
-        '
-      example:
-      - name: remove-bg
-        options:
-          add_shadow: true
-          bg_colour: green
-      - name: google-auto-tagging
-        maxTags: 5
-        minConfidence: 95
-      - name: ai-auto-description
-      - name: ai-tasks
+    SavedExtensionReference:
+      title: Saved Extension Reference
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        name:
+          type: string
+          description: Indicates this is a reference to a saved extension.
+          enum:
+          - saved-extension
+        id:
+          type: string
+          description: The unique ID of the saved extension to apply.
+          example: ext_abc123
+    AITasksExtension:
+      title: AI Tasks
+      type: object
+      required:
+      - name
+      - tasks
+      properties:
+        name:
+          type: string
+          description: Specifies the AI tasks extension for automated image analysis using AI models.
+          enum:
+          - ai-tasks
         tasks:
-        - type: select_tags
-          instruction: What types of clothing items are visible in this image?
-          vocabulary:
-          - shirt
-          - tshirt
-          - dress
-          - trousers
-          - jacket
-        - type: yes_no
-          instruction: Is this a luxury or high-end fashion item?
-          on_yes:
-            add_tags:
-            - luxury
-            - premium
-      - name: saved-extension
-        id: ext_abc123
+          type: array
+          minItems: 1
+          maxItems: 10
+          description: Array of task objects defining AI operations to perform on the asset.
+          items:
+            discriminator:
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/AITaskSelectTags'
+            - $ref: '#/components/schemas/AITaskSelectMetadata'
+            - $ref: '#/components/schemas/AITaskYesNo'
     FileUploadV2:
       type: object
       required:
@@ -660,232 +728,21 @@ components:
 
             '
           example: Running shoes
-    AITaskSelectMetadata:
-      title: AI Task - Select Metadata
+    AITag:
       type: object
-      required:
-      - type
-      - instruction
-      - field
       properties:
-        type:
+        name:
           type: string
-          description: Task type that analyzes the image and sets a custom metadata field value from a vocabulary.
-          enum:
-          - select_metadata
-        instruction:
+          description: Name of the tag.
+        confidence:
+          type: number
+          description: Confidence score of the tag.
+        source:
           type: string
-          minLength: 1
-          maxLength: 2000
-          description: The question or instruction for the AI to analyze the image.
-          example: What is the primary color of the clothing?
-        field:
-          type: string
-          description: Name of the custom metadata field to set. The field must exist in your account.
-          example: primary_color
-        vocabulary:
-          type: array
-          minItems: 1
-          maxItems: 30
-          description: An array of possible values matching the custom metadata field type. If not provided for SingleSelect or MultiSelect field types, all values from the custom metadata field definition will be used. When providing large vocabularies (above 30 items), the AI may not strictly adhere to the list.
-          items:
-            oneOf:
-            - type: string
-            - type: number
-            - type: boolean
-          example:
-          - red
-          - blue
-          - green
-          - black
-          - white
-        min_selections:
-          type: integer
-          minimum: 0
-          description: Minimum number of values to select from the vocabulary.
-        max_selections:
-          type: integer
-          minimum: 1
-          description: Maximum number of values to select from the vocabulary.
-    Metadata:
-      description: JSON object containing metadata.
-      type: object
-      additionalProperties: true
-      properties:
-        height:
-          type: integer
-          description: The height of the image or video in pixels.
-        width:
-          type: integer
-          description: The width of the image or video in pixels.
-        size:
-          type: integer
-          description: The file size in bytes.
-        format:
-          type: string
-          description: The format of the file (e.g., 'jpg', 'mp4').
-        hasColorProfile:
-          type: boolean
-          description: Indicates if the image has a color profile.
-        quality:
-          type: integer
-          description: The quality indicator of the image.
-        density:
-          type: integer
-          description: The density of the image in DPI.
-        hasTransparency:
-          type: boolean
-          description: Indicates if the image contains transparent areas.
-        pHash:
-          type: string
-          description: Perceptual hash of the image.
-        bitRate:
-          type: integer
-          description: The bit rate of the video in kbps (only for video).
-        duration:
-          type: integer
-          description: The duration of the video in seconds (only for video).
-        audioCodec:
-          type: string
-          description: The audio codec used in the video (only for video).
-        videoCodec:
-          type: string
-          description: The video codec used in the video (only for video).
-        exif:
-          type: object
-          additionalProperties: true
-          properties:
-            image:
-              $ref: '#/components/schemas/ExifImage'
-            thumbnail:
-              $ref: '#/components/schemas/Thumbnail'
-            exif:
-              $ref: '#/components/schemas/ExifDetails'
-            gps:
-              $ref: '#/components/schemas/Gps'
-            interoperability:
-              $ref: '#/components/schemas/Interoperability'
-            makernote:
-              type: object
-              additionalProperties: true
-    CustomMetadata:
-      type: object
-      description: 'A key-value data associated with the asset.
+          description: Source of the tag. Possible values are `google-auto-tagging` and `aws-auto-tagging`.
+      description: 'AI-generated tag associated with an image. These tags can be added using the `google-auto-tagging` or `aws-auto-tagging` extensions.
 
         '
-      additionalProperties: true
-    EmbeddedMetadata:
-      type: object
-      additionalProperties: true
-      description: Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data.
-    TransformationObject:
-      type: object
-      additionalProperties: false
-      x-stainless-naming:
-        java:
-          type_name: UploadTransformation
-      description: "Configure pre-processing (`pre`) and post-processing (`post`) transformations.\n\n- `pre` — applied before the file is uploaded to the Media Library.  \n  Useful for reducing file size or applying basic optimizations upfront (e.g., resize, compress).\n\n- `post` — applied immediately after upload.  \n  Ideal for generating transformed versions (like video encodes or thumbnails) in advance, so they're ready for delivery without delay.\n\nYou can mix and match any combination of post-processing types.\n"
-      properties:
-        pre:
-          type: string
-          description: 'Transformation string to apply before uploading the file to the Media Library. Useful for optimizing files at ingestion.
-
-            '
-          example: w-300,h-300,q-80
-        post:
-          type: array
-          description: "List of transformations to apply *after* the file is uploaded.  \nEach item must match one of the following types:\n`transformation`, `gif-to-video`, `thumbnail`, `abs`.\n"
-          items:
-            discriminator:
-              propertyName: type
-            oneOf:
-            - type: object
-              title: Simple post-transformation
-              required:
-              - type
-              - value
-              additionalProperties: false
-              properties:
-                type:
-                  type: string
-                  description: Transformation type.
-                  enum:
-                  - transformation
-                value:
-                  type: string
-                  description: "Transformation string (e.g. `w-200,h-200`).  \nSame syntax as ImageKit URL-based transformations.\n"
-              example:
-                type: transformation
-                value: w-400,h-400,q-70
-            - type: object
-              title: Convert GIF to video
-              required:
-              - type
-              additionalProperties: false
-              properties:
-                type:
-                  type: string
-                  description: Converts an animated GIF into an MP4.
-                  enum:
-                  - gif-to-video
-                value:
-                  type: string
-                  description: "Optional transformation string to apply to the output video.  \n**Example**: `q-80`\n"
-              example:
-                type: gif-to-video
-                value: q-90
-            - type: object
-              title: Generate a thumbnail
-              required:
-              - type
-              additionalProperties: false
-              properties:
-                type:
-                  type: string
-                  description: Generates a thumbnail image.
-                  enum:
-                  - thumbnail
-                value:
-                  type: string
-                  description: "Optional transformation string.  \n**Example**: `w-150,h-150`\n"
-              example:
-                type: thumbnail
-                value: w-150,h-150
-            - type: object
-              title: Adaptive Bitrate Streaming
-              required:
-              - type
-              - value
-              - protocol
-              additionalProperties: false
-              properties:
-                type:
-                  type: string
-                  description: Adaptive Bitrate Streaming (ABS) setup.
-                  enum:
-                  - abs
-                value:
-                  type: string
-                  description: 'List of different representations you want to create separated by an underscore.
-
-                    '
-                protocol:
-                  type: string
-                  enum:
-                  - hls
-                  - dash
-                  description: Streaming protocol to use (`hls` or `dash`).
-              example:
-                type: abs
-                value: sr-240_360_480_720_1080
-                protocol: hls
-      example:
-        post:
-        - type: thumbnail
-          value: w-150,h-150
-        - type: abs
-          value: sr-240_360_480_720_1080
-          protocol: dash
     FileUploadV1:
       type: object
       required:
@@ -1074,197 +931,53 @@ components:
 
             '
           example: Running shoes
-    Upload:
-      description: Object containing details of a successful upload.
-      type: object
-      properties:
-        fileId:
-          type: string
-          description: Unique fileId. Store this fileld in your database, as this will be used to perform update action on this file.
-        name:
-          type: string
-          description: Name of the asset.
-        filePath:
-          type: string
-          description: The relative path of the file in the media library e.g. `/marketing-assets/new-banner.jpg`.
-        url:
-          type: string
-          description: A publicly accessible URL of the file.
-        thumbnailUrl:
-          type: string
-          description: In the case of an image, a small thumbnail URL.
-        height:
-          type: number
-          description: Height of the image in pixels (Only for images)
-        width:
-          type: number
-          description: Width of the image in pixels (Only for Images)
-        size:
-          type: number
-          description: Size of the image file in Bytes.
-        bitRate:
-          type: integer
-          description: The bit rate of the video in kbps (only for video).
-        duration:
-          type: integer
-          description: The duration of the video in seconds (only for video).
-        audioCodec:
-          type: string
-          description: The audio codec used in the video (only for video).
-        videoCodec:
-          type: string
-          description: The video codec used in the video (only for video).
-        tags:
-          type: array
-          items:
-            type: string
-          description: The array of tags associated with the asset. If no tags are set, it will be `null`. Send `tags` in `responseFields` in API request to get the value of this field.
-        AITags:
-          type: array
-          items:
-            $ref: '#/components/schemas/AITag'
-          description: 'An array of tags assigned to the uploaded file by auto tagging.
-
-            '
-        versionInfo:
-          $ref: '#/components/schemas/VersionInfo'
-        isPrivateFile:
-          type: boolean
-          description: 'Is the file marked as private. It can be either `true` or `false`. Send `isPrivateFile` in `responseFields` in API request to get the value of this field.
-
-            '
-        isPublished:
-          type: boolean
-          description: 'Is the file published or in draft state. It can be either `true` or `false`. Send `isPublished` in `responseFields` in API request to get the value of this field.
-
-            '
-        customCoordinates:
-          type: string
-          description: 'Value of custom coordinates associated with the image in the format `x,y,width,height`. If `customCoordinates` are not defined, then it is `null`. Send `customCoordinates` in `responseFields` in API request to get the value of this field.
-
-            '
-        fileType:
-          type: string
-          description: 'Type of the uploaded file. Possible values are `image`, `non-image`.
-
-            '
-        customMetadata:
-          description: 'A key-value data associated with the asset. Use `responseField` in API request to get `customMetadata` in the upload API response. Before setting any custom metadata on an asset, you have to create the field using custom metadata fields API. Send `customMetadata` in `responseFields` in API request to get the value of this field.
-
-            '
-          $ref: '#/components/schemas/CustomMetadata'
-        selectedFieldsSchema:
-          $ref: '#/components/schemas/SelectedFieldsSchema'
-        extensionStatus:
-          type: object
-          description: 'Extension names with their processing status at the time of completion of the request. It could have one of the following status values:
-
-
-            `success`: The extension has been successfully applied.
-
-            `failed`: The extension has failed and will not be retried.
-
-            `pending`: The extension will finish processing in some time. On completion, the final status (success / failed) will be sent to the `webhookUrl` provided.
-
-
-            If no extension was requested, then this parameter is not returned.
-
-            '
-          properties:
-            google-auto-tagging:
-              type: string
-              enum:
-              - success
-              - pending
-              - failed
-            aws-auto-tagging:
-              type: string
-              enum:
-              - success
-              - pending
-              - failed
-            remove-bg:
-              type: string
-              enum:
-              - success
-              - pending
-              - failed
-            ai-auto-description:
-              type: string
-              enum:
-              - success
-              - pending
-              - failed
-            ai-tasks:
-              type: string
-              enum:
-              - success
-              - pending
-              - failed
-        metadata:
-          type: object
-          $ref: '#/components/schemas/Metadata'
-          description: 'Legacy metadata. Send `metadata` in `responseFields` in API request to get metadata in the upload API response.
-
-            '
-        embeddedMetadata:
-          description: Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data. Send `embeddedMetadata` in `responseFields` in API request to get embeddedMetadata in the upload API response.
-          $ref: '#/components/schemas/EmbeddedMetadata'
-        description:
-          type: string
-          description: 'Optional text to describe the contents of the file. Can be set by the user or the ai-auto-description extension.
-
-            '
-    AITag:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the tag.
-        confidence:
-          type: number
-          description: Confidence score of the tag.
-        source:
-          type: string
-          description: Source of the tag. Possible values are `google-auto-tagging` and `aws-auto-tagging`.
-      description: 'AI-generated tag associated with an image. These tags can be added using the `google-auto-tagging` or `aws-auto-tagging` extensions.
-
-        '
-    AITasksExtension:
-      title: AI Tasks
+    AITaskSelectMetadata:
+      title: AI Task - Select Metadata
       type: object
       required:
-      - name
-      - tasks
+      - type
+      - instruction
+      - field
       properties:
-        name:
+        type:
           type: string
-          description: Specifies the AI tasks extension for automated image analysis using AI models.
+          description: Task type that analyzes the image and sets a custom metadata field value from a vocabulary.
           enum:
-          - ai-tasks
-        tasks:
+          - select_metadata
+        instruction:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: The question or instruction for the AI to analyze the image.
+          example: What is the primary color of the clothing?
+        field:
+          type: string
+          description: Name of the custom metadata field to set. The field must exist in your account.
+          example: primary_color
+        vocabulary:
           type: array
           minItems: 1
-          maxItems: 10
-          description: Array of task objects defining AI operations to perform on the asset.
+          maxItems: 30
+          description: An array of possible values matching the custom metadata field type. If not provided for SingleSelect or MultiSelect field types, all values from the custom metadata field definition will be used. When providing large vocabularies (above 30 items), the AI may not strictly adhere to the list.
           items:
-            discriminator:
-              propertyName: type
             oneOf:
-            - $ref: '#/components/schemas/AITaskSelectTags'
-            - $ref: '#/components/schemas/AITaskSelectMetadata'
-            - $ref: '#/components/schemas/AITaskYesNo'
-    AutoDescriptionExtension:
-      title: Auto description
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Specifies the auto description extension.
-          enum:
-          - ai-auto-description
+            - type: string
+            - type: number
+            - type: boolean
+          example:
+          - red
+          - blue
+          - green
+          - black
+          - white
+        min_selections:
+          type: integer
+          minimum: 0
+          description: Minimum number of values to select from the vocabulary.
+        max_selections:
+          type: integer
+          minimum: 1
+          description: Maximum number of values to select from the vocabulary.
     AITaskSelectTags:
       title: AI Task - Select Tags
       type: object
@@ -1304,18 +1017,134 @@ components:
           type: integer
           minimum: 1
           description: Maximum number of tags to select from the vocabulary.
-    VersionInfo:
+    AutoTaggingExtension:
+      title: Auto tagging
       type: object
+      required:
+      - name
+      - minConfidence
+      - maxTags
       properties:
-        id:
-          type: string
-          description: Unique identifier of the file version.
         name:
           type: string
-          description: Name of the file version.
-      description: 'An object containing the file or file version''s `id` (versionId) and `name`.
+          enum:
+          - google-auto-tagging
+          - aws-auto-tagging
+          description: Specifies the auto-tagging extension used.
+        minConfidence:
+          type: integer
+          description: Minimum confidence level for tags to be considered valid.
+        maxTags:
+          type: integer
+          description: Maximum number of tags to attach to the asset.
+    TransformationObject:
+      type: object
+      additionalProperties: false
+      x-stainless-naming:
+        java:
+          type_name: UploadTransformation
+      description: "Configure pre-processing (`pre`) and post-processing (`post`) transformations.\n\n- `pre` — applied before the file is uploaded to the Media Library.  \n  Useful for reducing file size or applying basic optimizations upfront (e.g., resize, compress).\n\n- `post` — applied immediately after upload.  \n  Ideal for generating transformed versions (like video encodes or thumbnails) in advance, so they're ready for delivery without delay.\n\nYou can mix and match any combination of post-processing types.\n"
+      properties:
+        pre:
+          type: string
+          description: 'Transformation string to apply before uploading the file to the Media Library. Useful for optimizing files at ingestion.
 
-        '
+            '
+          example: w-300,h-300,q-80
+        post:
+          type: array
+          description: "List of transformations to apply *after* the file is uploaded.  \nEach item must match one of the following types:\n`transformation`, `gif-to-video`, `thumbnail`, `abs`.\n"
+          items:
+            discriminator:
+              propertyName: type
+            oneOf:
+            - type: object
+              title: Simple post-transformation
+              required:
+              - type
+              - value
+              additionalProperties: false
+              properties:
+                type:
+                  type: string
+                  description: Transformation type.
+                  enum:
+                  - transformation
+                value:
+                  type: string
+                  description: "Transformation string (e.g. `w-200,h-200`).  \nSame syntax as ImageKit URL-based transformations.\n"
+              example:
+                type: transformation
+                value: w-400,h-400,q-70
+            - type: object
+              title: Convert GIF to video
+              required:
+              - type
+              additionalProperties: false
+              properties:
+                type:
+                  type: string
+                  description: Converts an animated GIF into an MP4.
+                  enum:
+                  - gif-to-video
+                value:
+                  type: string
+                  description: "Optional transformation string to apply to the output video.  \n**Example**: `q-80`\n"
+              example:
+                type: gif-to-video
+                value: q-90
+            - type: object
+              title: Generate a thumbnail
+              required:
+              - type
+              additionalProperties: false
+              properties:
+                type:
+                  type: string
+                  description: Generates a thumbnail image.
+                  enum:
+                  - thumbnail
+                value:
+                  type: string
+                  description: "Optional transformation string.  \n**Example**: `w-150,h-150`\n"
+              example:
+                type: thumbnail
+                value: w-150,h-150
+            - type: object
+              title: Adaptive Bitrate Streaming
+              required:
+              - type
+              - value
+              - protocol
+              additionalProperties: false
+              properties:
+                type:
+                  type: string
+                  description: Adaptive Bitrate Streaming (ABS) setup.
+                  enum:
+                  - abs
+                value:
+                  type: string
+                  description: 'List of different representations you want to create separated by an underscore.
+
+                    '
+                protocol:
+                  type: string
+                  enum:
+                  - hls
+                  - dash
+                  description: Streaming protocol to use (`hls` or `dash`).
+              example:
+                type: abs
+                value: sr-240_360_480_720_1080
+                protocol: hls
+      example:
+        post:
+        - type: thumbnail
+          value: w-150,h-150
+        - type: abs
+          value: sr-240_360_480_720_1080
+          protocol: dash
     SelectedFieldsSchema:
       type: object
       description: 'This field is included in the response only if the Path policy feature is available in the plan.
@@ -1423,6 +1252,171 @@ components:
 
               '
             type: number
+    ExifImage:
+      description: Object containing EXIF image information.
+      type: object
+      additionalProperties: true
+      properties:
+        Make:
+          type: string
+        Model:
+          type: string
+        ImageDescription:
+          type: string
+        Artist:
+          type: string
+        Copyright:
+          type: string
+        Orientation:
+          type: integer
+        XResolution:
+          type: number
+        YResolution:
+          type: number
+        ResolutionUnit:
+          type: integer
+        Software:
+          type: string
+        ModifyDate:
+          type: string
+        YCbCrPositioning:
+          type: integer
+        ExifOffset:
+          type: integer
+        GPSInfo:
+          type: integer
+    EmbeddedMetadata:
+      type: object
+      additionalProperties: true
+      description: Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data.
+    Interoperability:
+      description: JSON object.
+      type: object
+      additionalProperties: true
+      properties:
+        InteropIndex:
+          type: string
+        InteropVersion:
+          type: string
+    Thumbnail:
+      description: Object containing Thumbnail information.
+      type: object
+      additionalProperties: true
+      properties:
+        Compression:
+          type: integer
+        XResolution:
+          type: number
+        YResolution:
+          type: number
+        ResolutionUnit:
+          type: integer
+        ThumbnailOffset:
+          type: integer
+        ThumbnailLength:
+          type: integer
+    Metadata:
+      description: JSON object containing metadata.
+      type: object
+      additionalProperties: true
+      properties:
+        height:
+          type: integer
+          description: The height of the image or video in pixels.
+        width:
+          type: integer
+          description: The width of the image or video in pixels.
+        size:
+          type: integer
+          description: The file size in bytes.
+        format:
+          type: string
+          description: The format of the file (e.g., 'jpg', 'mp4').
+        hasColorProfile:
+          type: boolean
+          description: Indicates if the image has a color profile.
+        quality:
+          type: integer
+          description: The quality indicator of the image.
+        density:
+          type: integer
+          description: The density of the image in DPI.
+        hasTransparency:
+          type: boolean
+          description: Indicates if the image contains transparent areas.
+        pHash:
+          type: string
+          description: Perceptual hash of the image.
+        bitRate:
+          type: integer
+          description: The bit rate of the video in kbps (only for video).
+        duration:
+          type: integer
+          description: The duration of the video in seconds (only for video).
+        audioCodec:
+          type: string
+          description: The audio codec used in the video (only for video).
+        videoCodec:
+          type: string
+          description: The video codec used in the video (only for video).
+        exif:
+          type: object
+          additionalProperties: true
+          properties:
+            image:
+              $ref: '#/components/schemas/ExifImage'
+            thumbnail:
+              $ref: '#/components/schemas/Thumbnail'
+            exif:
+              $ref: '#/components/schemas/ExifDetails'
+            gps:
+              $ref: '#/components/schemas/Gps'
+            interoperability:
+              $ref: '#/components/schemas/Interoperability'
+            makernote:
+              type: object
+              additionalProperties: true
+    CustomMetadata:
+      type: object
+      description: 'A key-value data associated with the asset.
+
+        '
+      additionalProperties: true
+    Gps:
+      description: Object containing GPS information.
+      type: object
+      additionalProperties: true
+      properties:
+        GPSVersionID:
+          type: array
+          items:
+            type: integer
+        GPSLatitudeRef:
+          type: string
+        GPSLatitude:
+          type: array
+          items:
+            type: number
+        GPSLongitudeRef:
+          type: string
+        GPSLongitude:
+          type: array
+          items:
+            type: number
+        GPSAltitudeRef:
+          type: integer
+        GPSAltitude:
+          type: number
+        GPSTimeStamp:
+          type: array
+          items:
+            type: number
+        GPSImgDirectionRef:
+          type: string
+        GPSImgDirection:
+          type: number
+        GPSDateStamp:
+          type: string
     ExifDetails:
       description: Object containing Exif details.
       x-stainless-naming:
@@ -1499,32 +1493,47 @@ components:
           type: integer
         SceneCaptureType:
           type: integer
-    Interoperability:
-      description: JSON object.
-      type: object
-      additionalProperties: true
-      properties:
-        InteropIndex:
-          type: string
-        InteropVersion:
-          type: string
-    SavedExtensionReference:
-      title: Saved Extension Reference
+    AITaskYesNo:
+      title: AI Task - Yes/No
       type: object
       required:
-      - name
-      - id
+      - type
+      - instruction
       properties:
-        name:
+        type:
           type: string
-          description: Indicates this is a reference to a saved extension.
+          description: Task type that asks a yes/no question and executes actions based on the answer.
           enum:
-          - saved-extension
-        id:
+          - yes_no
+        instruction:
           type: string
-          description: The unique ID of the saved extension to apply.
-          example: ext_abc123
+          minLength: 1
+          maxLength: 2000
+          description: The yes/no question for the AI to answer about the image.
+          example: Is this a luxury or high-end fashion item?
+        on_yes:
+          $ref: '#/components/schemas/AITaskAction'
+          description: Actions to execute if the AI answers yes.
+        on_no:
+          $ref: '#/components/schemas/AITaskAction'
+          description: Actions to execute if the AI answers no.
+        on_unknown:
+          $ref: '#/components/schemas/AITaskAction'
+          description: Actions to execute if the AI cannot determine the answer.
   responses:
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
     Forbidden:
       description: Forbidden.
       content:
@@ -1541,58 +1550,7 @@ components:
               help:
                 type: string
                 example: For support kindly contact us at support@imagekit.io.
-    Unauthorized:
-      description: Unauthorized request.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Your request does not contain private API key.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
   examples:
-    UploadResonseVideo:
-      fileId: 6673f99b37b244ef54d98f11
-      name: test-video.mp4
-      size: 1378305
-      versionInfo:
-        id: 6673f99b37b244ef54d98f11
-        name: Version 1
-      filePath: /test-video.mp4
-      url: https://ik.imagekit.io/demo/test-video.mp4
-      height: 720
-      width: 720
-      bitRate: 1453966
-      duration: 7
-      audioCodec: aac
-      videoCodec: h264
-      fileType: non-image
-      metadata:
-        height: 720
-        width: 720
-        bitRate: 1453966
-        duration: 7
-        audioCodec: aac
-        videoCodec: h264
-        size: 1378305
-    UploadResponseImage:
-      fileId: 6673f88237b244ef54d60180
-      name: test-image.jpg
-      size: 117079
-      versionInfo:
-        id: 6673f88237b244ef54d60180
-        name: Version 1
-      filePath: /test-image.jpg
-      url: https://ik.imagekit.io/demo/test-image.jpg
-      fileType: image
-      height: 500
-      width: 1000
-      orientation: 1
-      thumbnailUrl: https://ik.imagekit.io/demo/tr:n-ik_ml_thumbnail/test-image.jpg
     UploadResponseWithEmbeddedMetadata:
       fileId: 6673f88237b244ef54d60180
       name: test-image.jpg
@@ -1632,7 +1590,7 @@ components:
           exif:
             ExifVersion: '0232'
             DateTimeOriginal: 2019:10:16 19:01:03
-            ComponentsConfiguration: "\x01\x02\x03\0"
+            ComponentsConfiguration: ''
             FlashpixVersion: '0100'
             ColorSpace: 65535
             ExifImageWidth: 1000
@@ -1975,6 +1933,44 @@ components:
         DateTimeCreated: '2019-10-16T00:00:00.000Z'
         Caption: The description aka caption (ref2019.1)
         Writer: Description Writer (ref2019.1)
+    UploadResponseImage:
+      fileId: 6673f88237b244ef54d60180
+      name: test-image.jpg
+      size: 117079
+      versionInfo:
+        id: 6673f88237b244ef54d60180
+        name: Version 1
+      filePath: /test-image.jpg
+      url: https://ik.imagekit.io/demo/test-image.jpg
+      fileType: image
+      height: 500
+      width: 1000
+      orientation: 1
+      thumbnailUrl: https://ik.imagekit.io/demo/tr:n-ik_ml_thumbnail/test-image.jpg
+    UploadResonseVideo:
+      fileId: 6673f99b37b244ef54d98f11
+      name: test-video.mp4
+      size: 1378305
+      versionInfo:
+        id: 6673f99b37b244ef54d98f11
+        name: Version 1
+      filePath: /test-video.mp4
+      url: https://ik.imagekit.io/demo/test-video.mp4
+      height: 720
+      width: 720
+      bitRate: 1453966
+      duration: 7
+      audioCodec: aac
+      videoCodec: h264
+      fileType: non-image
+      metadata:
+        height: 720
+        width: 720
+        bitRate: 1453966
+        duration: 7
+        audioCodec: aac
+        videoCodec: h264
+        size: 1378305
   securitySchemes:
     basicAuth:
       description: 'Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>

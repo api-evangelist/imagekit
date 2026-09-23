@@ -1,0 +1,33 @@
+# Front Door AI Index — imagekit — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: imagekit
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: imagekit.io
+  final_host: imagekit.io
+  ownership: own
+  owner: imagekit
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 19
+  host_score: 19
+  density: 13.56
+  words: 1401
+  tiers:
+    agentic: 5
+    core: 14
+    model: 0
+  ambiguous: 7
+  top_terms:
+    AI: 10
+    agent: 4
+    AI agent: 3
+    automation: 3
+    gen ai: 2
+    LLMs: 1
+    ML: 1
+    agentic: 1
+    prompts: 1

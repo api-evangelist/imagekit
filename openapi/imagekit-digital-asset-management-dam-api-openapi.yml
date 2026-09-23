@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ImageKit Account Management API Digital Asset Management (DAM) API
+  title: ImageKit Digital Asset Management (DAM) API
   version: 1.0.0
-  description: Checkout [API overview](/docs/api-overview) to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
+  description: Checkout API overview to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
   contact:
     email: developer@imagekit.io
     name: ImageKit Team
@@ -19,9 +19,7 @@ paths:
     post:
       summary: Create new field
       operationId: create-new-field
-      description: 'This API creates a new custom metadata field. Once a custom metadata field is created either through this API or using the dashboard UI, its value can be set on the assets. The value of a field for an asset can be set using the media library UI or programmatically through upload or update assets API.
-
-        '
+      description: This API creates a new custom metadata field. Once a custom metadata field is created either through this API or using the dashboard UI, its value can be set on the assets. The value of a field for an asset can be set using the media library UI or programmatically through upload or update assets API.
       requestBody:
         content:
           application/json:
@@ -175,9 +173,7 @@ paths:
       description: 'This API returns the array of created custom metadata field objects. By default the API returns only non deleted field objects, but you can include deleted fields in the API response.
 
 
-        You can also filter results by a specific folder path to retrieve custom metadata fields applicable at that location. This path-specific filtering is useful when using the **Path policy** feature to determine which custom metadata fields are selected for a given path.
-
-        '
+        You can also filter results by a specific folder path to retrieve custom metadata fields applicable at that location. This path-specific filtering is useful when using the **Path policy** feature to determine which custom metadata fields are selected for a given path.'
       parameters:
       - in: query
         description: 'Set it to `true` to include deleted field objects in the API response.
@@ -321,9 +317,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: update-file-details
       summary: Update file details
-      description: 'This API updates the details or attributes of the current version of the file. You can update `tags`, `customCoordinates`, `customMetadata`, publication status, remove existing `AITags` and apply extensions using this API.
-
-        '
+      description: This API updates the details or attributes of the current version of the file. You can update `tags`, `customCoordinates`, `customMetadata`, publication status, remove existing `AITags` and apply extensions using this API.
       parameters:
       - description: 'The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.
 
@@ -464,9 +458,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: update-existing-field
       summary: Update existing field
-      description: 'This API updates the label or schema of an existing custom metadata field.
-
-        '
+      description: This API updates the label or schema of an existing custom metadata field.
       parameters:
       - description: 'Should be a valid custom metadata field id.
 
@@ -626,9 +618,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: delete-a-field
       summary: Delete a field
-      description: 'This API deletes a custom metadata field. Even after deleting a custom metadata field, you cannot create any new custom metadata field with the same name.
-
-        '
+      description: This API deletes a custom metadata field. Even after deleting a custom metadata field, you cannot create any new custom metadata field with the same name.
       parameters:
       - description: 'Should be a valid custom metadata field id.
 
@@ -687,9 +677,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: list-and-search-assets
       summary: List and search assets
-      description: 'This API can list all the uploaded files and folders in your ImageKit.io media library. In addition, you can fine-tune your query by specifying various filters by generating a query string in a Lucene-like syntax and provide this generated string as the value of the `searchQuery`.
-
-        '
+      description: This API can list all the uploaded files and folders in your ImageKit.io media library. In addition, you can fine-tune your query by specifying various filters by generating a query string in a Lucene-like syntax and provide this generated string as the value of the `searchQuery`.
       parameters:
       - in: query
         name: type
@@ -916,9 +904,7 @@ paths:
       description: 'This API deletes the file and all its file versions permanently.
 
 
-        Note: If a file or specific transformation has been requested in the past, then the response is cached. Deleting a file does not purge the cache. You can purge the cache using purge cache API.
-
-        '
+        Note: If a file or specific transformation has been requested in the past, then the response is cached. Deleting a file does not purge the cache. You can purge the cache using purge cache API.'
       parameters:
       - description: 'The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.
 
@@ -975,9 +961,7 @@ paths:
         Note: If a file or specific transformation has been requested in the past, then the response is cached. Deleting a file does not purge the cache. You can purge the cache using purge cache API.
 
 
-        A maximum of 100 files can be deleted at a time.
-
-        '
+        A maximum of 100 files can be deleted at a time.'
       requestBody:
         content:
           application/json:
@@ -1091,7 +1075,10 @@ paths:
       - Digital Asset Management (DAM)
       operationId: copy-file
       summary: Copy file
-      description: "This will copy a file from one folder to another. \n\nNote: If any file at the destination has the same name as the source file, then the source file and its versions (if `includeFileVersions` is set to true) will be appended to the destination file version history.\n"
+      description: 'This will copy a file from one folder to another.
+
+
+        Note: If any file at the destination has the same name as the source file, then the source file and its versions (if `includeFileVersions` is set to true) will be appended to the destination file version history.'
       requestBody:
         content:
           application/json:
@@ -1175,7 +1162,10 @@ paths:
       - Digital Asset Management (DAM)
       operationId: move-file
       summary: Move file
-      description: "This will move a file and all its versions from one folder to another. \n\nNote: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file.\n"
+      description: 'This will move a file and all its versions from one folder to another.
+
+
+        Note: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file.'
       requestBody:
         content:
           application/json:
@@ -1253,7 +1243,10 @@ paths:
       - Digital Asset Management (DAM)
       operationId: rename-file
       summary: Rename file
-      description: "You can rename an already existing file in the media library using rename file API. This operation would rename all file versions of the file. \n\nNote: The old URLs will stop working. The file/file version URLs cached on CDN will continue to work unless a purge is requested.\n"
+      description: 'You can rename an already existing file in the media library using rename file API. This operation would rename all file versions of the file.
+
+
+        Note: The old URLs will stop working. The file/file version URLs cached on CDN will continue to work unless a purge is requested.'
       requestBody:
         content:
           application/json:
@@ -1392,9 +1385,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: list-file-versions
       summary: List file versions
-      description: 'This API returns details of all versions of a file.
-
-        '
+      description: This API returns details of all versions of a file.
       parameters:
       - description: 'The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.
 
@@ -1617,9 +1608,7 @@ paths:
       description: 'This API deletes a non-current file version permanently. The API returns an empty response.
 
 
-        Note: If you want to delete all versions of a file, use the delete file API.
-
-        '
+        Note: If you want to delete all versions of a file, use the delete file API.'
       parameters:
       - description: 'The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.
 
@@ -1686,9 +1675,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: restore-file-version
       summary: Restore file version
-      description: 'This API restores a file version as the current file version.
-
-        '
+      description: This API restores a file version as the current file version.
       parameters:
       - description: 'The unique `fileId` of the uploaded file. `fileId` is returned in list and search assets API and upload API.
 
@@ -1787,9 +1774,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: add-tags-bulk
       summary: Add tags (bulk)
-      description: 'This API adds tags to multiple files in bulk. A maximum of 50 files can be specified at a time.
-
-        '
+      description: This API adds tags to multiple files in bulk. A maximum of 50 files can be specified at a time.
       requestBody:
         content:
           application/json:
@@ -1918,9 +1903,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: remove-tags-bulk
       summary: Remove tags (bulk)
-      description: 'This API removes tags from multiple files in bulk. A maximum of 50 files can be specified at a time.
-
-        '
+      description: This API removes tags from multiple files in bulk. A maximum of 50 files can be specified at a time.
       requestBody:
         content:
           application/json:
@@ -2049,9 +2032,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: remove-ai-tags-bulk
       summary: Remove AI tags (bulk)
-      description: 'This API removes AITags from multiple files in bulk. A maximum of 50 files can be specified at a time.
-
-        '
+      description: This API removes AITags from multiple files in bulk. A maximum of 50 files can be specified at a time.
       requestBody:
         content:
           application/json:
@@ -2173,9 +2154,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: create-folder
       summary: Create folder
-      description: 'This will create a new folder. You can specify the folder name and location of the parent folder where this new folder should be created.
-
-        '
+      description: This will create a new folder. You can specify the folder name and location of the parent folder where this new folder should be created.
       requestBody:
         content:
           application/json:
@@ -2234,9 +2213,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: delete-folder
       summary: Delete folder
-      description: 'This will delete a folder and all its contents permanently. The API returns an empty response.
-
-        '
+      description: This will delete a folder and all its contents permanently. The API returns an empty response.
       requestBody:
         content:
           application/json:
@@ -2304,9 +2281,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: copy-folder
       summary: Copy folder
-      description: 'This will copy one folder into another. The selected folder, its nested folders, files, and their versions (in `includeVersions` is set to true) are copied in this operation. Note: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file version history.
-
-        '
+      description: 'This will copy one folder into another. The selected folder, its nested folders, files, and their versions (in `includeVersions` is set to true) are copied in this operation. Note: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file version history.'
       requestBody:
         content:
           application/json:
@@ -2405,9 +2380,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: move-folder
       summary: Move folder
-      description: 'This will move one folder into another. The selected folder, its nested folders, files, and their versions are moved in this operation. Note: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file version history.
-
-        '
+      description: 'This will move one folder into another. The selected folder, its nested folders, files, and their versions are moved in this operation. Note: If any file at the destination has the same name as the source file, then the source file and its versions will be appended to the destination file version history.'
       requestBody:
         content:
           application/json:
@@ -2501,9 +2474,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: rename-folder
       summary: Rename folder
-      description: 'This API allows you to rename an existing folder. The folder and all its nested assets and sub-folders will remain unchanged, but their paths will be updated to reflect the new folder name.
-
-        '
+      description: This API allows you to rename an existing folder. The folder and all its nested assets and sub-folders will remain unchanged, but their paths will be updated to reflect the new folder name.
       requestBody:
         content:
           application/json:
@@ -2616,9 +2587,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: bulk-job-status
       summary: Bulk job status
-      description: 'This API returns the status of a bulk job like copy and move folder operations.
-
-        '
+      description: This API returns the status of a bulk job like copy and move folder operations.
       parameters:
       - description: 'The `jobId` is returned in the response of bulk job API e.g. copy folder or move folder API.
 
@@ -2730,9 +2699,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: list-extensions
       summary: List all saved extensions
-      description: 'This API returns an array of all saved extensions for your account. Saved extensions allow you to save complex extension configurations and reuse them by referencing them by ID in upload or update file APIs.
-
-        '
+      description: This API returns an array of all saved extensions for your account. Saved extensions allow you to save complex extension configurations and reuse them by referencing them by ID in upload or update file APIs.
       responses:
         '429':
           $ref: '#/components/responses/RateLimitExceeded'
@@ -2758,9 +2725,7 @@ paths:
 
         **Saved extension limit** \
 
-        You can create a maximum of 100 saved extensions per account.
-
-        '
+        You can create a maximum of 100 saved extensions per account.'
       requestBody:
         required: true
         content:
@@ -2799,9 +2764,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: get-extension
       summary: Get saved extension details
-      description: 'This API returns details of a specific saved extension by ID.
-
-        '
+      description: This API returns details of a specific saved extension by ID.
       parameters:
       - in: path
         name: id
@@ -2855,9 +2818,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: update-extension
       summary: Update saved extension
-      description: 'This API updates an existing saved extension. You can update the name, description, or config.
-
-        '
+      description: This API updates an existing saved extension. You can update the name, description, or config.
       parameters:
       - in: path
         name: id
@@ -2917,9 +2878,7 @@ paths:
       - Digital Asset Management (DAM)
       operationId: delete-extension
       summary: Delete saved extension
-      description: 'This API deletes a saved extension permanently.
-
-        '
+      description: This API deletes a saved extension permanently.
       parameters:
       - in: path
         name: id
@@ -2966,6 +2925,177 @@ paths:
                     example: For support kindly contact us at support@imagekit.io.
 components:
   schemas:
+    AutoDescriptionExtension:
+      title: Auto description
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Specifies the auto description extension.
+          enum:
+          - ai-auto-description
+    UpdateFileRequest:
+      title: Update file request
+      description: Schema for update file update request.
+      type: object
+      example:
+        removeAITags:
+        - car
+        - vehicle
+        - motorsports
+        webhookUrl: https://webhook.site/0d6b6c7a-8e5a-4b3a-8b7c-0d6b6c7a8e5a
+        extensions:
+        - name: remove-bg
+          options:
+            add_shadow: true
+        - name: google-auto-tagging
+          minConfidence: 80
+          maxTags: 10
+        - name: aws-auto-tagging
+          minConfidence: 80
+          maxTags: 10
+        - name: ai-auto-description
+        - name: ai-tasks
+          tasks:
+          - type: select_tags
+            instruction: What types of clothing items are visible?
+            vocabulary:
+            - shirt
+            - dress
+            - jacket
+        - name: saved-extension
+          id: ext_abc123
+        tags:
+        - tag1
+        - tag2
+        customCoordinates: 10,10,100,100
+        customMetadata:
+          brand: Nike
+          color: red
+      oneOf:
+      - title: Update file details
+        type: object
+        properties:
+          removeAITags:
+            oneOf:
+            - type: array
+              items:
+                type: string
+            - type: string
+              enum:
+              - all
+            description: "An array of AITags associated with the file that you want to remove, e.g. `[\"car\", \"vehicle\", \"motorsports\"]`. \n\nIf you want to remove all AITags associated with the file, send a string - \"all\".\n\nNote: The remove operation for `AITags` executes before any of the `extensions` are processed.\n"
+          webhookUrl:
+            type: string
+            format: uri
+            description: 'The final status of extensions after they have completed execution will be delivered to this endpoint as a POST request. [Learn more](/docs/api-reference/digital-asset-management-dam/managing-assets/update-file-details#webhook-payload-structure) about the webhook payload structure.
+
+              '
+          extensions:
+            $ref: '#/components/schemas/Extensions'
+          tags:
+            type: array
+            items:
+              type: string
+            description: 'An array of tags associated with the file, such as `["tag1", "tag2"]`. Send `null` to unset all tags associated with the file.
+
+              '
+            example:
+            - tag1
+            - tag2
+          customCoordinates:
+            type: string
+            description: 'Define an important area in the image in the format `x,y,width,height` e.g. `10,10,100,100`. Send `null` to unset this value.
+
+              '
+          customMetadata:
+            type: object
+            description: 'A key-value data to be associated with the asset. To unset a key, send `null` value for that key. Before setting any custom metadata on an asset you have to create the field using custom metadata fields API.
+
+              '
+            additionalProperties: true
+          description:
+            type: string
+            description: 'Optional text to describe the contents of the file.
+
+              '
+      - title: Change publication status
+        type: object
+        properties:
+          publish:
+            type: object
+            required:
+            - isPublished
+            description: 'Configure the publication status of a file and its versions.
+
+              '
+            properties:
+              isPublished:
+                type: boolean
+                description: 'Set to `true` to publish the file. Set to `false` to unpublish the file.
+
+                  '
+              includeFileVersions:
+                type: boolean
+                description: 'Set to `true` to publish/unpublish all versions of the file. Set to `false` to publish/unpublish only the current version of the file.
+
+                  '
+    JobResponse:
+      type: object
+      title: Async Bulk Job Response
+      description: Job submitted successfully. A `jobId` will be returned.
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
+          description: 'Unique identifier of the bulk job. This can be used to check the status of the bulk job.
+
+            '
+    Extensions:
+      title: Extensions Array
+      type: array
+      items:
+        discriminator:
+          propertyName: name
+        anyOf:
+        - $ref: '#/components/schemas/RemovedotBGExtension'
+        - $ref: '#/components/schemas/AutoTaggingExtension'
+        - $ref: '#/components/schemas/AutoDescriptionExtension'
+        - $ref: '#/components/schemas/AITasksExtension'
+        - $ref: '#/components/schemas/SavedExtensionReference'
+      description: 'Array of extensions to be applied to the asset. Each extension can be configured with specific parameters based on the extension type.
+
+        '
+      example:
+      - name: remove-bg
+        options:
+          add_shadow: true
+          bg_colour: green
+      - name: google-auto-tagging
+        maxTags: 5
+        minConfidence: 95
+      - name: ai-auto-description
+      - name: ai-tasks
+        tasks:
+        - type: select_tags
+          instruction: What types of clothing items are visible in this image?
+          vocabulary:
+          - shirt
+          - tshirt
+          - dress
+          - trousers
+          - jacket
+        - type: yes_no
+          instruction: Is this a luxury or high-end fashion item?
+          on_yes:
+            add_tags:
+            - luxury
+            - premium
+      - name: saved-extension
+        id: ext_abc123
     RemovedotBGExtension:
       title: Remove background
       type: object
@@ -3002,6 +3132,293 @@ components:
               description: 'Sets a background image from a URL. If this parameter is set, `bg_color` must be empty.
 
                 '
+    VersionInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the file version.
+        name:
+          type: string
+          description: Name of the file version.
+      description: 'An object containing the file or file version''s `id` (versionId) and `name`.
+
+        '
+    AITaskAction:
+      title: AI Task Action
+      type: object
+      description: Defines actions to perform based on AI task results.
+      properties:
+        add_tags:
+          type: array
+          description: Array of tag strings to add to the asset.
+          items:
+            type: string
+          example:
+          - luxury
+          - premium
+        remove_tags:
+          type: array
+          description: Array of tag strings to remove from the asset.
+          items:
+            type: string
+          example:
+          - budget
+          - affordable
+        set_metadata:
+          type: array
+          description: Array of custom metadata field updates.
+          items:
+            type: object
+            required:
+            - field
+            - value
+            properties:
+              field:
+                type: string
+                description: Name of the custom metadata field to set.
+              value:
+                description: Value to set for the custom metadata field. The value type should match the custom metadata field type.
+                oneOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  x-stainless-variantName: Mixed
+                  title: Mixed
+                  items:
+                    title: Metadata value item
+                    oneOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+          example:
+          - field: price_range
+            value: premium
+        unset_metadata:
+          type: array
+          description: Array of custom metadata fields to remove.
+          items:
+            type: object
+            required:
+            - field
+            properties:
+              field:
+                type: string
+                description: Name of the custom metadata field to remove.
+          example:
+          - field: price_range
+    CustomMetadataField:
+      description: Object containing details of a custom metadata field.
+      type: object
+      required:
+      - id
+      - name
+      - label
+      - schema
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the custom metadata field. Use this to update the field.
+        name:
+          type: string
+          description: 'API name of the custom metadata field. This becomes the key while setting `customMetadata` (key-value object) for an asset using upload or update API.
+
+            '
+        label:
+          type: string
+          description: 'Human readable name of the custom metadata field. This name is displayed as form field label to the users while setting field value on the asset in the media library UI.
+
+            '
+        schema:
+          type: object
+          description: An object that describes the rules for the custom metadata field value.
+          required:
+          - type
+          properties:
+            type:
+              description: Type of the custom metadata field.
+              type: string
+              enum:
+              - Text
+              - Textarea
+              - Number
+              - Date
+              - Boolean
+              - SingleSelect
+              - MultiSelect
+            selectOptions:
+              type: array
+              items:
+                oneOf:
+                - type: string
+                - type: number
+                - type: boolean
+              description: 'An array of allowed values when field type is `SingleSelect` or `MultiSelect`.
+
+                '
+              example:
+              - small
+              - medium
+              - large
+              - 30
+              - 40
+              - true
+            defaultValue:
+              description: 'The default value for this custom metadata field. Data type of default value depends on the field type.
+
+                '
+              oneOf:
+              - type: string
+              - type: number
+              - type: boolean
+              - type: array
+                x-stainless-variantName: Mixed
+                title: Mixed
+                items:
+                  title: Default value item
+                  oneOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                description: 'Default value should be of type array when custom metadata field type is set to `MultiSelect`.
+
+                  '
+                example:
+                - true
+                - 10
+                - Hello
+            isValueRequired:
+              type: boolean
+              description: 'Specifies if the this custom metadata field is required or not.
+
+                '
+            minValue:
+              description: 'Minimum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
+
+                '
+              oneOf:
+              - type: string
+              - type: number
+            maxValue:
+              description: 'Maximum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
+
+                '
+              oneOf:
+              - type: string
+              - type: number
+            minLength:
+              description: 'Minimum length of string. Only set if `type` is set to `Text` or `Textarea`.
+
+                '
+              type: number
+            maxLength:
+              description: 'Maximum length of string. Only set if `type` is set to `Text` or `Textarea`.
+
+                '
+              type: number
+    SavedExtensionReference:
+      title: Saved Extension Reference
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        name:
+          type: string
+          description: Indicates this is a reference to a saved extension.
+          enum:
+          - saved-extension
+        id:
+          type: string
+          description: The unique ID of the saved extension to apply.
+          example: ext_abc123
+    AITasksExtension:
+      title: AI Tasks
+      type: object
+      required:
+      - name
+      - tasks
+      properties:
+        name:
+          type: string
+          description: Specifies the AI tasks extension for automated image analysis using AI models.
+          enum:
+          - ai-tasks
+        tasks:
+          type: array
+          minItems: 1
+          maxItems: 10
+          description: Array of task objects defining AI operations to perform on the asset.
+          items:
+            discriminator:
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/AITaskSelectTags'
+            - $ref: '#/components/schemas/AITaskSelectMetadata'
+            - $ref: '#/components/schemas/AITaskYesNo'
+    AITag:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the tag.
+        confidence:
+          type: number
+          description: Confidence score of the tag.
+        source:
+          type: string
+          description: Source of the tag. Possible values are `google-auto-tagging` and `aws-auto-tagging`.
+      description: 'AI-generated tag associated with an image. These tags can be added using the `google-auto-tagging` or `aws-auto-tagging` extensions.
+
+        '
+    AITaskSelectMetadata:
+      title: AI Task - Select Metadata
+      type: object
+      required:
+      - type
+      - instruction
+      - field
+      properties:
+        type:
+          type: string
+          description: Task type that analyzes the image and sets a custom metadata field value from a vocabulary.
+          enum:
+          - select_metadata
+        instruction:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: The question or instruction for the AI to analyze the image.
+          example: What is the primary color of the clothing?
+        field:
+          type: string
+          description: Name of the custom metadata field to set. The field must exist in your account.
+          example: primary_color
+        vocabulary:
+          type: array
+          minItems: 1
+          maxItems: 30
+          description: An array of possible values matching the custom metadata field type. If not provided for SingleSelect or MultiSelect field types, all values from the custom metadata field definition will be used. When providing large vocabularies (above 30 items), the AI may not strictly adhere to the list.
+          items:
+            oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+          example:
+          - red
+          - blue
+          - green
+          - black
+          - white
+        min_selections:
+          type: integer
+          minimum: 0
+          description: Minimum number of values to select from the vocabulary.
+        max_selections:
+          type: integer
+          minimum: 1
+          description: Maximum number of values to select from the vocabulary.
     SavedExtension:
       title: Saved Extension
       description: Saved extension object containing extension configuration.
@@ -3029,24 +3446,8 @@ components:
           type: string
           format: date-time
           description: Timestamp when the saved extension was last updated.
-    SavedExtensionReference:
-      title: Saved Extension Reference
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        name:
-          type: string
-          description: Indicates this is a reference to a saved extension.
-          enum:
-          - saved-extension
-        id:
-          type: string
-          description: The unique ID of the saved extension to apply.
-          example: ext_abc123
-    AITaskYesNo:
-      title: AI Task - Yes/No
+    AITaskSelectTags:
+      title: AI Task - Select Tags
       type: object
       required:
       - type
@@ -3054,24 +3455,198 @@ components:
       properties:
         type:
           type: string
-          description: Task type that asks a yes/no question and executes actions based on the answer.
+          description: Task type that analyzes the image and adds matching tags from a vocabulary.
           enum:
-          - yes_no
+          - select_tags
         instruction:
           type: string
           minLength: 1
           maxLength: 2000
-          description: The yes/no question for the AI to answer about the image.
-          example: Is this a luxury or high-end fashion item?
-        on_yes:
-          $ref: '#/components/schemas/AITaskAction'
-          description: Actions to execute if the AI answers yes.
-        on_no:
-          $ref: '#/components/schemas/AITaskAction'
-          description: Actions to execute if the AI answers no.
-        on_unknown:
-          $ref: '#/components/schemas/AITaskAction'
-          description: Actions to execute if the AI cannot determine the answer.
+          description: The question or instruction for the AI to analyze the image.
+          example: What types of clothing items are visible in this image?
+        vocabulary:
+          type: array
+          minItems: 1
+          maxItems: 30
+          description: Array of possible tag values. The combined length of all strings must not exceed 500 characters, and values cannot include the `%` character. When providing large vocabularies (more than 30 items), the AI may not follow the list strictly.
+          items:
+            type: string
+          example:
+          - shirt
+          - tshirt
+          - dress
+          - trousers
+          - jacket
+        min_selections:
+          type: integer
+          minimum: 0
+          description: Minimum number of tags to select from the vocabulary.
+        max_selections:
+          type: integer
+          minimum: 1
+          description: Maximum number of tags to select from the vocabulary.
+    AutoTaggingExtension:
+      title: Auto tagging
+      type: object
+      required:
+      - name
+      - minConfidence
+      - maxTags
+      properties:
+        name:
+          type: string
+          enum:
+          - google-auto-tagging
+          - aws-auto-tagging
+          description: Specifies the auto-tagging extension used.
+        minConfidence:
+          type: integer
+          description: Minimum confidence level for tags to be considered valid.
+        maxTags:
+          type: integer
+          description: Maximum number of tags to attach to the asset.
+    UpdateSavedExtension:
+      title: Update Saved Extension
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: Updated name of the saved extension.
+        description:
+          type: string
+          minLength: 1
+          description: Updated description of the saved extension.
+        config:
+          $ref: '#/components/schemas/ExtensionConfig'
+    SelectedFieldsSchema:
+      type: object
+      description: 'This field is included in the response only if the Path policy feature is available in the plan.
+
+        It contains schema definitions for the custom metadata fields selected for the specified file path.
+
+        Field selection can only be done when the Path policy feature is enabled.
+
+
+        Keys are the names of the custom metadata fields; the value object has details about the custom metadata schema.
+
+        '
+      additionalProperties:
+        type: object
+        required:
+        - type
+        properties:
+          type:
+            description: Type of the custom metadata field.
+            type: string
+            enum:
+            - Text
+            - Textarea
+            - Number
+            - Date
+            - Boolean
+            - SingleSelect
+            - MultiSelect
+          selectOptions:
+            type: array
+            items:
+              oneOf:
+              - type: string
+              - type: number
+              - type: boolean
+            description: 'An array of allowed values when field type is `SingleSelect` or `MultiSelect`.
+
+              '
+            example:
+            - small
+            - medium
+            - large
+            - 30
+            - 40
+            - true
+          selectOptionsTruncated:
+            type: boolean
+            description: 'Specifies if the selectOptions array is truncated. It is truncated when number of options are > 100.
+
+              '
+          defaultValue:
+            description: 'The default value for this custom metadata field. The value should match the `type` of custom metadata field.
+
+              '
+            oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: array
+              x-stainless-variantName: Mixed
+              title: Mixed
+              items:
+                oneOf:
+                - type: string
+                - type: number
+                - type: boolean
+              description: 'Default value should be of type array when custom metadata field type is set to `MultiSelect`.
+
+                '
+              example:
+              - true
+              - 10
+              - Hello
+          isValueRequired:
+            type: boolean
+            description: 'Specifies if the custom metadata field is required or not.
+
+              '
+          readOnly:
+            type: boolean
+            description: 'Indicates whether the custom metadata field is read only. A read only field cannot be modified after being set. This field is configurable only via the **Path policy** feature.
+
+              '
+          minValue:
+            description: 'Minimum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
+
+              '
+            oneOf:
+            - type: string
+            - type: number
+          maxValue:
+            description: 'Maximum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
+
+              '
+            oneOf:
+            - type: string
+            - type: number
+          minLength:
+            description: 'Minimum length of string. Only set if `type` is set to `Text` or `Textarea`.
+
+              '
+            type: number
+          maxLength:
+            description: 'Maximum length of string. Only set if `type` is set to `Text` or `Textarea`.
+
+              '
+            type: number
+    EmbeddedMetadata:
+      type: object
+      additionalProperties: true
+      description: Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data.
+    ExtensionConfig:
+      title: Extension Configuration
+      description: Configuration object for an extension (base extensions only, not saved extension references).
+      type: object
+      discriminator:
+        propertyName: name
+      oneOf:
+      - $ref: '#/components/schemas/RemovedotBGExtension'
+      - $ref: '#/components/schemas/AutoTaggingExtension'
+      - $ref: '#/components/schemas/AutoDescriptionExtension'
+      - $ref: '#/components/schemas/AITasksExtension'
+    CustomMetadata:
+      type: object
+      description: 'A key-value data associated with the asset.
+
+        '
+      additionalProperties: true
     FileDetails:
       title: File & File Version
       description: Object containing details of a file or file version.
@@ -3209,6 +3784,53 @@ components:
           description: 'Date and time when the file was last updated. The date and time is in ISO8601 format.
 
             '
+    AITaskYesNo:
+      title: AI Task - Yes/No
+      type: object
+      required:
+      - type
+      - instruction
+      properties:
+        type:
+          type: string
+          description: Task type that asks a yes/no question and executes actions based on the answer.
+          enum:
+          - yes_no
+        instruction:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: The yes/no question for the AI to answer about the image.
+          example: Is this a luxury or high-end fashion item?
+        on_yes:
+          $ref: '#/components/schemas/AITaskAction'
+          description: Actions to execute if the AI answers yes.
+        on_no:
+          $ref: '#/components/schemas/AITaskAction'
+          description: Actions to execute if the AI answers no.
+        on_unknown:
+          $ref: '#/components/schemas/AITaskAction'
+          description: Actions to execute if the AI cannot determine the answer.
+    CreateSavedExtension:
+      title: Create Saved Extension
+      type: object
+      required:
+      - name
+      - description
+      - config
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: Name of the saved extension.
+          example: Car Quality Analysis
+        description:
+          type: string
+          minLength: 1
+          description: Description of what the saved extension does.
+          example: Analyzes vehicle images for type, condition, and quality assessment
+        config:
+          $ref: '#/components/schemas/ExtensionConfig'
     FolderDetails:
       title: Folder
       type: object
@@ -3245,699 +3867,7 @@ components:
           description: 'Date and time when the folder was last updated. The date and time is in ISO8601 format.
 
             '
-    AITaskAction:
-      title: AI Task Action
-      type: object
-      description: Defines actions to perform based on AI task results.
-      properties:
-        add_tags:
-          type: array
-          description: Array of tag strings to add to the asset.
-          items:
-            type: string
-          example:
-          - luxury
-          - premium
-        remove_tags:
-          type: array
-          description: Array of tag strings to remove from the asset.
-          items:
-            type: string
-          example:
-          - budget
-          - affordable
-        set_metadata:
-          type: array
-          description: Array of custom metadata field updates.
-          items:
-            type: object
-            required:
-            - field
-            - value
-            properties:
-              field:
-                type: string
-                description: Name of the custom metadata field to set.
-              value:
-                description: Value to set for the custom metadata field. The value type should match the custom metadata field type.
-                oneOf:
-                - type: string
-                - type: number
-                - type: boolean
-                - type: array
-                  x-stainless-variantName: Mixed
-                  title: Mixed
-                  items:
-                    title: Metadata value item
-                    oneOf:
-                    - type: string
-                    - type: number
-                    - type: boolean
-          example:
-          - field: price_range
-            value: premium
-        unset_metadata:
-          type: array
-          description: Array of custom metadata fields to remove.
-          items:
-            type: object
-            required:
-            - field
-            properties:
-              field:
-                type: string
-                description: Name of the custom metadata field to remove.
-          example:
-          - field: price_range
-    JobResponse:
-      type: object
-      title: Async Bulk Job Response
-      description: Job submitted successfully. A `jobId` will be returned.
-      required:
-      - jobId
-      properties:
-        jobId:
-          type: string
-          description: 'Unique identifier of the bulk job. This can be used to check the status of the bulk job.
-
-            '
-    Extensions:
-      title: Extensions Array
-      type: array
-      items:
-        discriminator:
-          propertyName: name
-        anyOf:
-        - $ref: '#/components/schemas/RemovedotBGExtension'
-        - $ref: '#/components/schemas/AutoTaggingExtension'
-        - $ref: '#/components/schemas/AutoDescriptionExtension'
-        - $ref: '#/components/schemas/AITasksExtension'
-        - $ref: '#/components/schemas/SavedExtensionReference'
-      description: 'Array of extensions to be applied to the asset. Each extension can be configured with specific parameters based on the extension type.
-
-        '
-      example:
-      - name: remove-bg
-        options:
-          add_shadow: true
-          bg_colour: green
-      - name: google-auto-tagging
-        maxTags: 5
-        minConfidence: 95
-      - name: ai-auto-description
-      - name: ai-tasks
-        tasks:
-        - type: select_tags
-          instruction: What types of clothing items are visible in this image?
-          vocabulary:
-          - shirt
-          - tshirt
-          - dress
-          - trousers
-          - jacket
-        - type: yes_no
-          instruction: Is this a luxury or high-end fashion item?
-          on_yes:
-            add_tags:
-            - luxury
-            - premium
-      - name: saved-extension
-        id: ext_abc123
-    ExtensionConfig:
-      title: Extension Configuration
-      description: Configuration object for an extension (base extensions only, not saved extension references).
-      type: object
-      discriminator:
-        propertyName: name
-      oneOf:
-      - $ref: '#/components/schemas/RemovedotBGExtension'
-      - $ref: '#/components/schemas/AutoTaggingExtension'
-      - $ref: '#/components/schemas/AutoDescriptionExtension'
-      - $ref: '#/components/schemas/AITasksExtension'
-    AITaskSelectMetadata:
-      title: AI Task - Select Metadata
-      type: object
-      required:
-      - type
-      - instruction
-      - field
-      properties:
-        type:
-          type: string
-          description: Task type that analyzes the image and sets a custom metadata field value from a vocabulary.
-          enum:
-          - select_metadata
-        instruction:
-          type: string
-          minLength: 1
-          maxLength: 2000
-          description: The question or instruction for the AI to analyze the image.
-          example: What is the primary color of the clothing?
-        field:
-          type: string
-          description: Name of the custom metadata field to set. The field must exist in your account.
-          example: primary_color
-        vocabulary:
-          type: array
-          minItems: 1
-          maxItems: 30
-          description: An array of possible values matching the custom metadata field type. If not provided for SingleSelect or MultiSelect field types, all values from the custom metadata field definition will be used. When providing large vocabularies (above 30 items), the AI may not strictly adhere to the list.
-          items:
-            oneOf:
-            - type: string
-            - type: number
-            - type: boolean
-          example:
-          - red
-          - blue
-          - green
-          - black
-          - white
-        min_selections:
-          type: integer
-          minimum: 0
-          description: Minimum number of values to select from the vocabulary.
-        max_selections:
-          type: integer
-          minimum: 1
-          description: Maximum number of values to select from the vocabulary.
-    CustomMetadata:
-      type: object
-      description: 'A key-value data associated with the asset.
-
-        '
-      additionalProperties: true
-    EmbeddedMetadata:
-      type: object
-      additionalProperties: true
-      description: Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data.
-    AITag:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the tag.
-        confidence:
-          type: number
-          description: Confidence score of the tag.
-        source:
-          type: string
-          description: Source of the tag. Possible values are `google-auto-tagging` and `aws-auto-tagging`.
-      description: 'AI-generated tag associated with an image. These tags can be added using the `google-auto-tagging` or `aws-auto-tagging` extensions.
-
-        '
-    AITasksExtension:
-      title: AI Tasks
-      type: object
-      required:
-      - name
-      - tasks
-      properties:
-        name:
-          type: string
-          description: Specifies the AI tasks extension for automated image analysis using AI models.
-          enum:
-          - ai-tasks
-        tasks:
-          type: array
-          minItems: 1
-          maxItems: 10
-          description: Array of task objects defining AI operations to perform on the asset.
-          items:
-            discriminator:
-              propertyName: type
-            oneOf:
-            - $ref: '#/components/schemas/AITaskSelectTags'
-            - $ref: '#/components/schemas/AITaskSelectMetadata'
-            - $ref: '#/components/schemas/AITaskYesNo'
-    AutoDescriptionExtension:
-      title: Auto description
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Specifies the auto description extension.
-          enum:
-          - ai-auto-description
-    AITaskSelectTags:
-      title: AI Task - Select Tags
-      type: object
-      required:
-      - type
-      - instruction
-      properties:
-        type:
-          type: string
-          description: Task type that analyzes the image and adds matching tags from a vocabulary.
-          enum:
-          - select_tags
-        instruction:
-          type: string
-          minLength: 1
-          maxLength: 2000
-          description: The question or instruction for the AI to analyze the image.
-          example: What types of clothing items are visible in this image?
-        vocabulary:
-          type: array
-          minItems: 1
-          maxItems: 30
-          description: Array of possible tag values. The combined length of all strings must not exceed 500 characters, and values cannot include the `%` character. When providing large vocabularies (more than 30 items), the AI may not follow the list strictly.
-          items:
-            type: string
-          example:
-          - shirt
-          - tshirt
-          - dress
-          - trousers
-          - jacket
-        min_selections:
-          type: integer
-          minimum: 0
-          description: Minimum number of tags to select from the vocabulary.
-        max_selections:
-          type: integer
-          minimum: 1
-          description: Maximum number of tags to select from the vocabulary.
-    VersionInfo:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the file version.
-        name:
-          type: string
-          description: Name of the file version.
-      description: 'An object containing the file or file version''s `id` (versionId) and `name`.
-
-        '
-    SelectedFieldsSchema:
-      type: object
-      description: 'This field is included in the response only if the Path policy feature is available in the plan.
-
-        It contains schema definitions for the custom metadata fields selected for the specified file path.
-
-        Field selection can only be done when the Path policy feature is enabled.
-
-
-        Keys are the names of the custom metadata fields; the value object has details about the custom metadata schema.
-
-        '
-      additionalProperties:
-        type: object
-        required:
-        - type
-        properties:
-          type:
-            description: Type of the custom metadata field.
-            type: string
-            enum:
-            - Text
-            - Textarea
-            - Number
-            - Date
-            - Boolean
-            - SingleSelect
-            - MultiSelect
-          selectOptions:
-            type: array
-            items:
-              oneOf:
-              - type: string
-              - type: number
-              - type: boolean
-            description: 'An array of allowed values when field type is `SingleSelect` or `MultiSelect`.
-
-              '
-            example:
-            - small
-            - medium
-            - large
-            - 30
-            - 40
-            - true
-          selectOptionsTruncated:
-            type: boolean
-            description: 'Specifies if the selectOptions array is truncated. It is truncated when number of options are > 100.
-
-              '
-          defaultValue:
-            description: 'The default value for this custom metadata field. The value should match the `type` of custom metadata field.
-
-              '
-            oneOf:
-            - type: string
-            - type: number
-            - type: boolean
-            - type: array
-              x-stainless-variantName: Mixed
-              title: Mixed
-              items:
-                oneOf:
-                - type: string
-                - type: number
-                - type: boolean
-              description: 'Default value should be of type array when custom metadata field type is set to `MultiSelect`.
-
-                '
-              example:
-              - true
-              - 10
-              - Hello
-          isValueRequired:
-            type: boolean
-            description: 'Specifies if the custom metadata field is required or not.
-
-              '
-          readOnly:
-            type: boolean
-            description: 'Indicates whether the custom metadata field is read only. A read only field cannot be modified after being set. This field is configurable only via the **Path policy** feature.
-
-              '
-          minValue:
-            description: 'Minimum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
-
-              '
-            oneOf:
-            - type: string
-            - type: number
-          maxValue:
-            description: 'Maximum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
-
-              '
-            oneOf:
-            - type: string
-            - type: number
-          minLength:
-            description: 'Minimum length of string. Only set if `type` is set to `Text` or `Textarea`.
-
-              '
-            type: number
-          maxLength:
-            description: 'Maximum length of string. Only set if `type` is set to `Text` or `Textarea`.
-
-              '
-            type: number
-    UpdateFileRequest:
-      title: Update file request
-      description: Schema for update file update request.
-      type: object
-      example:
-        removeAITags:
-        - car
-        - vehicle
-        - motorsports
-        webhookUrl: https://webhook.site/0d6b6c7a-8e5a-4b3a-8b7c-0d6b6c7a8e5a
-        extensions:
-        - name: remove-bg
-          options:
-            add_shadow: true
-        - name: google-auto-tagging
-          minConfidence: 80
-          maxTags: 10
-        - name: aws-auto-tagging
-          minConfidence: 80
-          maxTags: 10
-        - name: ai-auto-description
-        - name: ai-tasks
-          tasks:
-          - type: select_tags
-            instruction: What types of clothing items are visible?
-            vocabulary:
-            - shirt
-            - dress
-            - jacket
-        - name: saved-extension
-          id: ext_abc123
-        tags:
-        - tag1
-        - tag2
-        customCoordinates: 10,10,100,100
-        customMetadata:
-          brand: Nike
-          color: red
-      oneOf:
-      - title: Update file details
-        type: object
-        properties:
-          removeAITags:
-            oneOf:
-            - type: array
-              items:
-                type: string
-            - type: string
-              enum:
-              - all
-            description: "An array of AITags associated with the file that you want to remove, e.g. `[\"car\", \"vehicle\", \"motorsports\"]`. \n\nIf you want to remove all AITags associated with the file, send a string - \"all\".\n\nNote: The remove operation for `AITags` executes before any of the `extensions` are processed.\n"
-          webhookUrl:
-            type: string
-            format: uri
-            description: 'The final status of extensions after they have completed execution will be delivered to this endpoint as a POST request. [Learn more](/docs/api-reference/digital-asset-management-dam/managing-assets/update-file-details#webhook-payload-structure) about the webhook payload structure.
-
-              '
-          extensions:
-            $ref: '#/components/schemas/Extensions'
-          tags:
-            type: array
-            items:
-              type: string
-            description: 'An array of tags associated with the file, such as `["tag1", "tag2"]`. Send `null` to unset all tags associated with the file.
-
-              '
-            example:
-            - tag1
-            - tag2
-          customCoordinates:
-            type: string
-            description: 'Define an important area in the image in the format `x,y,width,height` e.g. `10,10,100,100`. Send `null` to unset this value.
-
-              '
-          customMetadata:
-            type: object
-            description: 'A key-value data to be associated with the asset. To unset a key, send `null` value for that key. Before setting any custom metadata on an asset you have to create the field using custom metadata fields API.
-
-              '
-            additionalProperties: true
-          description:
-            type: string
-            description: 'Optional text to describe the contents of the file.
-
-              '
-      - title: Change publication status
-        type: object
-        properties:
-          publish:
-            type: object
-            required:
-            - isPublished
-            description: 'Configure the publication status of a file and its versions.
-
-              '
-            properties:
-              isPublished:
-                type: boolean
-                description: 'Set to `true` to publish the file. Set to `false` to unpublish the file.
-
-                  '
-              includeFileVersions:
-                type: boolean
-                description: 'Set to `true` to publish/unpublish all versions of the file. Set to `false` to publish/unpublish only the current version of the file.
-
-                  '
-    CreateSavedExtension:
-      title: Create Saved Extension
-      type: object
-      required:
-      - name
-      - description
-      - config
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: Name of the saved extension.
-          example: Car Quality Analysis
-        description:
-          type: string
-          minLength: 1
-          description: Description of what the saved extension does.
-          example: Analyzes vehicle images for type, condition, and quality assessment
-        config:
-          $ref: '#/components/schemas/ExtensionConfig'
-    CustomMetadataField:
-      description: Object containing details of a custom metadata field.
-      type: object
-      required:
-      - id
-      - name
-      - label
-      - schema
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the custom metadata field. Use this to update the field.
-        name:
-          type: string
-          description: 'API name of the custom metadata field. This becomes the key while setting `customMetadata` (key-value object) for an asset using upload or update API.
-
-            '
-        label:
-          type: string
-          description: 'Human readable name of the custom metadata field. This name is displayed as form field label to the users while setting field value on the asset in the media library UI.
-
-            '
-        schema:
-          type: object
-          description: An object that describes the rules for the custom metadata field value.
-          required:
-          - type
-          properties:
-            type:
-              description: Type of the custom metadata field.
-              type: string
-              enum:
-              - Text
-              - Textarea
-              - Number
-              - Date
-              - Boolean
-              - SingleSelect
-              - MultiSelect
-            selectOptions:
-              type: array
-              items:
-                oneOf:
-                - type: string
-                - type: number
-                - type: boolean
-              description: 'An array of allowed values when field type is `SingleSelect` or `MultiSelect`.
-
-                '
-              example:
-              - small
-              - medium
-              - large
-              - 30
-              - 40
-              - true
-            defaultValue:
-              description: 'The default value for this custom metadata field. Data type of default value depends on the field type.
-
-                '
-              oneOf:
-              - type: string
-              - type: number
-              - type: boolean
-              - type: array
-                x-stainless-variantName: Mixed
-                title: Mixed
-                items:
-                  title: Default value item
-                  oneOf:
-                  - type: string
-                  - type: number
-                  - type: boolean
-                description: 'Default value should be of type array when custom metadata field type is set to `MultiSelect`.
-
-                  '
-                example:
-                - true
-                - 10
-                - Hello
-            isValueRequired:
-              type: boolean
-              description: 'Specifies if the this custom metadata field is required or not.
-
-                '
-            minValue:
-              description: 'Minimum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
-
-                '
-              oneOf:
-              - type: string
-              - type: number
-            maxValue:
-              description: 'Maximum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
-
-                '
-              oneOf:
-              - type: string
-              - type: number
-            minLength:
-              description: 'Minimum length of string. Only set if `type` is set to `Text` or `Textarea`.
-
-                '
-              type: number
-            maxLength:
-              description: 'Maximum length of string. Only set if `type` is set to `Text` or `Textarea`.
-
-                '
-              type: number
-    UpdateSavedExtension:
-      title: Update Saved Extension
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: Updated name of the saved extension.
-        description:
-          type: string
-          minLength: 1
-          description: Updated description of the saved extension.
-        config:
-          $ref: '#/components/schemas/ExtensionConfig'
-    AutoTaggingExtension:
-      title: Auto tagging
-      type: object
-      required:
-      - name
-      - minConfidence
-      - maxTags
-      properties:
-        name:
-          type: string
-          enum:
-          - google-auto-tagging
-          - aws-auto-tagging
-          description: Specifies the auto-tagging extension used.
-        minConfidence:
-          type: integer
-          description: Minimum confidence level for tags to be considered valid.
-        maxTags:
-          type: integer
-          description: Maximum number of tags to attach to the asset.
   responses:
-    Forbidden:
-      description: Forbidden.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                examples:
-                - Your account cannot be authenticated.
-                - Your request contains expired private API key.
-                - Your account is disabled.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
-    Unauthorized:
-      description: Unauthorized request.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Your request does not contain private API key.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
     RateLimitExceeded:
       description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
       headers:
@@ -3961,6 +3891,35 @@ components:
               message:
                 type: string
                 description: A description of the error, providing details about why the rate limit has been exceeded.
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Your account cannot be authenticated.
+                - Your request contains expired private API key.
+                - Your account is disabled.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
   securitySchemes:
     basicAuth:
       description: 'Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>

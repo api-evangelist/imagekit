@@ -1,36 +1,43 @@
 {
   "provider": "imagekit",
   "sources": [
-    "imagekit-account-management-api-api-openapi.yml",
-    "imagekit-caching-api-openapi.yml",
-    "imagekit-custom-metadata-fields-api-openapi.yml",
-    "imagekit-digital-asset-management-dam-api-openapi.yml",
-    "imagekit-dummy-test-api-openapi.yml",
-    "imagekit-file-metadata-api-openapi.yml",
-    "imagekit-managing-assets-api-openapi.yml",
-    "imagekit-managing-folders-api-openapi.yml",
-    "imagekit-origins-api-openapi.yml",
-    "imagekit-saved-extensions-api-openapi.yml",
-    "imagekit-upload-file-api-openapi.yml",
-    "imagekit-url-endpoints-api-openapi.yml"
+    "_original/imagekit-media-api-openapi.yml"
   ],
   "outputs": [
     "imagekit-account-management-api-api-openapi.yml",
     "imagekit-caching-api-openapi.yml",
-    "imagekit-custom-metadata-fields-api-openapi.yml",
     "imagekit-digital-asset-management-dam-api-openapi.yml",
     "imagekit-dummy-test-api-openapi.yml",
     "imagekit-file-metadata-api-openapi.yml",
-    "imagekit-managing-assets-api-openapi.yml",
-    "imagekit-managing-folders-api-openapi.yml",
-    "imagekit-origins-api-openapi.yml",
-    "imagekit-saved-extensions-api-openapi.yml",
-    "imagekit-upload-file-api-openapi.yml",
-    "imagekit-url-endpoints-api-openapi.yml"
+    "imagekit-upload-file-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "imagekit-media-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "imagekit-media-api-openapi.yml: declared missing tag: Account Management API",
+    "imagekit-media-api-openapi.yml: declared missing tag: Caching",
+    "imagekit-media-api-openapi.yml: declared missing tag: Custom metadata fields",
+    "imagekit-media-api-openapi.yml: declared missing tag: Digital Asset Management (DAM)",
+    "imagekit-media-api-openapi.yml: declared missing tag: Dummy Test",
+    "imagekit-media-api-openapi.yml: declared missing tag: File Metadata",
+    "imagekit-media-api-openapi.yml: declared missing tag: Managing assets",
+    "imagekit-media-api-openapi.yml: declared missing tag: Managing folders",
+    "imagekit-media-api-openapi.yml: declared missing tag: Origins",
+    "imagekit-media-api-openapi.yml: declared missing tag: Saved Extensions",
+    "imagekit-media-api-openapi.yml: declared missing tag: URL endpoints",
+    "imagekit-media-api-openapi.yml: declared missing tag: Upload File",
+    "imagekit-media-api-openapi.yml: multi-axis tagging (12 tags, 6 first tags, 1.81x duplication over 48 operations) \u2014 split on first tag, 39 operations narrowed",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "imagekit-account-management-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "imagekit-caching-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "imagekit-digital-asset-management-dam-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "imagekit-dummy-test-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "imagekit-file-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "imagekit-upload-file-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ImageKit Account Management API File Metadata API
+  title: ImageKit File Metadata API
   version: 1.0.0
-  description: Checkout [API overview](/docs/api-overview) to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
+  description: Checkout API overview to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
   contact:
     email: developer@imagekit.io
     name: ImageKit Team
@@ -24,9 +24,7 @@ paths:
       description: 'You can programmatically get image EXIF, pHash, and other metadata for uploaded files in the ImageKit.io media library using this API.
 
 
-        You can also get the metadata in upload API response by passing `metadata` in `responseFields` parameter.
-
-        '
+        You can also get the metadata in upload API response by passing `metadata` in `responseFields` parameter.'
       parameters:
       - description: 'The unique `fileId` of the uploaded file. `fileId` is returned in the list and search assets API and upload API.
 
@@ -88,9 +86,7 @@ paths:
       - File Metadata
       operationId: get-metadata-from-url
       summary: Get metadata from remote URL
-      description: 'Get image EXIF, pHash, and other metadata from ImageKit.io powered remote URL using this API.
-
-        '
+      description: Get image EXIF, pHash, and other metadata from ImageKit.io powered remote URL using this API.
       parameters:
       - description: 'Should be a valid file URL. It should be accessible using your ImageKit.io account.
 
@@ -148,6 +144,84 @@ paths:
                     type: string
                     example: For support kindly contact us at support@imagekit.io.
 components:
+  examples:
+    VideoMetadata:
+      height: 720
+      width: 1280
+      bitRate: 546524
+      duration: 70
+      audioCodec: aac
+      videoCodec: h264
+      size: 23490
+    ImageMetadata:
+      height: 68
+      width: 100
+      size: 7749
+      format: jpg
+      hasColorProfile: true
+      quality: 0
+      density: 72
+      hasTransparency: false
+      pHash: f06830ca9f1e3e90
+      exif:
+        image:
+          Make: Canon
+          Model: Canon EOS 40D
+          Orientation: 1
+          XResolution: 72
+          YResolution: 72
+          ResolutionUnit: 2
+          Software: GIMP 2.4.5
+          ModifyDate: 2008:07:31 10:38:11
+          YCbCrPositioning: 2
+          ExifOffset: 214
+          GPSInfo: 978
+        thumbnail:
+          Compression: 6
+          XResolution: 72
+          YResolution: 72
+          ResolutionUnit: 2
+          ThumbnailOffset: 1090
+          ThumbnailLength: 1378
+        exif:
+          ExposureTime: 0.00625
+          FNumber: 7.1
+          ExposureProgram: 1
+          ISO: 100
+          ExifVersion: '0221'
+          DateTimeOriginal: 2008:05:30 15:56:01
+          CreateDate: 2008:05:30 15:56:01
+          ShutterSpeedValue: 7.375
+          ApertureValue: 5.625
+          ExposureCompensation: 0
+          MeteringMode: 5
+          Flash: 9
+          FocalLength: 135
+          SubSecTime: '00'
+          SubSecTimeOriginal: '00'
+          SubSecTimeDigitized: '00'
+          FlashpixVersion: '0100'
+          ColorSpace: 1
+          ExifImageWidth: 100
+          ExifImageHeight: 68
+          InteropOffset: 948
+          FocalPlaneXResolution: 4438.356164383562
+          FocalPlaneYResolution: 4445.969125214408
+          FocalPlaneResolutionUnit: 2
+          CustomRendered: 0
+          ExposureMode: 1
+          WhiteBalance: 0
+          SceneCaptureType: 0
+        gps:
+          GPSVersionID:
+          - 2
+          - 2
+          - 0
+          - 0
+        interoperability:
+          InteropIndex: R98
+          InteropVersion: '0100'
+        makernote: {}
   schemas:
     Gps:
       description: Object containing GPS information.
@@ -260,6 +334,15 @@ components:
           type: integer
         SceneCaptureType:
           type: integer
+    Interoperability:
+      description: JSON object.
+      type: object
+      additionalProperties: true
+      properties:
+        InteropIndex:
+          type: string
+        InteropVersion:
+          type: string
     ExifImage:
       description: Object containing EXIF image information.
       type: object
@@ -293,15 +376,6 @@ components:
           type: integer
         GPSInfo:
           type: integer
-    Interoperability:
-      description: JSON object.
-      type: object
-      additionalProperties: true
-      properties:
-        InteropIndex:
-          type: string
-        InteropVersion:
-          type: string
     Thumbnail:
       description: Object containing Thumbnail information.
       type: object
@@ -381,35 +455,6 @@ components:
               type: object
               additionalProperties: true
   responses:
-    Forbidden:
-      description: Forbidden.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                examples:
-                - Your account cannot be authenticated.
-                - Your request contains expired private API key.
-                - Your account is disabled.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
-    Unauthorized:
-      description: Unauthorized request.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Your request does not contain private API key.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
     RateLimitExceeded:
       description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
       headers:
@@ -433,84 +478,35 @@ components:
               message:
                 type: string
                 description: A description of the error, providing details about why the rate limit has been exceeded.
-  examples:
-    VideoMetadata:
-      height: 720
-      width: 1280
-      bitRate: 546524
-      duration: 70
-      audioCodec: aac
-      videoCodec: h264
-      size: 23490
-    ImageMetadata:
-      height: 68
-      width: 100
-      size: 7749
-      format: jpg
-      hasColorProfile: true
-      quality: 0
-      density: 72
-      hasTransparency: false
-      pHash: f06830ca9f1e3e90
-      exif:
-        image:
-          Make: Canon
-          Model: Canon EOS 40D
-          Orientation: 1
-          XResolution: 72
-          YResolution: 72
-          ResolutionUnit: 2
-          Software: GIMP 2.4.5
-          ModifyDate: 2008:07:31 10:38:11
-          YCbCrPositioning: 2
-          ExifOffset: 214
-          GPSInfo: 978
-        thumbnail:
-          Compression: 6
-          XResolution: 72
-          YResolution: 72
-          ResolutionUnit: 2
-          ThumbnailOffset: 1090
-          ThumbnailLength: 1378
-        exif:
-          ExposureTime: 0.00625
-          FNumber: 7.1
-          ExposureProgram: 1
-          ISO: 100
-          ExifVersion: '0221'
-          DateTimeOriginal: 2008:05:30 15:56:01
-          CreateDate: 2008:05:30 15:56:01
-          ShutterSpeedValue: 7.375
-          ApertureValue: 5.625
-          ExposureCompensation: 0
-          MeteringMode: 5
-          Flash: 9
-          FocalLength: 135
-          SubSecTime: '00'
-          SubSecTimeOriginal: '00'
-          SubSecTimeDigitized: '00'
-          FlashpixVersion: '0100'
-          ColorSpace: 1
-          ExifImageWidth: 100
-          ExifImageHeight: 68
-          InteropOffset: 948
-          FocalPlaneXResolution: 4438.356164383562
-          FocalPlaneYResolution: 4445.969125214408
-          FocalPlaneResolutionUnit: 2
-          CustomRendered: 0
-          ExposureMode: 1
-          WhiteBalance: 0
-          SceneCaptureType: 0
-        gps:
-          GPSVersionID:
-          - 2
-          - 2
-          - 0
-          - 0
-        interoperability:
-          InteropIndex: R98
-          InteropVersion: '0100'
-        makernote: {}
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Your account cannot be authenticated.
+                - Your request contains expired private API key.
+                - Your account is disabled.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
   securitySchemes:
     basicAuth:
       description: 'Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>

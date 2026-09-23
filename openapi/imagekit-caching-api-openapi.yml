@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ImageKit Account Management API Caching API
+  title: ImageKit Caching API
   version: 1.0.0
-  description: Checkout [API overview](/docs/api-overview) to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
+  description: Checkout API overview to learn about ImageKit's APIs, authentication, rate limits, and error codes etc.
   contact:
     email: developer@imagekit.io
     name: ImageKit Team
@@ -21,9 +21,7 @@ paths:
       - Caching
       operationId: purge-cache
       summary: Purge cache
-      description: 'This API will purge CDN cache and ImageKit.io''s internal cache for a file.  Note: Purge cache is an asynchronous process and it may take some time to reflect the changes.
-
-        '
+      description: 'This API will purge CDN cache and ImageKit.io''s internal cache for a file. Note: Purge cache is an asynchronous process and it may take some time to reflect the changes.'
       requestBody:
         content:
           application/json:
@@ -77,9 +75,7 @@ paths:
       - Caching
       operationId: purge-status
       summary: Get purge status
-      description: 'This API returns the status of a purge cache request.
-
-        '
+      description: This API returns the status of a purge cache request.
       parameters:
       - description: 'Should be a valid requestId.
 
@@ -129,19 +125,6 @@ paths:
                     example: For support kindly contact us at support@imagekit.io.
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized request.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Your request does not contain private API key.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
     RateLimitExceeded:
       description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
       headers:
@@ -165,6 +148,19 @@ components:
               message:
                 type: string
                 description: A description of the error, providing details about why the rate limit has been exceeded.
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
     Forbidden:
       description: Forbidden.
       content:
