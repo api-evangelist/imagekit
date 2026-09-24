@@ -72,8 +72,6 @@ apis:
     url: openapi/imagekit-account-management-api-api-openapi.yml
   - type: Documentation
     url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
 - aid: imagekit:imagekit-caching-api
   name: ImageKit Caching API
   description: The Caching API from ImageKit — 2 operation(s) for caching.
@@ -86,8 +84,6 @@ apis:
     url: openapi/imagekit-caching-api-openapi.yml
   - type: Documentation
     url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
 - aid: imagekit:imagekit-digital-asset-management-dam-api
   name: ImageKit Digital Asset Management (DAM) API
   description: The Digital Asset Management (DAM) API from ImageKit — 22 operation(s) for digital asset
@@ -101,8 +97,6 @@ apis:
     url: openapi/imagekit-digital-asset-management-dam-api-openapi.yml
   - type: Documentation
     url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
 - aid: imagekit:imagekit-dummy-test-api
   name: ImageKit Dummy Test API
   description: The Dummy Test API from ImageKit — 1 operation(s) for dummy test.
@@ -115,8 +109,6 @@ apis:
     url: openapi/imagekit-dummy-test-api-openapi.yml
   - type: Documentation
     url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
 - aid: imagekit:imagekit-file-metadata-api
   name: ImageKit File Metadata API
   description: The File Metadata API from ImageKit — 2 operation(s) for file metadata.
@@ -129,8 +121,6 @@ apis:
     url: openapi/imagekit-file-metadata-api-openapi.yml
   - type: Documentation
     url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
 - aid: imagekit:imagekit-upload-file-api
   name: ImageKit Upload File API
   description: The Upload File API from ImageKit — 2 operation(s) for upload file.
@@ -143,8 +133,6 @@ apis:
     url: openapi/imagekit-upload-file-api-openapi.yml
   - type: Documentation
     url: https://imagekit.io/docs/api-overview
-  - type: GraphQL
-    url: graphql/imagekit-graphql.md
 common:
 - type: CapabilityMap
   url: capabilities/imagekit-capability-edges.yml
