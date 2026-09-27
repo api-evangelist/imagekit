@@ -2925,17 +2925,37 @@ paths:
                     example: For support kindly contact us at support@imagekit.io.
 components:
   schemas:
-    AutoDescriptionExtension:
-      title: Auto description
+    EmbeddedMetadata:
       type: object
-      required:
-      - name
+      additionalProperties: true
+      description: Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data.
+    SavedExtension:
+      title: Saved Extension
+      description: Saved extension object containing extension configuration.
+      type: object
       properties:
+        id:
+          type: string
+          description: Unique identifier of the saved extension.
+          example: ext_abc123
         name:
           type: string
-          description: Specifies the auto description extension.
-          enum:
-          - ai-auto-description
+          description: Name of the saved extension.
+          example: Car Quality Analysis
+        description:
+          type: string
+          description: Description of the saved extension.
+          example: Analyzes vehicle images for type, condition, and quality assessment
+        config:
+          $ref: '#/components/schemas/ExtensionConfig'
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the saved extension was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the saved extension was last updated.
     UpdateFileRequest:
       title: Update file request
       description: Schema for update file update request.
@@ -3042,18 +3062,22 @@ components:
                 description: 'Set to `true` to publish/unpublish all versions of the file. Set to `false` to publish/unpublish only the current version of the file.
 
                   '
-    JobResponse:
+    SavedExtensionReference:
+      title: Saved Extension Reference
       type: object
-      title: Async Bulk Job Response
-      description: Job submitted successfully. A `jobId` will be returned.
       required:
-      - jobId
+      - name
+      - id
       properties:
-        jobId:
+        name:
           type: string
-          description: 'Unique identifier of the bulk job. This can be used to check the status of the bulk job.
-
-            '
+          description: Indicates this is a reference to a saved extension.
+          enum:
+          - saved-extension
+        id:
+          type: string
+          description: The unique ID of the saved extension to apply.
+          example: ext_abc123
     Extensions:
       title: Extensions Array
       type: array
@@ -3096,42 +3120,6 @@ components:
             - premium
       - name: saved-extension
         id: ext_abc123
-    RemovedotBGExtension:
-      title: Remove background
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Specifies the background removal extension.
-          enum:
-          - remove-bg
-        options:
-          type: object
-          properties:
-            add_shadow:
-              type: boolean
-              description: 'Whether to add an artificial shadow to the result. Default is false. Note: Adding shadows is currently only supported for car photos.
-
-                '
-              default: false
-            semitransparency:
-              type: boolean
-              description: 'Allows semi-transparent regions in the result. Default is true. Note: Semitransparency is currently only supported for car windows.
-
-                '
-              default: true
-            bg_color:
-              type: string
-              description: 'Specifies a solid color background using hex code (e.g., "81d4fa", "fff") or color name (e.g., "green"). If this parameter is set, `bg_image_url` must be empty.
-
-                '
-            bg_image_url:
-              type: string
-              description: 'Sets a background image from a URL. If this parameter is set, `bg_color` must be empty.
-
-                '
     VersionInfo:
       type: object
       properties:
@@ -3144,70 +3132,6 @@ components:
       description: 'An object containing the file or file version''s `id` (versionId) and `name`.
 
         '
-    AITaskAction:
-      title: AI Task Action
-      type: object
-      description: Defines actions to perform based on AI task results.
-      properties:
-        add_tags:
-          type: array
-          description: Array of tag strings to add to the asset.
-          items:
-            type: string
-          example:
-          - luxury
-          - premium
-        remove_tags:
-          type: array
-          description: Array of tag strings to remove from the asset.
-          items:
-            type: string
-          example:
-          - budget
-          - affordable
-        set_metadata:
-          type: array
-          description: Array of custom metadata field updates.
-          items:
-            type: object
-            required:
-            - field
-            - value
-            properties:
-              field:
-                type: string
-                description: Name of the custom metadata field to set.
-              value:
-                description: Value to set for the custom metadata field. The value type should match the custom metadata field type.
-                oneOf:
-                - type: string
-                - type: number
-                - type: boolean
-                - type: array
-                  x-stainless-variantName: Mixed
-                  title: Mixed
-                  items:
-                    title: Metadata value item
-                    oneOf:
-                    - type: string
-                    - type: number
-                    - type: boolean
-          example:
-          - field: price_range
-            value: premium
-        unset_metadata:
-          type: array
-          description: Array of custom metadata fields to remove.
-          items:
-            type: object
-            required:
-            - field
-            properties:
-              field:
-                type: string
-                description: Name of the custom metadata field to remove.
-          example:
-          - field: price_range
     CustomMetadataField:
       description: Object containing details of a custom metadata field.
       type: object
@@ -3317,194 +3241,91 @@ components:
 
                 '
               type: number
-    SavedExtensionReference:
-      title: Saved Extension Reference
+    AITaskYesNo:
+      title: AI Task - Yes/No
+      type: object
+      required:
+      - type
+      - instruction
+      properties:
+        type:
+          type: string
+          description: Task type that asks a yes/no question and executes actions based on the answer.
+          enum:
+          - yes_no
+        instruction:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: The yes/no question for the AI to answer about the image.
+          example: Is this a luxury or high-end fashion item?
+        on_yes:
+          $ref: '#/components/schemas/AITaskAction'
+          description: Actions to execute if the AI answers yes.
+        on_no:
+          $ref: '#/components/schemas/AITaskAction'
+          description: Actions to execute if the AI answers no.
+        on_unknown:
+          $ref: '#/components/schemas/AITaskAction'
+          description: Actions to execute if the AI cannot determine the answer.
+    RemovedotBGExtension:
+      title: Remove background
       type: object
       required:
       - name
-      - id
       properties:
         name:
           type: string
-          description: Indicates this is a reference to a saved extension.
+          description: Specifies the background removal extension.
           enum:
-          - saved-extension
-        id:
-          type: string
-          description: The unique ID of the saved extension to apply.
-          example: ext_abc123
-    AITasksExtension:
-      title: AI Tasks
-      type: object
-      required:
-      - name
-      - tasks
-      properties:
-        name:
-          type: string
-          description: Specifies the AI tasks extension for automated image analysis using AI models.
-          enum:
-          - ai-tasks
-        tasks:
-          type: array
-          minItems: 1
-          maxItems: 10
-          description: Array of task objects defining AI operations to perform on the asset.
-          items:
-            discriminator:
-              propertyName: type
-            oneOf:
-            - $ref: '#/components/schemas/AITaskSelectTags'
-            - $ref: '#/components/schemas/AITaskSelectMetadata'
-            - $ref: '#/components/schemas/AITaskYesNo'
-    AITag:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the tag.
-        confidence:
-          type: number
-          description: Confidence score of the tag.
-        source:
-          type: string
-          description: Source of the tag. Possible values are `google-auto-tagging` and `aws-auto-tagging`.
-      description: 'AI-generated tag associated with an image. These tags can be added using the `google-auto-tagging` or `aws-auto-tagging` extensions.
+          - remove-bg
+        options:
+          type: object
+          properties:
+            add_shadow:
+              type: boolean
+              description: 'Whether to add an artificial shadow to the result. Default is false. Note: Adding shadows is currently only supported for car photos.
 
-        '
-    AITaskSelectMetadata:
-      title: AI Task - Select Metadata
-      type: object
-      required:
-      - type
-      - instruction
-      - field
-      properties:
-        type:
-          type: string
-          description: Task type that analyzes the image and sets a custom metadata field value from a vocabulary.
-          enum:
-          - select_metadata
-        instruction:
-          type: string
-          minLength: 1
-          maxLength: 2000
-          description: The question or instruction for the AI to analyze the image.
-          example: What is the primary color of the clothing?
-        field:
-          type: string
-          description: Name of the custom metadata field to set. The field must exist in your account.
-          example: primary_color
-        vocabulary:
-          type: array
-          minItems: 1
-          maxItems: 30
-          description: An array of possible values matching the custom metadata field type. If not provided for SingleSelect or MultiSelect field types, all values from the custom metadata field definition will be used. When providing large vocabularies (above 30 items), the AI may not strictly adhere to the list.
-          items:
-            oneOf:
-            - type: string
-            - type: number
-            - type: boolean
-          example:
-          - red
-          - blue
-          - green
-          - black
-          - white
-        min_selections:
-          type: integer
-          minimum: 0
-          description: Minimum number of values to select from the vocabulary.
-        max_selections:
-          type: integer
-          minimum: 1
-          description: Maximum number of values to select from the vocabulary.
-    SavedExtension:
-      title: Saved Extension
-      description: Saved extension object containing extension configuration.
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the saved extension.
-          example: ext_abc123
-        name:
-          type: string
-          description: Name of the saved extension.
-          example: Car Quality Analysis
-        description:
-          type: string
-          description: Description of the saved extension.
-          example: Analyzes vehicle images for type, condition, and quality assessment
-        config:
-          $ref: '#/components/schemas/ExtensionConfig'
-        createdAt:
-          type: string
-          format: date-time
-          description: Timestamp when the saved extension was created.
-        updatedAt:
-          type: string
-          format: date-time
-          description: Timestamp when the saved extension was last updated.
-    AITaskSelectTags:
-      title: AI Task - Select Tags
-      type: object
-      required:
-      - type
-      - instruction
-      properties:
-        type:
-          type: string
-          description: Task type that analyzes the image and adds matching tags from a vocabulary.
-          enum:
-          - select_tags
-        instruction:
-          type: string
-          minLength: 1
-          maxLength: 2000
-          description: The question or instruction for the AI to analyze the image.
-          example: What types of clothing items are visible in this image?
-        vocabulary:
-          type: array
-          minItems: 1
-          maxItems: 30
-          description: Array of possible tag values. The combined length of all strings must not exceed 500 characters, and values cannot include the `%` character. When providing large vocabularies (more than 30 items), the AI may not follow the list strictly.
-          items:
-            type: string
-          example:
-          - shirt
-          - tshirt
-          - dress
-          - trousers
-          - jacket
-        min_selections:
-          type: integer
-          minimum: 0
-          description: Minimum number of tags to select from the vocabulary.
-        max_selections:
-          type: integer
-          minimum: 1
-          description: Maximum number of tags to select from the vocabulary.
-    AutoTaggingExtension:
-      title: Auto tagging
+                '
+              default: false
+            semitransparency:
+              type: boolean
+              description: 'Allows semi-transparent regions in the result. Default is true. Note: Semitransparency is currently only supported for car windows.
+
+                '
+              default: true
+            bg_color:
+              type: string
+              description: 'Specifies a solid color background using hex code (e.g., "81d4fa", "fff") or color name (e.g., "green"). If this parameter is set, `bg_image_url` must be empty.
+
+                '
+            bg_image_url:
+              type: string
+              description: 'Sets a background image from a URL. If this parameter is set, `bg_color` must be empty.
+
+                '
+    AutoDescriptionExtension:
+      title: Auto description
       type: object
       required:
       - name
-      - minConfidence
-      - maxTags
       properties:
         name:
           type: string
+          description: Specifies the auto description extension.
           enum:
-          - google-auto-tagging
-          - aws-auto-tagging
-          description: Specifies the auto-tagging extension used.
-        minConfidence:
-          type: integer
-          description: Minimum confidence level for tags to be considered valid.
-        maxTags:
-          type: integer
-          description: Maximum number of tags to attach to the asset.
+          - ai-auto-description
+    ExtensionConfig:
+      title: Extension Configuration
+      description: Configuration object for an extension (base extensions only, not saved extension references).
+      type: object
+      discriminator:
+        propertyName: name
+      oneOf:
+      - $ref: '#/components/schemas/RemovedotBGExtension'
+      - $ref: '#/components/schemas/AutoTaggingExtension'
+      - $ref: '#/components/schemas/AutoDescriptionExtension'
+      - $ref: '#/components/schemas/AITasksExtension'
     UpdateSavedExtension:
       title: Update Saved Extension
       type: object
@@ -3519,134 +3340,54 @@ components:
           description: Updated description of the saved extension.
         config:
           $ref: '#/components/schemas/ExtensionConfig'
-    SelectedFieldsSchema:
+    FolderDetails:
+      title: Folder
       type: object
-      description: 'This field is included in the response only if the Path policy feature is available in the plan.
+      properties:
+        type:
+          type: string
+          description: Type of the asset.
+          enum:
+          - folder
+        folderId:
+          type: string
+          description: Unique identifier of the asset.
+        name:
+          type: string
+          description: Name of the asset.
+        customMetadata:
+          type: object
+          description: An object with custom metadata for the folder. Returns empty object if no custom metadata is set.
+          additionalProperties: true
+        folderPath:
+          type: string
+          description: 'Path of the folder. This is the path you would use in the URL to access the folder. For example, if the folder is at the root of the media library, the path will be /folder. If the folder is inside another folder named images, the path will be /images/folder.
 
-        It contains schema definitions for the custom metadata fields selected for the specified file path.
+            '
+        createdAt:
+          type: string
+          format: date-time
+          description: 'Date and time when the folder was created. The date and time is in ISO8601 format.
 
-        Field selection can only be done when the Path policy feature is enabled.
+            '
+        updatedAt:
+          type: string
+          format: date-time
+          description: 'Date and time when the folder was last updated. The date and time is in ISO8601 format.
 
-
-        Keys are the names of the custom metadata fields; the value object has details about the custom metadata schema.
-
-        '
-      additionalProperties:
-        type: object
-        required:
-        - type
-        properties:
-          type:
-            description: Type of the custom metadata field.
-            type: string
-            enum:
-            - Text
-            - Textarea
-            - Number
-            - Date
-            - Boolean
-            - SingleSelect
-            - MultiSelect
-          selectOptions:
-            type: array
-            items:
-              oneOf:
-              - type: string
-              - type: number
-              - type: boolean
-            description: 'An array of allowed values when field type is `SingleSelect` or `MultiSelect`.
-
-              '
-            example:
-            - small
-            - medium
-            - large
-            - 30
-            - 40
-            - true
-          selectOptionsTruncated:
-            type: boolean
-            description: 'Specifies if the selectOptions array is truncated. It is truncated when number of options are > 100.
-
-              '
-          defaultValue:
-            description: 'The default value for this custom metadata field. The value should match the `type` of custom metadata field.
-
-              '
-            oneOf:
-            - type: string
-            - type: number
-            - type: boolean
-            - type: array
-              x-stainless-variantName: Mixed
-              title: Mixed
-              items:
-                oneOf:
-                - type: string
-                - type: number
-                - type: boolean
-              description: 'Default value should be of type array when custom metadata field type is set to `MultiSelect`.
-
-                '
-              example:
-              - true
-              - 10
-              - Hello
-          isValueRequired:
-            type: boolean
-            description: 'Specifies if the custom metadata field is required or not.
-
-              '
-          readOnly:
-            type: boolean
-            description: 'Indicates whether the custom metadata field is read only. A read only field cannot be modified after being set. This field is configurable only via the **Path policy** feature.
-
-              '
-          minValue:
-            description: 'Minimum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
-
-              '
-            oneOf:
-            - type: string
-            - type: number
-          maxValue:
-            description: 'Maximum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
-
-              '
-            oneOf:
-            - type: string
-            - type: number
-          minLength:
-            description: 'Minimum length of string. Only set if `type` is set to `Text` or `Textarea`.
-
-              '
-            type: number
-          maxLength:
-            description: 'Maximum length of string. Only set if `type` is set to `Text` or `Textarea`.
-
-              '
-            type: number
-    EmbeddedMetadata:
+            '
+    JobResponse:
       type: object
-      additionalProperties: true
-      description: Consolidated embedded metadata associated with the file. It includes exif, iptc, and xmp data.
-    ExtensionConfig:
-      title: Extension Configuration
-      description: Configuration object for an extension (base extensions only, not saved extension references).
-      type: object
-      discriminator:
-        propertyName: name
-      oneOf:
-      - $ref: '#/components/schemas/RemovedotBGExtension'
-      - $ref: '#/components/schemas/AutoTaggingExtension'
-      - $ref: '#/components/schemas/AutoDescriptionExtension'
-      - $ref: '#/components/schemas/AITasksExtension'
-    CustomMetadata:
-      type: object
-      description: 'A key-value data associated with the asset.
+      title: Async Bulk Job Response
+      description: Job submitted successfully. A `jobId` will be returned.
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
+          description: 'Unique identifier of the bulk job. This can be used to check the status of the bulk job.
 
-        '
-      additionalProperties: true
+            '
     FileDetails:
       title: File & File Version
       description: Object containing details of a file or file version.
@@ -3784,33 +3525,21 @@ components:
           description: 'Date and time when the file was last updated. The date and time is in ISO8601 format.
 
             '
-    AITaskYesNo:
-      title: AI Task - Yes/No
+    AITag:
       type: object
-      required:
-      - type
-      - instruction
       properties:
-        type:
+        name:
           type: string
-          description: Task type that asks a yes/no question and executes actions based on the answer.
-          enum:
-          - yes_no
-        instruction:
+          description: Name of the tag.
+        confidence:
+          type: number
+          description: Confidence score of the tag.
+        source:
           type: string
-          minLength: 1
-          maxLength: 2000
-          description: The yes/no question for the AI to answer about the image.
-          example: Is this a luxury or high-end fashion item?
-        on_yes:
-          $ref: '#/components/schemas/AITaskAction'
-          description: Actions to execute if the AI answers yes.
-        on_no:
-          $ref: '#/components/schemas/AITaskAction'
-          description: Actions to execute if the AI answers no.
-        on_unknown:
-          $ref: '#/components/schemas/AITaskAction'
-          description: Actions to execute if the AI cannot determine the answer.
+          description: Source of the tag. Possible values are `google-auto-tagging` and `aws-auto-tagging`.
+      description: 'AI-generated tag associated with an image. These tags can be added using the `google-auto-tagging` or `aws-auto-tagging` extensions.
+
+        '
     CreateSavedExtension:
       title: Create Saved Extension
       type: object
@@ -3831,43 +3560,327 @@ components:
           example: Analyzes vehicle images for type, condition, and quality assessment
         config:
           $ref: '#/components/schemas/ExtensionConfig'
-    FolderDetails:
-      title: Folder
+    AITaskSelectMetadata:
+      title: AI Task - Select Metadata
       type: object
+      required:
+      - type
+      - instruction
+      - field
       properties:
         type:
           type: string
-          description: Type of the asset.
+          description: Task type that analyzes the image and sets a custom metadata field value from a vocabulary.
           enum:
-          - folder
-        folderId:
+          - select_metadata
+        instruction:
           type: string
-          description: Unique identifier of the asset.
+          minLength: 1
+          maxLength: 2000
+          description: The question or instruction for the AI to analyze the image.
+          example: What is the primary color of the clothing?
+        field:
+          type: string
+          description: Name of the custom metadata field to set. The field must exist in your account.
+          example: primary_color
+        vocabulary:
+          type: array
+          minItems: 1
+          maxItems: 30
+          description: An array of possible values matching the custom metadata field type. If not provided for SingleSelect or MultiSelect field types, all values from the custom metadata field definition will be used. When providing large vocabularies (above 30 items), the AI may not strictly adhere to the list.
+          items:
+            oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+          example:
+          - red
+          - blue
+          - green
+          - black
+          - white
+        min_selections:
+          type: integer
+          minimum: 0
+          description: Minimum number of values to select from the vocabulary.
+        max_selections:
+          type: integer
+          minimum: 1
+          description: Maximum number of values to select from the vocabulary.
+    AutoTaggingExtension:
+      title: Auto tagging
+      type: object
+      required:
+      - name
+      - minConfidence
+      - maxTags
+      properties:
         name:
           type: string
-          description: Name of the asset.
-        customMetadata:
-          type: object
-          description: An object with custom metadata for the folder. Returns empty object if no custom metadata is set.
-          additionalProperties: true
-        folderPath:
+          enum:
+          - google-auto-tagging
+          - aws-auto-tagging
+          description: Specifies the auto-tagging extension used.
+        minConfidence:
+          type: integer
+          description: Minimum confidence level for tags to be considered valid.
+        maxTags:
+          type: integer
+          description: Maximum number of tags to attach to the asset.
+    AITaskAction:
+      title: AI Task Action
+      type: object
+      description: Defines actions to perform based on AI task results.
+      properties:
+        add_tags:
+          type: array
+          description: Array of tag strings to add to the asset.
+          items:
+            type: string
+          example:
+          - luxury
+          - premium
+        remove_tags:
+          type: array
+          description: Array of tag strings to remove from the asset.
+          items:
+            type: string
+          example:
+          - budget
+          - affordable
+        set_metadata:
+          type: array
+          description: Array of custom metadata field updates.
+          items:
+            type: object
+            required:
+            - field
+            - value
+            properties:
+              field:
+                type: string
+                description: Name of the custom metadata field to set.
+              value:
+                description: Value to set for the custom metadata field. The value type should match the custom metadata field type.
+                oneOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  x-stainless-variantName: Mixed
+                  title: Mixed
+                  items:
+                    title: Metadata value item
+                    oneOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+          example:
+          - field: price_range
+            value: premium
+        unset_metadata:
+          type: array
+          description: Array of custom metadata fields to remove.
+          items:
+            type: object
+            required:
+            - field
+            properties:
+              field:
+                type: string
+                description: Name of the custom metadata field to remove.
+          example:
+          - field: price_range
+    AITasksExtension:
+      title: AI Tasks
+      type: object
+      required:
+      - name
+      - tasks
+      properties:
+        name:
           type: string
-          description: 'Path of the folder. This is the path you would use in the URL to access the folder. For example, if the folder is at the root of the media library, the path will be /folder. If the folder is inside another folder named images, the path will be /images/folder.
+          description: Specifies the AI tasks extension for automated image analysis using AI models.
+          enum:
+          - ai-tasks
+        tasks:
+          type: array
+          minItems: 1
+          maxItems: 10
+          description: Array of task objects defining AI operations to perform on the asset.
+          items:
+            discriminator:
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/AITaskSelectTags'
+            - $ref: '#/components/schemas/AITaskSelectMetadata'
+            - $ref: '#/components/schemas/AITaskYesNo'
+    SelectedFieldsSchema:
+      type: object
+      description: 'This field is included in the response only if the Path policy feature is available in the plan.
 
-            '
-        createdAt:
+        It contains schema definitions for the custom metadata fields selected for the specified file path.
+
+        Field selection can only be done when the Path policy feature is enabled.
+
+
+        Keys are the names of the custom metadata fields; the value object has details about the custom metadata schema.
+
+        '
+      additionalProperties:
+        type: object
+        required:
+        - type
+        properties:
+          type:
+            description: Type of the custom metadata field.
+            type: string
+            enum:
+            - Text
+            - Textarea
+            - Number
+            - Date
+            - Boolean
+            - SingleSelect
+            - MultiSelect
+          selectOptions:
+            type: array
+            items:
+              oneOf:
+              - type: string
+              - type: number
+              - type: boolean
+            description: 'An array of allowed values when field type is `SingleSelect` or `MultiSelect`.
+
+              '
+            example:
+            - small
+            - medium
+            - large
+            - 30
+            - 40
+            - true
+          selectOptionsTruncated:
+            type: boolean
+            description: 'Specifies if the selectOptions array is truncated. It is truncated when number of options are > 100.
+
+              '
+          defaultValue:
+            description: 'The default value for this custom metadata field. The value should match the `type` of custom metadata field.
+
+              '
+            oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: array
+              x-stainless-variantName: Mixed
+              title: Mixed
+              items:
+                oneOf:
+                - type: string
+                - type: number
+                - type: boolean
+              description: 'Default value should be of type array when custom metadata field type is set to `MultiSelect`.
+
+                '
+              example:
+              - true
+              - 10
+              - Hello
+          isValueRequired:
+            type: boolean
+            description: 'Specifies if the custom metadata field is required or not.
+
+              '
+          readOnly:
+            type: boolean
+            description: 'Indicates whether the custom metadata field is read only. A read only field cannot be modified after being set. This field is configurable only via the **Path policy** feature.
+
+              '
+          minValue:
+            description: 'Minimum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
+
+              '
+            oneOf:
+            - type: string
+            - type: number
+          maxValue:
+            description: 'Maximum value of the field. Only set if field type is `Date` or `Number`. For `Date` type field, the value will be in ISO8601 string format. For `Number` type field, it will be a numeric value.
+
+              '
+            oneOf:
+            - type: string
+            - type: number
+          minLength:
+            description: 'Minimum length of string. Only set if `type` is set to `Text` or `Textarea`.
+
+              '
+            type: number
+          maxLength:
+            description: 'Maximum length of string. Only set if `type` is set to `Text` or `Textarea`.
+
+              '
+            type: number
+    AITaskSelectTags:
+      title: AI Task - Select Tags
+      type: object
+      required:
+      - type
+      - instruction
+      properties:
+        type:
           type: string
-          format: date-time
-          description: 'Date and time when the folder was created. The date and time is in ISO8601 format.
-
-            '
-        updatedAt:
+          description: Task type that analyzes the image and adds matching tags from a vocabulary.
+          enum:
+          - select_tags
+        instruction:
           type: string
-          format: date-time
-          description: 'Date and time when the folder was last updated. The date and time is in ISO8601 format.
+          minLength: 1
+          maxLength: 2000
+          description: The question or instruction for the AI to analyze the image.
+          example: What types of clothing items are visible in this image?
+        vocabulary:
+          type: array
+          minItems: 1
+          maxItems: 30
+          description: Array of possible tag values. The combined length of all strings must not exceed 500 characters, and values cannot include the `%` character. When providing large vocabularies (more than 30 items), the AI may not follow the list strictly.
+          items:
+            type: string
+          example:
+          - shirt
+          - tshirt
+          - dress
+          - trousers
+          - jacket
+        min_selections:
+          type: integer
+          minimum: 0
+          description: Minimum number of tags to select from the vocabulary.
+        max_selections:
+          type: integer
+          minimum: 1
+          description: Maximum number of tags to select from the vocabulary.
+    CustomMetadata:
+      type: object
+      description: 'A key-value data associated with the asset.
 
-            '
+        '
+      additionalProperties: true
   responses:
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
     RateLimitExceeded:
       description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
       headers:
@@ -3891,19 +3904,6 @@ components:
               message:
                 type: string
                 description: A description of the error, providing details about why the rate limit has been exceeded.
-    Unauthorized:
-      description: Unauthorized request.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Your request does not contain private API key.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
     Forbidden:
       description: Forbidden.
       content:

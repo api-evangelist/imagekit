@@ -144,120 +144,40 @@ paths:
                     type: string
                     example: For support kindly contact us at support@imagekit.io.
 components:
-  examples:
-    VideoMetadata:
-      height: 720
-      width: 1280
-      bitRate: 546524
-      duration: 70
-      audioCodec: aac
-      videoCodec: h264
-      size: 23490
-    ImageMetadata:
-      height: 68
-      width: 100
-      size: 7749
-      format: jpg
-      hasColorProfile: true
-      quality: 0
-      density: 72
-      hasTransparency: false
-      pHash: f06830ca9f1e3e90
-      exif:
-        image:
-          Make: Canon
-          Model: Canon EOS 40D
-          Orientation: 1
-          XResolution: 72
-          YResolution: 72
-          ResolutionUnit: 2
-          Software: GIMP 2.4.5
-          ModifyDate: 2008:07:31 10:38:11
-          YCbCrPositioning: 2
-          ExifOffset: 214
-          GPSInfo: 978
-        thumbnail:
-          Compression: 6
-          XResolution: 72
-          YResolution: 72
-          ResolutionUnit: 2
-          ThumbnailOffset: 1090
-          ThumbnailLength: 1378
-        exif:
-          ExposureTime: 0.00625
-          FNumber: 7.1
-          ExposureProgram: 1
-          ISO: 100
-          ExifVersion: '0221'
-          DateTimeOriginal: 2008:05:30 15:56:01
-          CreateDate: 2008:05:30 15:56:01
-          ShutterSpeedValue: 7.375
-          ApertureValue: 5.625
-          ExposureCompensation: 0
-          MeteringMode: 5
-          Flash: 9
-          FocalLength: 135
-          SubSecTime: '00'
-          SubSecTimeOriginal: '00'
-          SubSecTimeDigitized: '00'
-          FlashpixVersion: '0100'
-          ColorSpace: 1
-          ExifImageWidth: 100
-          ExifImageHeight: 68
-          InteropOffset: 948
-          FocalPlaneXResolution: 4438.356164383562
-          FocalPlaneYResolution: 4445.969125214408
-          FocalPlaneResolutionUnit: 2
-          CustomRendered: 0
-          ExposureMode: 1
-          WhiteBalance: 0
-          SceneCaptureType: 0
-        gps:
-          GPSVersionID:
-          - 2
-          - 2
-          - 0
-          - 0
-        interoperability:
-          InteropIndex: R98
-          InteropVersion: '0100'
-        makernote: {}
   schemas:
-    Gps:
-      description: Object containing GPS information.
+    ExifImage:
+      description: Object containing EXIF image information.
       type: object
       additionalProperties: true
       properties:
-        GPSVersionID:
-          type: array
-          items:
-            type: integer
-        GPSLatitudeRef:
+        Make:
           type: string
-        GPSLatitude:
-          type: array
-          items:
-            type: number
-        GPSLongitudeRef:
+        Model:
           type: string
-        GPSLongitude:
-          type: array
-          items:
-            type: number
-        GPSAltitudeRef:
+        ImageDescription:
+          type: string
+        Artist:
+          type: string
+        Copyright:
+          type: string
+        Orientation:
           type: integer
-        GPSAltitude:
+        XResolution:
           type: number
-        GPSTimeStamp:
-          type: array
-          items:
-            type: number
-        GPSImgDirectionRef:
-          type: string
-        GPSImgDirection:
+        YResolution:
           type: number
-        GPSDateStamp:
+        ResolutionUnit:
+          type: integer
+        Software:
           type: string
+        ModifyDate:
+          type: string
+        YCbCrPositioning:
+          type: integer
+        ExifOffset:
+          type: integer
+        GPSInfo:
+          type: integer
     ExifDetails:
       description: Object containing Exif details.
       x-stainless-naming:
@@ -343,39 +263,41 @@ components:
           type: string
         InteropVersion:
           type: string
-    ExifImage:
-      description: Object containing EXIF image information.
+    Gps:
+      description: Object containing GPS information.
       type: object
       additionalProperties: true
       properties:
-        Make:
+        GPSVersionID:
+          type: array
+          items:
+            type: integer
+        GPSLatitudeRef:
           type: string
-        Model:
+        GPSLatitude:
+          type: array
+          items:
+            type: number
+        GPSLongitudeRef:
           type: string
-        ImageDescription:
-          type: string
-        Artist:
-          type: string
-        Copyright:
-          type: string
-        Orientation:
+        GPSLongitude:
+          type: array
+          items:
+            type: number
+        GPSAltitudeRef:
           type: integer
-        XResolution:
+        GPSAltitude:
           type: number
-        YResolution:
+        GPSTimeStamp:
+          type: array
+          items:
+            type: number
+        GPSImgDirectionRef:
+          type: string
+        GPSImgDirection:
           type: number
-        ResolutionUnit:
-          type: integer
-        Software:
+        GPSDateStamp:
           type: string
-        ModifyDate:
-          type: string
-        YCbCrPositioning:
-          type: integer
-        ExifOffset:
-          type: integer
-        GPSInfo:
-          type: integer
     Thumbnail:
       description: Object containing Thumbnail information.
       type: object
@@ -454,7 +376,98 @@ components:
             makernote:
               type: object
               additionalProperties: true
+  examples:
+    VideoMetadata:
+      height: 720
+      width: 1280
+      bitRate: 546524
+      duration: 70
+      audioCodec: aac
+      videoCodec: h264
+      size: 23490
+    ImageMetadata:
+      height: 68
+      width: 100
+      size: 7749
+      format: jpg
+      hasColorProfile: true
+      quality: 0
+      density: 72
+      hasTransparency: false
+      pHash: f06830ca9f1e3e90
+      exif:
+        image:
+          Make: Canon
+          Model: Canon EOS 40D
+          Orientation: 1
+          XResolution: 72
+          YResolution: 72
+          ResolutionUnit: 2
+          Software: GIMP 2.4.5
+          ModifyDate: 2008:07:31 10:38:11
+          YCbCrPositioning: 2
+          ExifOffset: 214
+          GPSInfo: 978
+        thumbnail:
+          Compression: 6
+          XResolution: 72
+          YResolution: 72
+          ResolutionUnit: 2
+          ThumbnailOffset: 1090
+          ThumbnailLength: 1378
+        exif:
+          ExposureTime: 0.00625
+          FNumber: 7.1
+          ExposureProgram: 1
+          ISO: 100
+          ExifVersion: '0221'
+          DateTimeOriginal: 2008:05:30 15:56:01
+          CreateDate: 2008:05:30 15:56:01
+          ShutterSpeedValue: 7.375
+          ApertureValue: 5.625
+          ExposureCompensation: 0
+          MeteringMode: 5
+          Flash: 9
+          FocalLength: 135
+          SubSecTime: '00'
+          SubSecTimeOriginal: '00'
+          SubSecTimeDigitized: '00'
+          FlashpixVersion: '0100'
+          ColorSpace: 1
+          ExifImageWidth: 100
+          ExifImageHeight: 68
+          InteropOffset: 948
+          FocalPlaneXResolution: 4438.356164383562
+          FocalPlaneYResolution: 4445.969125214408
+          FocalPlaneResolutionUnit: 2
+          CustomRendered: 0
+          ExposureMode: 1
+          WhiteBalance: 0
+          SceneCaptureType: 0
+        gps:
+          GPSVersionID:
+          - 2
+          - 2
+          - 0
+          - 0
+        interoperability:
+          InteropIndex: R98
+          InteropVersion: '0100'
+        makernote: {}
   responses:
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
     RateLimitExceeded:
       description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
       headers:
@@ -478,19 +491,6 @@ components:
               message:
                 type: string
                 description: A description of the error, providing details about why the rate limit has been exceeded.
-    Unauthorized:
-      description: Unauthorized request.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Your request does not contain private API key.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
     Forbidden:
       description: Forbidden.
       content:
