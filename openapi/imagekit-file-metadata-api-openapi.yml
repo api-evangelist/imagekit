@@ -178,6 +178,128 @@ components:
           type: integer
         GPSInfo:
           type: integer
+    Thumbnail:
+      description: Object containing Thumbnail information.
+      type: object
+      additionalProperties: true
+      properties:
+        Compression:
+          type: integer
+        XResolution:
+          type: number
+        YResolution:
+          type: number
+        ResolutionUnit:
+          type: integer
+        ThumbnailOffset:
+          type: integer
+        ThumbnailLength:
+          type: integer
+    Interoperability:
+      description: JSON object.
+      type: object
+      additionalProperties: true
+      properties:
+        InteropIndex:
+          type: string
+        InteropVersion:
+          type: string
+    Metadata:
+      description: JSON object containing metadata.
+      type: object
+      additionalProperties: true
+      properties:
+        height:
+          type: integer
+          description: The height of the image or video in pixels.
+        width:
+          type: integer
+          description: The width of the image or video in pixels.
+        size:
+          type: integer
+          description: The file size in bytes.
+        format:
+          type: string
+          description: The format of the file (e.g., 'jpg', 'mp4').
+        hasColorProfile:
+          type: boolean
+          description: Indicates if the image has a color profile.
+        quality:
+          type: integer
+          description: The quality indicator of the image.
+        density:
+          type: integer
+          description: The density of the image in DPI.
+        hasTransparency:
+          type: boolean
+          description: Indicates if the image contains transparent areas.
+        pHash:
+          type: string
+          description: Perceptual hash of the image.
+        bitRate:
+          type: integer
+          description: The bit rate of the video in kbps (only for video).
+        duration:
+          type: integer
+          description: The duration of the video in seconds (only for video).
+        audioCodec:
+          type: string
+          description: The audio codec used in the video (only for video).
+        videoCodec:
+          type: string
+          description: The video codec used in the video (only for video).
+        exif:
+          type: object
+          additionalProperties: true
+          properties:
+            image:
+              $ref: '#/components/schemas/ExifImage'
+            thumbnail:
+              $ref: '#/components/schemas/Thumbnail'
+            exif:
+              $ref: '#/components/schemas/ExifDetails'
+            gps:
+              $ref: '#/components/schemas/Gps'
+            interoperability:
+              $ref: '#/components/schemas/Interoperability'
+            makernote:
+              type: object
+              additionalProperties: true
+    Gps:
+      description: Object containing GPS information.
+      type: object
+      additionalProperties: true
+      properties:
+        GPSVersionID:
+          type: array
+          items:
+            type: integer
+        GPSLatitudeRef:
+          type: string
+        GPSLatitude:
+          type: array
+          items:
+            type: number
+        GPSLongitudeRef:
+          type: string
+        GPSLongitude:
+          type: array
+          items:
+            type: number
+        GPSAltitudeRef:
+          type: integer
+        GPSAltitude:
+          type: number
+        GPSTimeStamp:
+          type: array
+          items:
+            type: number
+        GPSImgDirectionRef:
+          type: string
+        GPSImgDirection:
+          type: number
+        GPSDateStamp:
+          type: string
     ExifDetails:
       description: Object containing Exif details.
       x-stainless-naming:
@@ -254,128 +376,59 @@ components:
           type: integer
         SceneCaptureType:
           type: integer
-    Interoperability:
-      description: JSON object.
-      type: object
-      additionalProperties: true
-      properties:
-        InteropIndex:
-          type: string
-        InteropVersion:
-          type: string
-    Gps:
-      description: Object containing GPS information.
-      type: object
-      additionalProperties: true
-      properties:
-        GPSVersionID:
-          type: array
-          items:
+  responses:
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Your account cannot be authenticated.
+                - Your request contains expired private API key.
+                - Your account is disabled.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+    RateLimitExceeded:
+      description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
+      headers:
+        X-RateLimit-Limit:
+          schema:
             type: integer
-        GPSLatitudeRef:
-          type: string
-        GPSLatitude:
-          type: array
-          items:
-            type: number
-        GPSLongitudeRef:
-          type: string
-        GPSLongitude:
-          type: array
-          items:
-            type: number
-        GPSAltitudeRef:
-          type: integer
-        GPSAltitude:
-          type: number
-        GPSTimeStamp:
-          type: array
-          items:
-            type: number
-        GPSImgDirectionRef:
-          type: string
-        GPSImgDirection:
-          type: number
-        GPSDateStamp:
-          type: string
-    Thumbnail:
-      description: Object containing Thumbnail information.
-      type: object
-      additionalProperties: true
-      properties:
-        Compression:
-          type: integer
-        XResolution:
-          type: number
-        YResolution:
-          type: number
-        ResolutionUnit:
-          type: integer
-        ThumbnailOffset:
-          type: integer
-        ThumbnailLength:
-          type: integer
-    Metadata:
-      description: JSON object containing metadata.
-      type: object
-      additionalProperties: true
-      properties:
-        height:
-          type: integer
-          description: The height of the image or video in pixels.
-        width:
-          type: integer
-          description: The width of the image or video in pixels.
-        size:
-          type: integer
-          description: The file size in bytes.
-        format:
-          type: string
-          description: The format of the file (e.g., 'jpg', 'mp4').
-        hasColorProfile:
-          type: boolean
-          description: Indicates if the image has a color profile.
-        quality:
-          type: integer
-          description: The quality indicator of the image.
-        density:
-          type: integer
-          description: The density of the image in DPI.
-        hasTransparency:
-          type: boolean
-          description: Indicates if the image contains transparent areas.
-        pHash:
-          type: string
-          description: Perceptual hash of the image.
-        bitRate:
-          type: integer
-          description: The bit rate of the video in kbps (only for video).
-        duration:
-          type: integer
-          description: The duration of the video in seconds (only for video).
-        audioCodec:
-          type: string
-          description: The audio codec used in the video (only for video).
-        videoCodec:
-          type: string
-          description: The video codec used in the video (only for video).
-        exif:
-          type: object
-          additionalProperties: true
-          properties:
-            image:
-              $ref: '#/components/schemas/ExifImage'
-            thumbnail:
-              $ref: '#/components/schemas/Thumbnail'
-            exif:
-              $ref: '#/components/schemas/ExifDetails'
-            gps:
-              $ref: '#/components/schemas/Gps'
-            interoperability:
-              $ref: '#/components/schemas/Interoperability'
-            makernote:
-              type: object
-              additionalProperties: true
+          description: The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.
+        X-RateLimit-Interval:
+          schema:
+            type: integer
+          description: The duration of the interval in milliseconds for which this rate limit was exceeded.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: A description of the error, providing details about why the rate limit has been exceeded.
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
   examples:
     VideoMetadata:
       height: 720
@@ -454,59 +507,6 @@ components:
           InteropIndex: R98
           InteropVersion: '0100'
         makernote: {}
-  responses:
-    Unauthorized:
-      description: Unauthorized request.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Your request does not contain private API key.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
-    RateLimitExceeded:
-      description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.
-        X-RateLimit-Interval:
-          schema:
-            type: integer
-          description: The duration of the interval in milliseconds for which this rate limit was exceeded.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: A description of the error, providing details about why the rate limit has been exceeded.
-    Forbidden:
-      description: Forbidden.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                examples:
-                - Your account cannot be authenticated.
-                - Your request contains expired private API key.
-                - Your account is disabled.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
   securitySchemes:
     basicAuth:
       description: 'Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>
