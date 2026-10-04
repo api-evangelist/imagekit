@@ -141,6 +141,19 @@ components:
               help:
                 type: string
                 example: For support kindly contact us at support@imagekit.io.
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
     RateLimitExceeded:
       description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
       headers:
@@ -164,19 +177,6 @@ components:
               message:
                 type: string
                 description: A description of the error, providing details about why the rate limit has been exceeded.
-    Unauthorized:
-      description: Unauthorized request.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Your request does not contain private API key.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
   securitySchemes:
     basicAuth:
       description: 'Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>

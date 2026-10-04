@@ -144,6 +144,59 @@ paths:
                     type: string
                     example: For support kindly contact us at support@imagekit.io.
 components:
+  responses:
+    RateLimitExceeded:
+      description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.
+        X-RateLimit-Interval:
+          schema:
+            type: integer
+          description: The duration of the interval in milliseconds for which this rate limit was exceeded.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: A description of the error, providing details about why the rate limit has been exceeded.
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Your account cannot be authenticated.
+                - Your request contains expired private API key.
+                - Your account is disabled.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
+    Unauthorized:
+      description: Unauthorized request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Your request does not contain private API key.
+              help:
+                type: string
+                example: For support kindly contact us at support@imagekit.io.
   schemas:
     ExifImage:
       description: Object containing EXIF image information.
@@ -178,6 +231,91 @@ components:
           type: integer
         GPSInfo:
           type: integer
+    ExifDetails:
+      description: Object containing Exif details.
+      x-stainless-naming:
+        java:
+          type_name: ExifDetails
+      type: object
+      additionalProperties: true
+      properties:
+        ExposureTime:
+          type: number
+        FNumber:
+          type: number
+        ExposureProgram:
+          type: integer
+        ISO:
+          type: integer
+        ExifVersion:
+          type: string
+        DateTimeOriginal:
+          type: string
+        CreateDate:
+          type: string
+        ShutterSpeedValue:
+          type: number
+        ApertureValue:
+          type: number
+        ExposureCompensation:
+          type: number
+        MeteringMode:
+          type: integer
+        Flash:
+          type: integer
+        BrightnessValue:
+          type: number
+        MaxApertureValue:
+          type: number
+        LightSource:
+          type: integer
+        FocalLength:
+          type: number
+        UserComment:
+          type: string
+        SensingMethod:
+          type: integer
+        SceneType:
+          type: string
+        FocalLengthIn35mmFormat:
+          type: integer
+        LensModel:
+          type: string
+        SubSecTime:
+          type: string
+        FlashpixVersion:
+          type: string
+        ColorSpace:
+          type: integer
+        ExifImageWidth:
+          type: integer
+        ExifImageHeight:
+          type: integer
+        InteropOffset:
+          type: integer
+        FocalPlaneXResolution:
+          type: number
+        FocalPlaneYResolution:
+          type: number
+        FocalPlaneResolutionUnit:
+          type: integer
+        CustomRendered:
+          type: integer
+        ExposureMode:
+          type: integer
+        WhiteBalance:
+          type: integer
+        SceneCaptureType:
+          type: integer
+    Interoperability:
+      description: JSON object.
+      type: object
+      additionalProperties: true
+      properties:
+        InteropIndex:
+          type: string
+        InteropVersion:
+          type: string
     Thumbnail:
       description: Object containing Thumbnail information.
       type: object
@@ -195,15 +333,6 @@ components:
           type: integer
         ThumbnailLength:
           type: integer
-    Interoperability:
-      description: JSON object.
-      type: object
-      additionalProperties: true
-      properties:
-        InteropIndex:
-          type: string
-        InteropVersion:
-          type: string
     Metadata:
       description: JSON object containing metadata.
       type: object
@@ -300,144 +429,7 @@ components:
           type: number
         GPSDateStamp:
           type: string
-    ExifDetails:
-      description: Object containing Exif details.
-      x-stainless-naming:
-        java:
-          type_name: ExifDetails
-      type: object
-      additionalProperties: true
-      properties:
-        ExposureTime:
-          type: number
-        FNumber:
-          type: number
-        ExposureProgram:
-          type: integer
-        ISO:
-          type: integer
-        ExifVersion:
-          type: string
-        DateTimeOriginal:
-          type: string
-        CreateDate:
-          type: string
-        ShutterSpeedValue:
-          type: number
-        ApertureValue:
-          type: number
-        ExposureCompensation:
-          type: number
-        MeteringMode:
-          type: integer
-        Flash:
-          type: integer
-        BrightnessValue:
-          type: number
-        MaxApertureValue:
-          type: number
-        LightSource:
-          type: integer
-        FocalLength:
-          type: number
-        UserComment:
-          type: string
-        SensingMethod:
-          type: integer
-        SceneType:
-          type: string
-        FocalLengthIn35mmFormat:
-          type: integer
-        LensModel:
-          type: string
-        SubSecTime:
-          type: string
-        FlashpixVersion:
-          type: string
-        ColorSpace:
-          type: integer
-        ExifImageWidth:
-          type: integer
-        ExifImageHeight:
-          type: integer
-        InteropOffset:
-          type: integer
-        FocalPlaneXResolution:
-          type: number
-        FocalPlaneYResolution:
-          type: number
-        FocalPlaneResolutionUnit:
-          type: integer
-        CustomRendered:
-          type: integer
-        ExposureMode:
-          type: integer
-        WhiteBalance:
-          type: integer
-        SceneCaptureType:
-          type: integer
-  responses:
-    Forbidden:
-      description: Forbidden.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                examples:
-                - Your account cannot be authenticated.
-                - Your request contains expired private API key.
-                - Your account is disabled.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
-    RateLimitExceeded:
-      description: The request exceeded the rate limit. Contains headers indicating the limits and a message detailing the error.
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: The maximum number of requests that can be made to this endpoint in the interval specified by `X-RateLimit-Interval` response header.
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: The amount of time in milliseconds before you can make another request to this endpoint. Pause/sleep your workflow for this duration.
-        X-RateLimit-Interval:
-          schema:
-            type: integer
-          description: The duration of the interval in milliseconds for which this rate limit was exceeded.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: A description of the error, providing details about why the rate limit has been exceeded.
-    Unauthorized:
-      description: Unauthorized request.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Your request does not contain private API key.
-              help:
-                type: string
-                example: For support kindly contact us at support@imagekit.io.
   examples:
-    VideoMetadata:
-      height: 720
-      width: 1280
-      bitRate: 546524
-      duration: 70
-      audioCodec: aac
-      videoCodec: h264
-      size: 23490
     ImageMetadata:
       height: 68
       width: 100
@@ -507,6 +499,14 @@ components:
           InteropIndex: R98
           InteropVersion: '0100'
         makernote: {}
+    VideoMetadata:
+      height: 720
+      width: 1280
+      bitRate: 546524
+      duration: 70
+      audioCodec: aac
+      videoCodec: h264
+      size: 23490
   securitySchemes:
     basicAuth:
       description: 'Basic HTTP authentication. Allowed headers-- Authorization: Basic <private_api_key> | Authorization: Basic <base64 hash of `private_api_key:`>
