@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 specificationVersion: "0.1"
 id: imagekit-plans-pricing
 name: ImageKit Plans and Pricing
@@ -111,3 +115,54 @@ plans:
       - users: custom
       - sso: true
       - dedicated_support: true
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - negotiated
+  - subscription
+  units: []
+  plans:
+  - name: Forever Free
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Lite
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Pro
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: DAM Forever Free
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: DAM Pro
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: DAM Enterprise
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
