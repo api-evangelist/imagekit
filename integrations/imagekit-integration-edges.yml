@@ -32,7 +32,83 @@ edges:
   - namespace-domain
   detected_by: sweep-agent-tools.py
   first_seen: '2026-10-14'
+- partner_name: Contentful (own)
+  partner: contentful
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.contentful.com/marketplace/imagekit/
+  mirror_of: contentful/integrations/contentful-integration-edges.yml
+  apps:
+  - ImageKit
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+- partner_name: Sanity (own)
+  partner: sanity
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.sanity.io/plugins/imagekit
+  mirror_of: sanity/integrations/sanity-integration-edges.yml
+  apps:
+  - imagekit
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: Sanity plugin
+- partner_name: Strapi (own)
+  partner: strapi
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://market.strapi.io/plugins/strapi-plugin-imagekit
+  mirror_of: strapi/integrations/strapi-integration-edges.yml
+  apps:
+  - Strapi Plugin for ImageKit.io
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: Strapi plugin
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/imagekit/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - ImageKit – URL based image manipulation and optimization
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
 generated: '2026-10-14'
 method: searched
 checked:
+- contentful/integrations/contentful-integration-edges.yml
 - https://registry.modelcontextprotocol.io/v0/servers
+- sanity/integrations/sanity-integration-edges.yml
+- strapi/integrations/strapi-integration-edges.yml
+- wordpress/integrations/wordpress-integration-edges.yml
+source:
+- contentful/integrations/contentful-integration-edges.yml
+- sanity/integrations/sanity-integration-edges.yml
+- strapi/integrations/strapi-integration-edges.yml
+- wordpress/integrations/wordpress-integration-edges.yml
