@@ -62,7 +62,8 @@ tags_raw:
 apis:
 - aid: imagekit:imagekit-account-management-api-api
   name: ImageKit Account Management API
-  description: The Account Management API API from ImageKit — 5 operation(s) for account management api.
+  description: >-
+    The Account Management API API from ImageKit — 5 operation(s) for account management api.
   humanURL: https://imagekit.io/docs/api-overview
   baseURL: https://api.imagekit.io
   tags:
@@ -86,8 +87,9 @@ apis:
     url: https://imagekit.io/docs/api-overview
 - aid: imagekit:imagekit-digital-asset-management-dam-api
   name: ImageKit Digital Asset Management (DAM) API
-  description: The Digital Asset Management (DAM) API from ImageKit — 22 operation(s) for digital asset
-    management (dam).
+  description: >-
+    The Digital Asset Management (DAM) API from ImageKit — 22 operation(s) for digital asset management
+    (dam).
   humanURL: https://imagekit.io/docs/api-overview
   baseURL: https://api.imagekit.io
   tags:
@@ -133,6 +135,16 @@ apis:
     url: openapi/imagekit-upload-file-api-openapi.yml
   - type: Documentation
     url: https://imagekit.io/docs/api-overview
+- aid: imagekit:imagekit-imagekit-api-api
+  name: ImageKit ImageKit API
+  description: The ImageKit API API from ImageKit — 0 operation(s) for imagekit api.
+  humanURL: https://imagekit.io/docs/api-overview
+  baseURL: https://api.imagekit.io
+  tags:
+  - ImageKit API
+  properties:
+  - type: OpenAPI
+    url: openapi/imagekit-imagekit-api-api-openapi.yml
 common:
 - type: CapabilityMap
   url: capabilities/imagekit-capability-edges.yml
