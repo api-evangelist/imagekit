@@ -186,3 +186,9 @@ components:
         All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.'
       scheme: basic
       type: http
+x-provenance:
+  method: harvested
+  publisher: ImageKit
+  source: https://raw.githubusercontent.com/imagekit-developer/sdk-generation/refs/heads/main/openapi/v1.0.0.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
