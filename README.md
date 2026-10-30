@@ -1,4 +1,4 @@
-# ImageKit (imagekit)
+# ImageKit
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,44 +64,184 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ImageKit is a real-time image and video optimization CDN with a REST API for media management, transformations, folder operations, and performance analytics. It provides a unified URL-based API with 50+ transformations, intelligent format optimization (WebP, AVIF), compression, and an integrated Digital Asset Management (DAM) platform for managing and delivering media at scale. ImageKit supports server-side and client-side file uploads, cache management, custom metadata fields, and AI-powered extensions such as background removal and smart cropping.
+Real-time image and video optimization CDN with a REST API for media management, transformations, folder operations, and performance analytics. ImageKit provides a unified URL-based API with 50+ transformations, intelligent format optimization, compression, and an integrated Digital Asset Management (DAM) platform for managing and delivering media at scale.
 
-APIs.json: [https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/imagekit/refs/heads/main/apis.yml)
+**Areas:** Image · Video · CDN · Media · Optimization · Transformation · Digital Asset Management · Storage · Cache · Upload
 
-Naftiko: [https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=imagekit-api-evangelist&utm_content=repo](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=imagekit-api-evangelist&utm_content=repo)
+## ImageKit on APIs.io
 
-## Tags
+Everything profiled for ImageKit is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/imagekit/](https://apis.io/providers/imagekit/)** — or go straight to one of the APIs or properties below.
 
-Images, Video, CDN, Media, Optimization, Transformations, Digital Asset Management, DAM, Storage, Cache, Upload
+### APIs (6)
 
-## APIs
+- [ImageKit Account Management API](https://apis.io/apis/imagekit/imagekit-account-management-api-api/) — The Account Management API API from ImageKit — 5 operation(s) for account management api.
+- [ImageKit Caching API](https://apis.io/apis/imagekit/imagekit-caching-api/) — The Caching API from ImageKit — 2 operation(s) for caching.
+- [ImageKit Digital Asset Management (DAM) API](https://apis.io/apis/imagekit/imagekit-digital-asset-management-dam-api/) — The Digital Asset Management (DAM) API from ImageKit — 22 operation(s) for digital asset management (dam).
+- [ImageKit Dummy Test API](https://apis.io/apis/imagekit/imagekit-dummy-test-api/) — The Dummy Test API from ImageKit — 1 operation(s) for dummy test.
+- [ImageKit File Metadata API](https://apis.io/apis/imagekit/imagekit-file-metadata-api/) — The File Metadata API from ImageKit — 2 operation(s) for file metadata.
+- [ImageKit Upload File API](https://apis.io/apis/imagekit/imagekit-upload-file-api/) — The Upload File API from ImageKit — 2 operation(s) for upload file.
 
-- **ImageKit Media API** - REST API for file uploads, media library management, metadata retrieval, cache purging, custom metadata fields, and account usage. Authentication via HTTP Basic Auth using your private API key. Docs: [https://imagekit.io/docs/api-overview](https://imagekit.io/docs/api-overview)
+### Published properties
 
-## Plans, Rate Limits, and FinOps
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Plans**: [plans/imagekit-plans-pricing.yml](plans/imagekit-plans-pricing.yml) — Four tiers: Forever Free ($0), Lite ($9/mo), Pro ($89/mo), Enterprise (custom). Separate DAM-only plans also available.
-- **Rate Limits**: [rate-limits/imagekit-rate-limits.yml](rate-limits/imagekit-rate-limits.yml) — Two-tier system: burst (~100 req/sec) and sustained (40 req/sec reads, 5–20 req/sec writes), enforced at account level. HTTP 429 with X-RateLimit-Reset header on breach.
-- **FinOps**: [finops/imagekit-finops.yml](finops/imagekit-finops.yml) — Cost dimensions: bandwidth, storage, VPUs, extension units, user seats, and custom domains. Key optimization: enable automatic WebP/AVIF conversion to reduce bandwidth spend.
+#### GraphQL (1)
 
-## Timestamps
+GraphQL schemas.
 
-- Created: 2026-06-12
-- Modified: 2026-06-12
+- [Moved to /providers/imagekit/](https://apis.io/graphqls/imagekit/imagekit-graphql/)
 
-## Common
+#### Agentic access (1)
 
-| Type | URL |
-|------|-----|
-| Website | [https://imagekit.io/](https://imagekit.io/) |
-| Documentation | [https://imagekit.io/docs](https://imagekit.io/docs) |
-| GitHub | [https://github.com/imagekit-developer](https://github.com/imagekit-developer) |
-| LinkedIn | [https://www.linkedin.com/company/imagekit-io](https://www.linkedin.com/company/imagekit-io) |
-| Blog | [https://imagekit.io/blog/](https://imagekit.io/blog/) |
-| Pricing | [https://imagekit.io/plans/](https://imagekit.io/plans/) |
-| Status Page | [https://imagekitio.statuspage.io/](https://imagekitio.statuspage.io/) |
-| X (Twitter) | [https://twitter.com/ImagekitIo](https://twitter.com/ImagekitIo) |
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Maintainers
+- [Imagekit Agentic Access](https://apis.io/agentic-access/imagekit/imagekit-agentic-access/)
 
-- **Kin Lane** - [kin@apievangelist.com](mailto:kin@apievangelist.com)
+#### JSON Schema (10)
+
+The data models the API reads and writes.
+
+- [CustomMetadataField](https://apis.io/schemas/imagekit/imagekit-custommetadatafield/)
+- [File & File Version](https://apis.io/schemas/imagekit/imagekit-filedetails/)
+- [FileUploadV1](https://apis.io/schemas/imagekit/imagekit-fileuploadv1/)
+- [FileUploadV2](https://apis.io/schemas/imagekit/imagekit-fileuploadv2/)
+- [Folder](https://apis.io/schemas/imagekit/imagekit-folderdetails/)
+- [Async Bulk Job Response](https://apis.io/schemas/imagekit/imagekit-jobresponse/)
+- [Metadata](https://apis.io/schemas/imagekit/imagekit-metadata/)
+- [Saved Extension](https://apis.io/schemas/imagekit/imagekit-savedextension/)
+- [Upload](https://apis.io/schemas/imagekit/imagekit-upload/)
+- [VersionInfo](https://apis.io/schemas/imagekit/imagekit-versioninfo/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Imagekit Context](https://apis.io/jsonld/imagekit/imagekit-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Imagekit Vocabulary](https://apis.io/vocabularies/imagekit/imagekit-vocabulary/)
+
+#### Examples (6)
+
+Example requests and responses.
+
+- [Imagekit Bulk Add Tags](https://apis.io/examples/imagekit/imagekit-bulk-add-tags/)
+- [Imagekit Custom Metadata Field](https://apis.io/examples/imagekit/imagekit-custom-metadata-field/)
+- [Imagekit List Files Request](https://apis.io/examples/imagekit/imagekit-list-files-request/)
+- [Imagekit Purge Cache Request](https://apis.io/examples/imagekit/imagekit-purge-cache-request/)
+- [Imagekit Upload File](https://apis.io/examples/imagekit/imagekit-upload-file/)
+- [Imagekit Upload File Response](https://apis.io/examples/imagekit/imagekit-upload-file-response/)
+
+#### Collections (12)
+
+Postman and Open Collection request collections.
+
+- [ImageKit Account Management API API](https://apis.io/collections/imagekit/open-imagekit-account-management-api-api/)
+- [ImageKit Account Management API Caching API](https://apis.io/collections/imagekit/open-imagekit-caching-api/)
+- [ImageKit Account Management API Custom metadata fields API](https://apis.io/collections/imagekit/open-imagekit-custom-metadata-fields-api/)
+- [ImageKit Account Management API Digital Asset Management (DAM) API](https://apis.io/collections/imagekit/open-imagekit-digital-asset-management-dam-api/)
+- [ImageKit Account Management API Dummy Test API](https://apis.io/collections/imagekit/open-imagekit-dummy-test-api/)
+- [ImageKit Account Management API File Metadata API](https://apis.io/collections/imagekit/open-imagekit-file-metadata-api/)
+- [ImageKit Account Management API Managing assets API](https://apis.io/collections/imagekit/open-imagekit-managing-assets-api/)
+- [ImageKit Account Management API Managing folders API](https://apis.io/collections/imagekit/open-imagekit-managing-folders-api/)
+- [ImageKit Account Management API Origins API](https://apis.io/collections/imagekit/open-imagekit-origins-api/)
+- [ImageKit Account Management API Saved Extensions API](https://apis.io/collections/imagekit/open-imagekit-saved-extensions-api/)
+- [ImageKit Account Management API Upload File API](https://apis.io/collections/imagekit/open-imagekit-upload-file-api/)
+- [ImageKit Account Management API URL endpoints API](https://apis.io/collections/imagekit/open-imagekit-url-endpoints-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [ImageKit — jsonschema rules](https://apis.io/rules/imagekit/imagekit-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Imagekit Authentication](https://apis.io/security/imagekit/imagekit-authentication/)
+- [Imagekit Domain Security](https://apis.io/security/imagekit/imagekit-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Imagekit Plans Pricing](https://apis.io/plans/imagekit/imagekit-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Imagekit Rate Limits](https://apis.io/rate-limits/imagekit/imagekit-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Imagekit Finops](https://apis.io/finops/imagekit/imagekit-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://imagekit.io/)
+- [Documentation](https://imagekit.io/docs)
+- [Pricing](https://imagekit.io/plans/)
+- [Blog](https://imagekit.io/blog/)
+- [Status](https://imagekitio.statuspage.io/)
+
+## API Evangelist rating
+
+**Kin Score 36.6** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 61.6 |
+| Contract governance | 23.5 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 18.4 |
+
+**Agent readiness 31.7** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/imagekit/](https://apis.io/providers/imagekit/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ImageKit: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/imagekit/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
